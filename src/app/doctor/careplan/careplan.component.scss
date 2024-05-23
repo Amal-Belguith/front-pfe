@@ -1,0 +1,32 @@
+.row-container {
+    display: flex;
+    align-items: center; /* Alignement vertical */
+  }
+  
+  .text-fixe {
+    margin: 0 10px; /* Espace entre le numéro et "Par" */
+  }
+  .content-block .card table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .content-block .card th,
+  .content-block .card td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    font-size: 16px; /* Ajustez la taille du texte */
+  }
+  
+  .content-block .card b {
+    font-size: 18px; /* Ajustez la taille du texte en gras */
+  }
+  .small-input {
+    width: 900px; /* Définir la largeur souhaitée pour les champs d'entrée */
+    margin-top: -17px;
+    
+}
+
+  
+  

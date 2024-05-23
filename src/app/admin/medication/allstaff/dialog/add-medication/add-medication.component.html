@@ -1,0 +1,102 @@
+<div class="addContainer">
+  <div class="modalHeader">
+    <div class="editRowModal">
+      <div class="modalHeader clearfix">
+        <div class="modal-about">
+                  Add Medication
+              </div>
+          </div>
+      </div>
+      <button mat-icon-button class="modal-close-button" aria-label="Close dialog"  (click)="onCancel()">
+          <mat-icon>close</mat-icon>
+      </button>
+  </div>
+  <div mat-dialog-content>
+    <form class="register-form m-4" [formGroup]="medicationForm" (ngSubmit)="onSubmit()">
+      <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+          <mat-form-field class="example-full-width " appearance="outline">
+            <mat-label>Medication Code</mat-label>
+            <input matInput formControlName="medicationCode" type="text" required>
+            <mat-icon class="material-icons-two-tone color-icon p-3" matSuffix>receipt</mat-icon>
+          </mat-form-field>
+        </div>
+        </div>
+        <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+          <mat-form-field class="example-full-width " appearance="outline">
+            <mat-label>Medication Name</mat-label>
+            <input matInput formControlName="medicationName" type="text" required>
+            <mat-icon class="material-icons-two-tone color-icon p-3" matSuffix>receipt</mat-icon>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+          <mat-form-field class="example-full-width " appearance="outline">
+            <mat-label>Medication Type</mat-label>
+            <mat-icon class="material-icons-two-tone color-icon p-3" matSuffix>receipt</mat-icon>
+            <mat-select formControlName="medicationType" required (selectionChange)="onTypeChange()">
+              <mat-option [value]="'OINTMENT'">OINTMENT</mat-option>
+              <mat-option [value]="'SOFT_CAPSULE'">SOFT_CAPSULE</mat-option>
+              <mat-option [value]="'FILM_COATED_TABLET'">FILM_COATED_TABLET</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+          <mat-form-field class="example-full-width " appearance="outline">
+            <mat-label>Medication Strength</mat-label>
+            <mat-icon class="material-icons-two-tone color-icon p-3" matSuffix>receipt</mat-icon>
+            <mat-select formControlName="medicationStrength" required>
+              <ng-container *ngFor="let medicationStrength of strengthOptions">
+                <mat-option [value]="medicationStrength">{{ medicationStrength }}</mat-option>
+              </ng-container>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+          <mat-form-field class="example-full-width " appearance="outline">
+            <mat-label>Medication DosageForm</mat-label>
+            <mat-icon class="material-icons-two-tone color-icon p-3" matSuffix>receipt</mat-icon>
+            <mat-select formControlName="medicationDosageForm" required>
+              <mat-option [value]="'ORAL'">
+                ORAL
+              </mat-option>
+              <mat-option [value]="'TOPICAL'">
+                TOPICAL
+              </mat-option>
+              <mat-option [value]="'INJECTABLE'">
+                INJECTABLE
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        </div>
+        <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Ingredients</mat-label>
+            <mat-icon class="material-icons-two-tone color-icon p-3" matSuffix>receipt</mat-icon>
+            <mat-select formControlName="ingredients"  multiple>
+              <mat-option *ngFor="let ingredient of ingredients" [value]="ingredient">
+                {{ ingredient.ingredientName }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div> 
+          <div class="row">
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                  <div class="example-button-row">
+                      <button mat-raised-button color="primary" type="submit">Save</button>
+                      <button mat-raised-button color="warn" type="button" (click)="onCancel()">Cancel</button>
+                  </div>
+              </div>
+          </div>
+      </form>
+  </div>
+</div>
