@@ -1,6 +1,6 @@
 
 export class User {
-    user_ky?:number;
+    user_ky:any;
     firstname: string;
     lastname: string;
     email: string; 

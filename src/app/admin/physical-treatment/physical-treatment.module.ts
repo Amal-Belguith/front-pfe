@@ -23,6 +23,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { EditPhytreatmentComponent } from './view-details-phy-treatment/dialogs/edit-phytreatment/edit-phytreatment.component';
+import { UploadFiletrcatComponent } from './physical-treatment-category/upload-file-treatment-category/upload-file-treatment-category.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { EditPhytreatmentComponent } from './view-details-phy-treatment/dialogs/
     AddCategoryComponent,
     EditCategoryComponent,
     DeleteCategoryComponent,
-    EditPhytreatmentComponent
+    EditPhytreatmentComponent,
+    UploadFiletrcatComponent
   ],
   imports: [
     CommonModule,

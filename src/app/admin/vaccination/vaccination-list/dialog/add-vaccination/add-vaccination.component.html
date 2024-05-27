@@ -55,30 +55,6 @@
             <!-- Medication -->
       <div class="row">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
-          <mat-form-field class="example-full-width" appearance="outline">
-            <mat-label>Medication</mat-label>
-            <mat-icon class="material-icons-two-tone color-icon p-3" matSuffix>local_pharmacy</mat-icon>
-            <mat-select formControlName="vaccineMedication" required multiple>
-              <mat-option *ngFor="let medication of medications" [value]="medication">{{medication.medicationName}}</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-      </div>
-
-      <!-- ICD10 Code -->
-      <div class="row">
-        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
-          <mat-form-field class="example-full-width" appearance="outline">
-            <mat-label>ICD10 Code</mat-label>
-            <mat-icon class="material-icons-two-tone color-icon p-3" matSuffix>assignment</mat-icon>
-            <mat-select formControlName="vaccineICD10Code" required>
-              <mat-option *ngFor="let icd10 of icd10Codes" [value]="icd10">{{icd10.name}}</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
             <mat-form-field class="example-full-width" appearance="outline">
                 <mat-label>Vaccination Side Effects</mat-label>
                 <mat-icon class="material-icons-two-tone color-icon" matSuffix>healing</mat-icon>

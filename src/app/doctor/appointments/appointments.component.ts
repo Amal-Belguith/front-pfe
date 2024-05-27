@@ -21,6 +21,7 @@ export class AppointmentsComponent implements OnInit {
     'doa',
     'timeslot',
     'injury',
+    'user_ky',
     'actions'
   ];
 

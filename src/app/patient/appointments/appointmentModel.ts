@@ -12,6 +12,7 @@ export class Appointment {
     doa :Date;
     timeslot:string;
     injury:string;
+    user_ky:number;
     
   
     constructor(app: Appointment) {
@@ -27,5 +28,6 @@ export class Appointment {
      this.doctor=app.doctor;
      this.timeslot=app.timeslot;
      this.injury=app.injury;
+     this.user_ky=app.user_ky;
     }
   }

@@ -56,7 +56,7 @@
                         <mat-label>Physical Treatment Category</mat-label>
                         <mat-icon class="material-icons-two-tone color-icon" matSuffix>healing</mat-icon>
                         <mat-select formControlName="category" required (selectionChange)="onSelectCategory($event.value)">
-                            <mat-option *ngFor="let category of treatmentCategories" [value]="category.categoryid">
+                            <mat-option *ngFor="let category of treatmentCategories" [value]="category.categoryid" >
                                 {{ category.phyCategoryName }}</mat-option>
 
                           </mat-select>                                                                                              

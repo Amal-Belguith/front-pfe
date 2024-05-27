@@ -5,6 +5,7 @@ import { Page404Component } from 'app/authentication/page404/page404.component';
 import { VaccinationDetailsComponent } from './vaccination-details/vaccination-details.component';
 import { AdverseEffectListComponent } from './adverse-effect-list/adverse-effect-list.component';
 import { AdverseEffectDetailsComponent } from './adverse-effect-details/adverse-effect-details.component';
+import { UploadFileadveffComponent } from './adverse-effect-list/upload-file-adverse-effect/upload-file-adverse-effect.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,10 @@ const routes: Routes = [
   {
     path: 'adverseEffect-list',
     component: AdverseEffectListComponent,
+  },
+  {
+    path: "upload-adverse-effect",
+    component: UploadFileadveffComponent,
   },
   { path: '**', component: Page404Component },
 ];

@@ -1,0 +1,84 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header">
+      <!-- breadcrumb -->
+      <app-breadcrumb [title]="'Staff List'" [items]="['Staff details']" [active_item]="'View details'">
+      </app-breadcrumb>
+    </div>
+    
+    <div class="row clearfix">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="card">
+          <div class="materialTableHeader">
+            <div class="left">
+              <ul class="header-buttons-left ms-0">
+                <li class="tbl-title">
+                  <h2>Staff details</h2>
+                </li>
+              </ul>
+            </div>
+            <div class="right">
+              <ul class="tbl-export-btn">
+                <li class="tbl-header-btn">
+                  <div class="m-l-10" matTooltip="UPDATE">
+                    <button mat-mini-fab color="primary" (click)="openUpdateModal()" >
+                      <mat-icon class="col-white">update</mat-icon>
+                    </button>
+                                       
+                  </div>
+              </ul>
+            </div>
+          </div>
+          <div class="body" *ngIf="!isLoading && staff">
+            <div>
+              <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                  <h6>First Name</h6>
+                  <mat-form-field class="example-full-width" appearance="outline">
+                    <input matInput [value]="staff.firstname"  [disabled]="isInputDisabled" >
+                  </mat-form-field>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                  <h6>Last Name</h6>
+                  <mat-form-field class="example-full-width" appearance="outline">
+                    <input matInput [value]="staff.lastname"  [disabled]="isInputDisabled">
+                  </mat-form-field>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                  <h6>Email</h6>
+                  <mat-form-field class="example-full-width" appearance="outline">
+                    <input matInput [value]="staff.email"  [disabled]="isInputDisabled">
+                  </mat-form-field>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                  <h6>Password</h6>
+                  <mat-form-field class="example-full-width" appearance="outline">
+                    <input matInput [value]="staff.password"  [disabled]="isInputDisabled">
+                  </mat-form-field>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                  <h6>Role</h6>
+                  <mat-form-field class="example-full-width" appearance="outline">
+                    <input matInput [value]="staff.role"  [disabled]="isInputDisabled">
+                  </mat-form-field>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                  <h6>Department</h6>
+                  <mat-form-field class="example-full-width" appearance="outline">
+                    <input matInput [value]="staff.department"  [disabled]="isInputDisabled">
+                  </mat-form-field>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
+                  <h6>Uploaded File</h6>
+                  <mat-form-field class="example-full-width" appearance="outline">
+                    <input matInput [value]="staff.uploadedFile"  [disabled]="isInputDisabled">
+                  </mat-form-field>
+                </div>
+              </div>           
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

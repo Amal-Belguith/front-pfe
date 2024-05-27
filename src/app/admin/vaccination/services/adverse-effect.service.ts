@@ -34,4 +34,11 @@ export class AdverseEffectService {
     return this.http.put(this.apiServerUrl+"/adverseEffect/update/"+id,model);
   }
 
+  checkIfadveffExists(adverseEffectName: string): Observable<boolean> {
+    return this.http.get<boolean>(`${this.apiServerUrl}/adverseEffect/exists?adverseEffectName=${adverseEffectName}`);
+  }
+  addadveffFile(formData: FormData): Observable<any> {
+    return this.http.post(`${this.apiServerUrl}/adverseEffect/upload-data`, formData);
+  }
+
 }

@@ -2,8 +2,6 @@ export interface Vaccination {
     idVaccination: any;
     vaccineLabel: string;
     vaccineType: String; 
-    vaccineICD10Code: ICD10; 
-    vaccineMedication: Medication; 
     vaccineManufacturer: string;
     sideEffects: AdverseEffect[]; 
   }

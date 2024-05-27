@@ -56,6 +56,7 @@ export class SignupComponent implements OnInit {
     const formData = this.authForm.value;
     
     const newUser: User = {
+      user_ky:null,
       firstname: formData.firstname,
       lastname: formData.lastname,
       email: formData.email,

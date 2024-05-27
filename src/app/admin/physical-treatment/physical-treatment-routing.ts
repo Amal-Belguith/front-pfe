@@ -5,6 +5,7 @@ import { PhysicalTreatmentListComponent } from "./physical-treatment-list/physic
 import { PhysicalTreatmentCategoryComponent } from "./physical-treatment-category/physical-treatment-category.component";
 import { ViewDetailsPhyTreatmentComponent } from "./view-details-phy-treatment/view-details-phy-treatment.component";
 import { ViewDetailsCategoryComponent } from "./view-details-category/view-details-category.component";
+import { UploadFiletrcatComponent } from "./physical-treatment-category/upload-file-treatment-category/upload-file-treatment-category.component";
 
 
 const routes: Routes = [
@@ -27,8 +28,14 @@ const routes: Routes = [
         path: 'view/details/physical-treatment-category/:id', 
         component: ViewDetailsCategoryComponent,
       },
+      {
+        path: "upload-treatment-category",
+        component: UploadFiletrcatComponent,
+      },
       
       { path: "**", component: Page404Component },
+
+     
     ],
   },
 ];

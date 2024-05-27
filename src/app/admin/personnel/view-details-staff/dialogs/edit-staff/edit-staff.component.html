@@ -1,0 +1,104 @@
+<div class="addContainer">
+    <div class="modalHeader">
+      <div class="editRowModal">
+        <div class="modalHeader clearfix">
+          <div class="modal-about">
+            Update Staff
+          </div>
+        </div>
+      </div>
+      <button mat-icon-button class="modal-close-button" aria-label="Close dialog" (click)="onCancel()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <div mat-dialog-content>
+      <form class="register-form m-4" [formGroup]="staffForm" (ngSubmit)="onSubmit()">
+        <div class="row">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>First Name</mat-label>
+              <input matInput formControlName="firstname" type="text" required>
+              <mat-icon class="material-icons-two-tone color-icon p-3" matSuffix>receipt</mat-icon>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Last Name</mat-label>
+              <input matInput formControlName="lastname" type="text" required>
+              <mat-icon class="material-icons-two-tone color-icon p-3" matSuffix>receipt</mat-icon>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Email</mat-label>
+              <input matInput formControlName="email" type="text" required>
+              <mat-icon class="material-icons-two-tone color-icon p-3" matSuffix>receipt</mat-icon>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Password</mat-label>
+              <input matInput formControlName="password" type="text" [attr.disabled]="true">
+              <mat-icon class="material-icons-two-tone color-icon p-3" matSuffix>receipt</mat-icon>
+            </mat-form-field>
+          </div>
+        </div>        
+        <div class="row">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Role</mat-label>
+              <mat-select formControlName="role" required>
+                <mat-option [value]="'ADMIN'">ADMIN</mat-option>
+                <mat-option [value]="'DOCTOR'">DOCTOR</mat-option>
+                <mat-option [value]="'NURSE'">NURSE</mat-option>
+              </mat-select>
+              <mat-icon class="material-icons-two-tone color-icon p-3" matSuffix>receipt</mat-icon>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row" *ngIf="staffForm.get('role')?.value === 'DOCTOR'">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+            <mat-form-field class="example-full-width" appearance="outline">
+              <mat-label>Select Department</mat-label>
+              <mat-select formControlName="department" required>
+                <mat-option [value]="'Medecin généraliste'">Medecin généraliste</mat-option>
+                <mat-option [value]="'Cardiologue'">Cardiologue</mat-option>
+                <mat-option [value]="'Dermatologue'">Dermatologue</mat-option>
+                <mat-option [value]="'Ophtalmologiste'">Ophtalmologiste</mat-option>
+                <mat-option [value]="'Psychiatre'">Psychiatre</mat-option>
+                <mat-option [value]="'Gynécologue'">Gynécologue</mat-option>
+                <mat-option [value]="'Neurologue'">Neurologue</mat-option>
+                <mat-option [value]="'Dentiste'">Dentiste</mat-option>
+              </mat-select>
+              <mat-icon class="material-icons-two-tone color-icon p-3" matSuffix>receipt</mat-icon>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+            <label for="fileUpload" class="custom-file-upload">
+              <input type="file" id="fileUpload" class="form-control-file" (change)="onFileSelected($event)" accept=".pdf">
+              <div class="select-file-button">Choose File</div>
+              <span class="selected-file-name" *ngIf="selectedFile">{{ selectedFile.name }}</span>
+              <span class="selected-file-name" *ngIf="!selectedFile">No file chosen</span>
+            </label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+            <div class="example-button-row">
+              <button mat-raised-button color="primary" type="submit">Save</button>
+              <button mat-raised-button color="warn" type="button" (click)="onCancel()">Cancel</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  

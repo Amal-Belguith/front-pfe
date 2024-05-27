@@ -94,18 +94,6 @@
                   <mat-cell *matCellDef="let element"> {{ element.vaccineType }} </mat-cell>
                 </ng-container>             
               
-                <!-- Vaccine Medication Column -->
-                <ng-container matColumnDef="vaccineMedication">
-                  <mat-header-cell *matHeaderCellDef> Medicine Name </mat-header-cell>
-                  <mat-cell *matCellDef="let element"> {{ element.vaccineMedication.name }} </mat-cell>
-                </ng-container>
-
-                <!-- Vaccine ICD10 Code Column -->
-                <ng-container matColumnDef="vaccineICD10Code">
-                  <mat-header-cell *matHeaderCellDef> ICD10 Code </mat-header-cell>
-                  <mat-cell *matCellDef="let element"> {{ element.vaccineICD10Code.name }} </mat-cell>
-                </ng-container>
-
               <!-- actions -->
               <ng-container matColumnDef="actions">
                 <mat-header-cell class="pr-0" *matHeaderCellDef>Actions</mat-header-cell>

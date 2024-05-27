@@ -34,35 +34,21 @@
                   <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                     <h6>Vaccination Name</h6>
                     <mat-form-field class="example-full-width" appearance="outline">
-                      <input matInput [value]="vaccination.vaccineLabel" readonly >
+                      <input matInput [value]="vaccination.vaccineLabel" readonly [disabled]="isInputDisabled">
                     </mat-form-field>
                   </div>
-                  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
-                    <h6>Medicine Name</h6>
-                    <mat-form-field class="example-full-width" appearance="outline">
-                      <input matInput [value]="vaccination.vaccineMedication.medicationName" readonly>
-                    </mat-form-field>
-                  </div>
-                </div>
-                <div class="row">
                   <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                     <h6>Vaccination Type</h6>
                     <mat-form-field class="example-full-width" appearance="outline">
-                      <input matInput [value]="vaccination.vaccineType" readonly>
-                    </mat-form-field>
-                  </div>
-                  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
-                    <h6> ICD10 Code Name</h6>
-                    <mat-form-field class="example-full-width" appearance="outline">
-                      <input matInput [value]="vaccination.vaccineICD10Code.name" readonly>
+                      <input matInput [value]="vaccination.vaccineType" readonly [disabled]="isInputDisabled">
                     </mat-form-field>
                   </div>
                 </div>
                 <div class="row">
-                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                     <h6> Vaccination Manufacturer</h6>
                     <mat-form-field class="example-full-width" appearance="outline">
-                      <input matInput [value]="vaccination.vaccineManufacturer" readonly>
+                      <input matInput [value]="vaccination.vaccineManufacturer" readonly [disabled]="isInputDisabled">
                     </mat-form-field>
                   </div>
                 </div>                

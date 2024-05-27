@@ -1,25 +1,19 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { AdverseEffect, ICD10, Medication, Vaccination } from '../model/vaccination';
-import { environment } from 'environments/environment';
-import { MedicationResponse } from 'app/admin/medication/MedicationResponse';
+import { Consultation, SurgicalProcedure } from './Consultation.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class VaccinationService {
+export class ConsultationService {
   isTblLoading = true;
   private apiServerUrl = 'http://localhost:8090';
   constructor(private http:HttpClient) { }
 
-  // Vaccination List
+  /*// Vaccination List
   getVaccination(): Observable<Vaccination[]> {
     return this.http.get<Vaccination[]>(this.apiServerUrl+"/vaccination/all");
-  }
-
-  createVaccination(model:Vaccination): Observable<any>{
-    return this.http.post(this.apiServerUrl+"/vaccination/add",model);
   }
   //delete vaccination
   removeVaccination(id:number): Observable<any>{
@@ -32,9 +26,12 @@ export class VaccinationService {
 
   updateVaccination(model:Vaccination,id:number): Observable<any>{
     return this.http.put(this.apiServerUrl+"/vaccination/update/"+id,model);
+  }*/
+
+  addConsultation(model:Consultation): Observable<any>{
+    return this.http.post(this.apiServerUrl+"/consultation/add",model);
   }
-
-  
-
-
+  getAllSurgical(): Observable<SurgicalProcedure[]> {
+    return this.http.get<SurgicalProcedure[]>(this.apiServerUrl+"/procedures");
+  }
 }

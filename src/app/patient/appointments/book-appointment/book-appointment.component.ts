@@ -18,6 +18,7 @@ export class BookAppointmentComponent implements OnInit {
   hide3 = true;
   agree3 = false;
   isDisabled = true;
+  user_ky!: number;
   constructor(private fb: UntypedFormBuilder, private appservice:AppointmentService) {
     this.bookingForm = this.fb.group({
       first: ['', [Validators.required]],
@@ -41,6 +42,9 @@ export class BookAppointmentComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+    this.user_ky = currentUser.user_ky;
     
     this.appservice.getAllApp();
   }
@@ -59,7 +63,8 @@ export class BookAppointmentComponent implements OnInit {
       doctor: formData.doctor,
       doa: formData.doa,
       timeslot: formData.timeslot,
-      injury: formData.injury
+      injury: formData.injury,
+      user_ky: this.user_ky
     };
     
     this.appservice.addApp(newApp);

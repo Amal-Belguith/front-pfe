@@ -15,6 +15,7 @@ import { DeleteAdverseEffectComponent } from './adverse-effect-list/dialog/delet
 import { AddAdverseEffectComponent } from './adverse-effect-list/dialog/add-adverse-effect/add-adverse-effect.component';
 import { AdverseEffectDetailsComponent } from './adverse-effect-details/adverse-effect-details.component';
 import { UpdateAdverseEffectComponent } from './adverse-effect-details/dialog/update-adverse-effect/update-adverse-effect.component';
+import { UploadFileadveffComponent } from './adverse-effect-list/upload-file-adverse-effect/upload-file-adverse-effect.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { UpdateAdverseEffectComponent } from './adverse-effect-details/dialog/up
     DeleteAdverseEffectComponent,
     AddAdverseEffectComponent,
     AdverseEffectDetailsComponent,
-    UpdateAdverseEffectComponent
+    UpdateAdverseEffectComponent,
+    UploadFileadveffComponent
   ],
   imports: [
     CommonModule,

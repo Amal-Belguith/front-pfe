@@ -37,4 +37,11 @@ export class PhyTrCategoryService {
   retrievePhyTrCategoryByCriteria(criteria: string): Observable<PhysicalTreatmentCategory[]> {
     return this.http.get<PhysicalTreatmentCategory[]>(`${this.apiServerUrl}/phycategories/search?criteria=${criteria}`);
   }
+
+  checkIfTrCatExists(phyCategoryName: string): Observable<boolean> {
+    return this.http.get<boolean>(`${this.apiServerUrl}/phycategories/exists?phyCategoryName=${phyCategoryName}`);
+  }
+  addTrCatFile(formData: FormData): Observable<any> {
+    return this.http.post(`${this.apiServerUrl}/phycategories/upload-data`, formData);
+  }
 }

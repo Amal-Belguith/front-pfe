@@ -37,6 +37,9 @@ const routes: Routes = [
     path: 'settings',
     component: SettingsComponent,
   },
+  { path: 'Consultation/:user_ky', 
+  component: MedicalRecordsComponent },
+  
   { path: '**', component: Page404Component },
 ];
 

@@ -21,11 +21,14 @@ export class PersonalService extends UnsubscribeOnDestroyAdapter {
     return this.httpClient.get<Personal[]>(this.API_URL+'/all-personal');
   }
 
-  updateIngredient(ingredientKy: number, updatedIngredient: any): Observable<void> {
-    return this.httpClient.put<void>(`${this.API_URL}/edit/${ingredientKy}`, updatedIngredient);
+  updatePersonal(user_ky: any, updatedPersonal: Personal): Observable<any> {
+    return this.httpClient.put(`${this.API_URL}/edit/${user_ky}`, updatedPersonal);
   }
   deletePersonal(user_ky: number): Observable<void> {
     return this.httpClient.delete<void>(`${this.API_URL}/delete/${user_ky}`);
+  }
+  getStaffById(user_ky:any){
+    return this.httpClient.get<Personal>(`${this.API_URL}/details/${user_ky}`);
   }
 
   

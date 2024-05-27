@@ -56,6 +56,14 @@ export class EditMedicationComponent implements OnInit {
       medicationDosageForm: [data.medication.medicationDosageForm || '', Validators.required],
       ingredients: [data.medication.ingredients],
     });
+
+    // Update strength options based on the initial medication type
+    if (typeof data.medication.medicationType === 'string') {
+      this.strengthOptions = this.getStrengthOptions(data.medication.medicationType);
+    } else {
+      // Handle the case where medicationType is not a string (e.g., log an error or set a default value)
+      console.error('Unexpected medicationType type:', data.medication.medicationType);
+    }    
   }
 
   ngOnInit(): void {
@@ -80,8 +88,8 @@ export class EditMedicationComponent implements OnInit {
 
 
   getStrengthOptions(medicationType: string): string[] {
-    return this.medicationTypes[medicationType];
-  }
+    return this.medicationTypes[medicationType] || [];
+  } 
 
   public fetchIngredients() {
     this.ingredientService.getAllIngredients().subscribe((res) => {

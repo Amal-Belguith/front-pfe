@@ -4,10 +4,11 @@ import {
   UntypedFormGroup,
   Validators,
 } from '@angular/forms';
-import { PersonalService } from '../allpersonals/personals.service';
+import { PersonalService } from '../../personals.service';
 
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { Personal } from '../personal.model';
+import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
+import { Personal } from '../../../personal.model';
+import { MatDialogRef } from '@angular/material/dialog';
 @Component({
   selector: 'app-add-personal',
   templateUrl: './add-personal.component.html',
@@ -19,7 +20,7 @@ export class AddPersonalComponent {
   perForm: UntypedFormGroup;
   hide3 = true;
   agree3 = false;
-  constructor(private fb: UntypedFormBuilder, private personalservice: PersonalService,
+  constructor(private fb: UntypedFormBuilder, private personalservice: PersonalService,  public dialogRef: MatDialogRef<AddPersonalComponent>,
     private snackBar: MatSnackBar) {
     this.perForm = this.fb.group({
       firstname: ['', Validators.required],
@@ -43,14 +44,13 @@ export class AddPersonalComponent {
   ngOnInit(): void {
   }
 
+ 
 
-  onSubmit() {
-
+  onSubmit(): void {
     if (this.perForm.valid) {
-
       const formData = this.perForm.value;
-
       const newPersonal: Personal = {
+        user_ky: null,
         firstname: formData.firstname,
         lastname: formData.lastname,
         email: formData.email,
@@ -58,25 +58,46 @@ export class AddPersonalComponent {
         role: formData.role,
         department: formData.department,
         uploadedFile: this.selectedFile ? this.selectedFile.name : ''
-
       };
       console.log('Staff Data:', newPersonal);
-
+  
       this.personalservice.addPersonal(newPersonal).subscribe(
         (response) => {
           console.log('Staff added successfully:', response);
-          alert('staff added successfully');
+          this.dialogRef.close();
+          // Optionally, display a success message or redirect the user
+          this.dialogRef.close();
+          this.showNotification(
+            'snackbar-success',
+            'Staff added successfully...!!!',
+            'bottom',
+            'center'
+          );
         },
         (error) => {
-          console.error('Error adding Staff:', error);
+          console.error('Error adding staff:', error);
         }
       );
-
     }
   }
-
-  onCancel(): void {
-    this.perForm.reset();
+  
+  showNotification(
+    colorName: string,
+    text: string,
+    placementFrom: MatSnackBarVerticalPosition,
+    placementAlign: MatSnackBarHorizontalPosition
+  ): void {
+    this.snackBar.open(text, '', {
+      duration: 2000,
+      verticalPosition: placementFrom,
+      horizontalPosition: placementAlign,
+      panelClass: colorName,
+    });
   }
+  
+  onCancel(): void {
+    this.dialogRef.close();
+  }
+  
 }
 

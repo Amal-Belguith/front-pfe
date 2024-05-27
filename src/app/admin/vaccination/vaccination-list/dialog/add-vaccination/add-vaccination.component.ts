@@ -17,9 +17,7 @@ export class AddVaccinationComponent implements OnInit{
   vaccinationForm: FormGroup;
   sideEffectsNames: string[] = []; // Propriété pour stocker les noms des symptômes
   selectedsideEffects: AdverseEffect[] = []; // Ajoutez une propriété pour stocker les symptômes sélectionnés
-  selectedsideEffectsNames: string[] = []; // Tableau pour stocker les noms des symptômes sélectionnés
-  medications: MedicationResponse[] = []; // Populate this with Medication objects
-  icd10Codes: ICD10[] = []; // Populate this with ICD10 objects
+  selectedsideEffectsNames: string[] = []; // Tableau pour stocker les noms des symptômes sélectionnés // Populate this with Medication objects
   sideEffects: AdverseEffect[] = [];
 
   constructor(
@@ -33,15 +31,11 @@ export class AddVaccinationComponent implements OnInit{
       vaccinationName: ['', Validators.required],
       vaccinationType: ['', Validators.required],
       Manufacturer: ['', Validators.required],
-      vaccineMedication: ['', Validators.required],
-      vaccineICD10Code: ['', Validators.required],
       SideEffects: ['', Validators.required],
     });
   }
 
   ngOnInit(): void {
-    this.loadMedications();
-    this.loadICD10Codes();
     this.loadSymptomNames()
   }
 
@@ -55,8 +49,6 @@ export class AddVaccinationComponent implements OnInit{
         vaccineLabel: formData.vaccinationName,
         vaccineType: formData.vaccinationType,
         vaccineManufacturer: formData.Manufacturer,
-        vaccineMedication: formData.vaccineMedication,
-        vaccineICD10Code: formData.vaccineICD10Code,
         sideEffects: this.selectedsideEffects   // Assign selected side effects
       };
   
@@ -88,17 +80,9 @@ export class AddVaccinationComponent implements OnInit{
   onCancel(): void {
     this.dialogRef.close();
   }
-  loadMedications(): void {
-    this.vaccinationService.getMedication().subscribe((medications: MedicationResponse[]) => {
-      this.medications = medications;
-    });
-  }
+ 
 
-  loadICD10Codes(): void {
-    this.vaccinationService.getICD10().subscribe((icd10Codes: ICD10[]) => {
-      this.icd10Codes = icd10Codes;
-    });
-  }
+
 
   loadSymptomNames(): void {
     this.adverseEffectService.getSideEffects().subscribe(

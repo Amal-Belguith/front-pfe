@@ -17,8 +17,6 @@ export class UpdateVaccinationComponent implements OnInit {
   vaccinationForm: FormGroup;
   vaccination!: Vaccination;
   vaccinationId: any;
-  medications!: Medication[];
-  icd10Codes!: ICD10[];
   sideEffects: AdverseEffect[] = [];
   sideEffectsNames: string[] = [];
   selectedsideEffects: AdverseEffect[] = []; // Ajoutez une propriété pour stocker les symptômes sélectionnés
@@ -38,28 +36,15 @@ export class UpdateVaccinationComponent implements OnInit {
       vaccinationName: [data.vaccination.vaccineLabel, Validators.required],
       vaccinationType: [data.vaccination.vaccineType, Validators.required],
       Manufacturer: [data.vaccination.vaccineManufacturer, Validators.required],
-      vaccineMedication: [data.vaccination.vaccineMedication, Validators.required],
-      vaccineICD10Code: [data.vaccination.vaccineICD10Code, Validators.required],
       sideEffects: [data.vaccination.sideEffects, Validators.required]
     });
   }
 
   ngOnInit(): void {
-    this.loadMedications();
-    this.loadICD10Codes();
     this.loadSymptomNames();
   }
-  loadMedications(): void {
-    this.vaccinationService.getMedication().subscribe((medications: Medication[]) => {
-      this.medications = medications;
-    });
-  }
+ 
 
-  loadICD10Codes(): void {
-    this.vaccinationService.getICD10().subscribe((icd10Codes: ICD10[]) => {
-      this.icd10Codes = icd10Codes;
-    });
-  }
 
   loadSymptomNames(): void {
     this.adverseEffectService.getSideEffects().subscribe(
@@ -114,18 +99,13 @@ export class UpdateVaccinationComponent implements OnInit {
         const vaccinationNameControl = this.vaccinationForm.get('vaccinationName');
         const vaccinationTypeControl = this.vaccinationForm.get('vaccinationType');
         const manufacturerControl = this.vaccinationForm.get('Manufacturer');
-        const vaccineMedicationControl = this.vaccinationForm.get('vaccineMedication');
-        const vaccineICD10CodeControl = this.vaccinationForm.get('vaccineICD10Code');
         const sideEffectsControl = this.vaccinationForm.get('sideEffects');
     //check if these variables are truthy before accessing their value property to avoid accessing properties of null
-        if (vaccinationNameControl && vaccinationTypeControl && manufacturerControl &&
-            vaccineMedicationControl && vaccineICD10CodeControl && sideEffectsControl) {
+        if (vaccinationNameControl && vaccinationTypeControl && manufacturerControl && sideEffectsControl) {
           const updatedVaccination: Vaccination = {
             vaccineLabel: vaccinationNameControl.value,
             vaccineType: vaccinationTypeControl.value,
             vaccineManufacturer: manufacturerControl.value,
-            vaccineMedication: vaccineMedicationControl.value,
-            vaccineICD10Code: vaccineICD10CodeControl.value,
             sideEffects: sideEffectsControl.value,
             idVaccination: undefined
           };

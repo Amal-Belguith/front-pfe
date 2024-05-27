@@ -13,130 +13,136 @@
         </div>
         <div class="body">
           <div class="container">
-            <div class="row">
-              <div class="col-md-10">
-                <ul class="left-timeline">
-                  <li>
-                    <time class="left-time" >
-                      <span class="large" style="font-size: 16px;">Patient Name</span>
-                    </time>
-                    <div class="left-icon"><img src="assets/images/user/user1.jpg" alt="">
-                    </div>
-                    <div class="left-label empty"> <span>islem belguith</span> </div>
-                  </li>
-                  <li>
-                    <time class="left-time" >
-                      <span class="large" style="font-size: 16px;">Consultation</span>
-                    </time>
-                    <div class="left-icon"> 
-                      <img src="assets/images/user/user2.jpg" alt="">
-                    </div>                    
-                    <div class="left-label">
-                      <h2>Consultation with <input type="text" name="doctor_name" placeholder="Enter your name"></h2>
-                      <textarea style="width: 600px; height: 80px;" name="doctor_name" placeholder="Description of the consultation "></textarea>
-                    </div>
-                  </li>
-                  <li>
-                    <time class="left-time" ><span class="large" style="font-size: 16px;">Prescription</span>
-                     </time>
-                    <div class="left-icon"><img src="assets/images/user/user5.jpg" alt="">
-                    </div>
-                    <div class="left-label">
-                      <h2>Medications :  <mat-form-field appearance="outline" style="margin-left: 19px;">
-                        <mat-label>Choose medications</mat-label>
-                        <mat-select formControlName="medication" multiple >
-                          <mat-option value="Medication A">Medication A</mat-option>
-                          <mat-option value="Medication B">Medication B</mat-option>
-                          <mat-option value="Medication C">Medication C</mat-option>
-                          <mat-option value="Medication D">Medication D</mat-option>
-                          <mat-option value="Medication E">Medication E</mat-option>
-                          <mat-option value="Medication E">Medication F</mat-option>
-                          <mat-option value="Medication E">Medication G</mat-option>
-                          <mat-option value="Medication E">Medication H</mat-option>
-                          <mat-option value="Medication E">Medication M</mat-option>
-                        </mat-select>
-                      </mat-form-field>                      
-                      </h2>
-                      <h2>Vaccinations :  <mat-form-field appearance="outline" style="margin-left: 18px;">
-                        <mat-label>Choose vaccinations</mat-label>
-                        <mat-select formControlName="medication" multiple>
-                          <mat-option value="Vaccination A">Vaccination A</mat-option>
-                          <mat-option value="Vaccination B">Vaccination B</mat-option>
-                          <mat-option value="Vaccination C">Vaccination C</mat-option>
-                          <mat-option value="Vaccination D">Vaccination D</mat-option>
-                          <mat-option value="Vaccination E">Vaccination E</mat-option>
-                          <mat-option value="Vaccination E">Vaccination F</mat-option>
-                          <mat-option value="Vaccination E">Vaccination G</mat-option>
-                          <mat-option value="Vaccination E">Vaccination H</mat-option>
-                          <mat-option value="Vaccination E">Vaccination M</mat-option>
-                        </mat-select>
-                      </mat-form-field>                      
-                      </h2>
-                      <h2>Analysis :  <mat-form-field appearance="outline" style="margin-left: 50px;">
-                        <mat-label>Choose analysis</mat-label>
-                        <mat-select formControlName="medication" multiple>
-                          <mat-option value="Vaccination A">Analysis A</mat-option>
-                          <mat-option value="Vaccination B">Analysis B</mat-option>
-                          <mat-option value="Vaccination C">Analysis C</mat-option>
-                          <mat-option value="Vaccination D">Analysis D</mat-option>
-                          <mat-option value="Vaccination E">Analysis E</mat-option>
-                          <mat-option value="Vaccination E">Analysis F</mat-option>
-                          <mat-option value="Vaccination E">Analysis G</mat-option>
-                          <mat-option value="Vaccination E">Analysis H</mat-option>
-                          <mat-option value="Vaccination E">Analysis M</mat-option>
-                        </mat-select>
-                      </mat-form-field>                      
-                      </h2>
-                      <textarea style="width: 600px; height: 80px;" name="doctor_name" placeholder="Description of the prescription "></textarea>
-                    </div>
-                  </li>
-                  <li>
-                    <time class="left-time" >
-                      <span class="large" style="font-size: 16px;">Operation</span></time>
-                    <div class="left-icon"><img src="assets/images/user/user5.jpg" alt="">
-                    </div>
-                    <div class="left-label">
-                      <h2>Surgical Procedure :  <mat-form-field appearance="outline" style="margin-left: 50px;">
-                        <mat-label>Choose Surgical</mat-label>
-                        <mat-select formControlName="medication" multiple>
-                          <mat-option value="Vaccination A">Surgical A</mat-option>
-                          <mat-option value="Vaccination B">Surgical B</mat-option>
-                          <mat-option value="Vaccination C">Surgical C</mat-option>
-                          <mat-option value="Vaccination D">Surgical D</mat-option>
-                          <mat-option value="Vaccination E">Surgical E</mat-option>
-                          <mat-option value="Vaccination E">Surgical F</mat-option>
-                          <mat-option value="Vaccination E">Surgical G</mat-option>
-                          <mat-option value="Vaccination E">Surgical H</mat-option>
-                          <mat-option value="Vaccination E">Surgical M</mat-option>
-                        </mat-select>
-                      </mat-form-field>                      
-                      </h2>
-                      <textarea style="width: 600px; height: 80px;" name="doctor_name" placeholder="Description of the surgical procedure "></textarea>
-                    </div>
-                  </li>
-                  <li>
-                    <time class="left-time" >
-                      <span class="large" style="font-size: 16px;">Details</span></time>
-                    <div class="left-icon"> <img src="assets/images/user/user6.jpg" alt="">
-                    </div>
-                    <div class="left-label">
-                      <textarea style="width: 600px; height: 80px;" name="doctor_name" placeholder="Details or Comments "></textarea>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="">
+            <form [formGroup]="consultationForm" (ngSubmit)="onSubmit()">
+              <div class="row">
+                <div class="col-md-10">
+                  <ul class="left-timeline">
+                    <!-- Patient Key and Consultation -->
+                    <li>
+                      <time class="left-time">
+                        <span class="large" style="font-size: 16px;">Patient Key</span>
+                      </time>
+                      <div class="left-icon">
+                        <img src="assets/images/user/user1.jpg" alt="">
+                      </div>
+                      <div class="left-label empty">
+                        <span>{{ userKy }}</span>
+                      </div>
+                    </li>                                    
+                    <li>
+                      <time class="left-time">
+                        <span class="large" style="font-size: 16px;">Consultation</span>
+                      </time>
+                      <div class="left-icon">
+                        <img src="assets/images/user/user2.jpg" alt="">
+                      </div>
+                      <div class="left-label">
+                        <h2>
+                          Consultation with
+                          <input type="text" formControlName="doctorName" placeholder="Enter doctor's name" required>
+                        </h2>
+                        <textarea style="width: 600px; height: 80px;" formControlName="descCon" placeholder="Description of the consultation" required></textarea>
+                      </div>
+                    </li>
+        
+                    <!-- Prescription -->
+                    <li>
+                      <time class="left-time">
+                        <span class="large" style="font-size: 16px;">Prescription</span>
+                      </time>
+                      <div class="left-icon">
+                        <img src="assets/images/user/user5.jpg" alt="">
+                      </div>
+                      <div class="left-label">
+                        <h2>
+                          Medications:
+                          <mat-form-field appearance="outline" style="margin-left: 19px;">
+                            <mat-label>Choose medications</mat-label>
+                            <mat-select formControlName="medications" (selectionChange)="onSelectMedications($event.value)" multiple required>
+                              <mat-option *ngFor="let med of medicationNames" [value]="med">
+                                {{ med }}
+                              </mat-option>
+                            </mat-select>
+                          </mat-form-field>                      
+                        </h2>
+                        <h2>
+                          Vaccinations:
+                          <mat-form-field appearance="outline" style="margin-left: 18px;">
+                            <mat-label>Choose vaccinations</mat-label>
+                            <mat-select formControlName="vaccinations" (selectionChange)="onSelectVaccinations($event.value)" multiple required>
+                              <mat-option *ngFor="let vac of vaccinationNames" [value]="vac">
+                                {{ vac }}
+                              </mat-option>
+                            </mat-select>
+                          </mat-form-field>                      
+                        </h2>
+                        <h2>
+                          Analysis:
+                          <mat-form-field appearance="outline" style="margin-left: 50px;">
+                            <mat-label>Choose analysis</mat-label>
+                            <mat-select formControlName="analyses" (selectionChange)="onSelectAnalyses($event.value)" multiple required>
+                              <mat-option *ngFor="let ana of analysisNames" [value]="ana">
+                                {{ ana }}
+                              </mat-option>
+                            </mat-select>
+                          </mat-form-field>                      
+                        </h2>
+                        <textarea style="width: 600px; height: 80px;" formControlName="descPre" placeholder="Description of the prescription" required></textarea>
+                      </div>
+                    </li>
+        
+                    <!-- Operation -->
+                    <li>
+                      <time class="left-time">
+                        <span class="large" style="font-size: 16px;">Operation</span>
+                      </time>
+                      <div class="left-icon">
+                        <img src="assets/images/user/user5.jpg" alt="">
+                      </div>
+                      <div class="left-label">
+                        <h2>
+                          Surgical Procedure:
+                          <mat-form-field appearance="outline" style="margin-left: 50px;">
+                            <mat-label>Choose Surgical</mat-label>
+                            <mat-select formControlName="surgicalProcedures" (selectionChange)="onSelectSurgical($event.value)" multiple required>
+                              <mat-option *ngFor="let proc of surgicalNames" [value]="proc">
+                                {{ proc}}
+                              </mat-option>
+                            </mat-select>
+                          </mat-form-field>                      
+                        </h2>
+                        <textarea style="width: 600px; height: 80px;" formControlName="descSur" placeholder="Description of the surgical procedure" required></textarea>
+                      </div>
+                    </li>
+        
+                    <!-- Details -->
+                    <li>
+                      <time class="left-time">
+                        <span class="large" style="font-size: 16px;">Details</span>
+                      </time>
+                      <div class="left-icon">
+                        <img src="assets/images/user/user6.jpg" alt="">
+                      </div>
+                      <div class="left-label">
+                        <textarea style="width: 600px; height: 80px;" formControlName="comment" placeholder="Details or Comments" required></textarea>
+                      </div>
+                    </li>
+        
+                    <!-- Buttons -->
+                    <li>
                       <div class="example-button-row">
                         <button mat-raised-button color="primary" type="submit" class="center-button">Save</button>
-                        <button mat-raised-button color="warn" type="button" class="center-button">Cancel</button>
+                        <button mat-raised-button color="warn" type="button" class="center-button" (click)="onCancel()">Cancel</button>
                       </div>
-                    </div>
-                  </li>                  
-                </ul>
+                    </li>
+                  </ul>
+                </div>
               </div>
-            </div>
+            </form>
           </div>
-        </div>
+        </div>                       
       </div>
     </div>
   </div>
 </section>
+

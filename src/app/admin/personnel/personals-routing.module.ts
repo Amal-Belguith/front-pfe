@@ -1,8 +1,8 @@
 import { NgModule } from "@angular/core";
 import { Routes, RouterModule } from "@angular/router";
-import { AddPersonalComponent } from "./add-personal/add-personal.component";
 import { Page404Component } from "../../authentication/page404/page404.component";
 import { AllpersonalsComponent } from "./allpersonals/allpersonals.component";
+import { ViewDetailsStaffComponent } from "./view-details-staff/view-details-staff.component";
 
 const routes: Routes = [
   {
@@ -10,9 +10,9 @@ const routes: Routes = [
     component: AllpersonalsComponent,
   },
   {
-    path: "add-personal",
-    component: AddPersonalComponent,
-  },
+    path: 'view/details/staff/:id',
+    component: ViewDetailsStaffComponent,
+  }, 
   { path: "**", component: Page404Component },
 ];
 @NgModule({

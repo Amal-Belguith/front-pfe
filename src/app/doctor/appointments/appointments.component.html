@@ -80,13 +80,17 @@
                 <ng-container matColumnDef="injury">
                   <mat-header-cell *matHeaderCellDef mat-sort-header>Injury</mat-header-cell>
                   <mat-cell *matCellDef="let row">{{row.injury}}</mat-cell>
+                </ng-container> 
+                <ng-container matColumnDef="user_ky">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>User Key</mat-header-cell>
+                  <mat-cell *matCellDef="let row">{{row.user_ky}}</mat-cell>
                 </ng-container>                
                 <!-- actions -->
               <ng-container matColumnDef="actions">
                 <mat-header-cell class="pr-0" *matHeaderCellDef>Actions</mat-header-cell>
                 <mat-cell *matCellDef="let row; let i=index;" class="pr-0">
                   <!-- Bouton "View Details" -->
-                  <button mat-icon-button class="tbl-action-btn" [routerLink]="['../Consultation']">
+                  <button mat-icon-button class="tbl-action-btn" [routerLink]="['../Consultation', row.user_ky]">
                     <app-feather-icons [icon]="'edit'" [class]="'tbl-fav-edit'"></app-feather-icons>
                   </button>                  
                   <!-- Bouton "Delete" -->
