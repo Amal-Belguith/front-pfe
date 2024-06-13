@@ -17,7 +17,11 @@ import { AppointmentsService } from './appointments/appointments.service';
 import { ComponentsModule } from '@shared/components/components.module';
 import { SharedModule } from '@shared';
 import { CarePlanComponent } from './careplan/careplan.component';
-import { MedicalRecordsComponent } from './medical-records/medical-records.component';
+import { MedicalRecordComponent } from './medical-record/medical-records.component';
+import { ConsultationComponent } from './consultation/medical-records.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 
 @NgModule({
@@ -29,7 +33,8 @@ import { MedicalRecordsComponent } from './medical-records/medical-records.compo
     PatientsComponent,
     SettingsComponent,
     CarePlanComponent,
-    MedicalRecordsComponent
+    MedicalRecordComponent,
+    ConsultationComponent
   ],
   imports: [
     CommonModule,
@@ -43,7 +48,11 @@ import { MedicalRecordsComponent } from './medical-records/medical-records.compo
     NgScrollbarModule,
     DragDropModule,
     ComponentsModule,
-    SharedModule
+    SharedModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule,
+
   ],
   providers: [AppointmentsService],
 })

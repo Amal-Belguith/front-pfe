@@ -9,12 +9,13 @@ import { FormDialogComponent } from './upcoming-appointment/dialogs/form-dialog/
 import { PastAppointmentComponent } from './past-appointment/past-appointment.component';
 import { PastDeleteDialogComponent } from './past-appointment/dialogs/delete/delete.component';
 import { TodayAppointmentComponent } from './today-appointment/today-appointment.component';
-import { DeleteComponent } from './today-appointment/dialogs/delete/delete.component';
+import { DeleteAppComponent } from './today-appointment/dialogs/delete/delete.component';
 import { UpcomingAppointmentService } from './upcoming-appointment/upcoming-appointment.service';
 import { PastAppointmentService } from './past-appointment/past-appointment.service';
 import { ComponentsModule } from '@shared/components/components.module';
 import { BookAppointmentComponent } from './book-appointment/book-appointment.component';
 import { SharedModule } from './../../shared/shared.module';
+import { UpdateComponent } from './today-appointment/dialogs/form-dialog/form-dialog.component';
 
 @NgModule({
   declarations: [
@@ -24,8 +25,9 @@ import { SharedModule } from './../../shared/shared.module';
     PastAppointmentComponent,
     PastDeleteDialogComponent,
     TodayAppointmentComponent,
-    DeleteComponent,
+    DeleteAppComponent,
     BookAppointmentComponent,
+    UpdateComponent
   ],
   imports: [
     CommonModule,

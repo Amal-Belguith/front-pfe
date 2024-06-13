@@ -15,7 +15,7 @@
               <div class="row">
                 <div class="col-md-12">
                   <p>Do you have Asthma?</p>
-                  <mat-radio-group formControlName="asthma">
+                  <mat-radio-group formControlName="q1">
                     <mat-radio-button value="Yes">Yes</mat-radio-button><br>
                     <mat-radio-button value="No">No</mat-radio-button>
                   </mat-radio-group>
@@ -24,7 +24,7 @@
               <div class="row">
                 <div class="col-md-12">
                   <p>Do you have Cancer?</p>
-                  <mat-radio-group formControlName="cancer">
+                  <mat-radio-group formControlName="q2">
                     <mat-radio-button value="Yes">Yes</mat-radio-button><br>
                     <mat-radio-button value="No">No</mat-radio-button>
                   </mat-radio-group>
@@ -33,7 +33,7 @@
               <div class="row">
                 <div class="col-md-12">
                   <p>Do you have Heart diseases?</p>
-                  <mat-radio-group formControlName="heartDiseases">
+                  <mat-radio-group formControlName="q3">
                     <mat-radio-button value="Yes">Yes</mat-radio-button><br>
                     <mat-radio-button value="No">No</mat-radio-button>
                   </mat-radio-group>
@@ -42,7 +42,7 @@
               <div class="row">
                 <div class="col-md-12">
                   <p>Do you have Diabetes?</p>
-                  <mat-radio-group formControlName="diabetes">
+                  <mat-radio-group formControlName="q4">
                     <mat-radio-button value="Yes">Yes</mat-radio-button><br>
                     <mat-radio-button value="No">No</mat-radio-button>
                   </mat-radio-group>
@@ -51,7 +51,7 @@
               <div class="row">
                 <div class="col-md-12">
                   <p>Do you have Hepatitis?</p>
-                  <mat-radio-group formControlName="hepatitis">
+                  <mat-radio-group formControlName="q5">
                     <mat-radio-button value="Yes">Yes</mat-radio-button><br>
                     <mat-radio-button value="No">No</mat-radio-button>
                   </mat-radio-group>
@@ -60,7 +60,7 @@
               <div class="row">
                 <div class="col-md-12">
                   <p>Do you have Tuberculosis?</p>
-                  <mat-radio-group formControlName="tuberculosis">
+                  <mat-radio-group formControlName="q6">
                     <mat-radio-button value="Yes">Yes</mat-radio-button><br>
                     <mat-radio-button value="No">No</mat-radio-button>
                   </mat-radio-group>
@@ -69,17 +69,17 @@
               <div class="row">
                 <div class="col-md-12">
                   <p>Are you currently taking any medication?</p>
-                  <mat-radio-group formControlName="medic">
+                  <mat-radio-group formControlName="q7">
                     <mat-radio-button value="Yes">Yes</mat-radio-button><br>
                     <mat-radio-button value="No">No</mat-radio-button>
                   </mat-radio-group>
-                  <input *ngIf="historyForm.get('medic')?.value === 'Yes'" formControlName="medicDetails" placeholder="Please provide details" class="form-control">
+                  <input *ngIf="historyForm.get('q7')?.value === 'Yes'" formControlName="med_details" placeholder="Please provide details" class="form-control">
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-12">
                   <p>Do you have a history of gastrointestinal disorders like ulcers, acid reflux ?</p>
-                  <mat-radio-group formControlName="gastrointestinal">
+                  <mat-radio-group formControlName="q8">
                     <mat-radio-button value="Yes">Yes</mat-radio-button><br>
                     <mat-radio-button value="No">No</mat-radio-button>
                   </mat-radio-group>
@@ -99,7 +99,7 @@
               <div class="row">
                 <div class="col-md-12">
                   <p>Do you use or have you ever used illegal drugs?</p>
-                  <mat-radio-group formControlName="illegalDrugs">
+                  <mat-radio-group formControlName="q9">
                     <mat-radio-button value="Yes">Yes</mat-radio-button><br>
                     <mat-radio-button value="No">No</mat-radio-button>
                   </mat-radio-group>
@@ -108,7 +108,7 @@
               <div class="row">
                 <div class="col-md-12">
                   <p>How often do you consume alcohol?</p>
-                  <mat-radio-group formControlName="alcohol">
+                  <mat-radio-group formControlName="q10">
                     <mat-radio-button value="Weekly">Weekly</mat-radio-button><br>
                     <mat-radio-button value="Monthly">Monthly</mat-radio-button><br>
                     <mat-radio-button value="Occasionally">Occasionally</mat-radio-button><br>
@@ -119,27 +119,27 @@
               <div class="row">
                 <div class="col-md-12">
                   <p>Do you have any medication allergies?</p>
-                  <mat-radio-group formControlName="allergies">
+                  <mat-radio-group formControlName="q11">
                     <mat-radio-button value="Yes">Yes</mat-radio-button><br>
                     <mat-radio-button value="No">No</mat-radio-button>
                   </mat-radio-group>
-                  <input *ngIf="historyForm.get('allergies')?.value === 'Yes'" formControlName="allergiesDetails" placeholder="Please provide details" class="form-control">
+                  <input *ngIf="historyForm.get('q11')?.value === 'Yes'" formControlName="all_details" placeholder="Please provide details" class="form-control">
                 </div>
               </div>
               <div class="row">
                 <div class="col-md-12">
                   <p>Do you have a history of major surgery?</p>
-                  <mat-radio-group formControlName="majorSurgery">
+                  <mat-radio-group formControlName="q12">
                     <mat-radio-button value="Yes">Yes</mat-radio-button><br>
                     <mat-radio-button value="No">No</mat-radio-button>
                   </mat-radio-group>
-                  <input *ngIf="historyForm.get('majorSurgery')?.value === 'Yes'" formControlName="majorSurgeryDetails" placeholder="Please provide details" class="form-control">
+                  <input *ngIf="historyForm.get('q12')?.value === 'Yes'" formControlName="sur_details" placeholder="Please provide details" class="form-control">
                 </div>
               </div>              
               <div class="row">
                 <div class="col-md-12">
                   <p>How do you find out about thyroid problems?</p>
-                  <mat-radio-group formControlName="thyroidProblems">
+                  <mat-radio-group formControlName="q13">
                     <mat-radio-button value="Yes">Yes</mat-radio-button><br>
                     <mat-radio-button value="No">No</mat-radio-button>
                   </mat-radio-group>
@@ -148,7 +148,7 @@
               <div class="row">
                 <div class="col-md-12">
                   <p>Do you have a history of infectious diseases?</p>
-                  <mat-radio-group formControlName="infectiousDiseases">
+                  <mat-radio-group formControlName="q14">
                     <mat-radio-button value="Yes">Yes</mat-radio-button><br>
                     <mat-radio-button value="No">No</mat-radio-button>
                   </mat-radio-group>
@@ -157,7 +157,7 @@
               <div class="row">
                 <div class="col-md-12">
                   <p>Do you use or have you ever used tobacco?</p>
-                  <mat-radio-group formControlName="tobacco">
+                  <mat-radio-group formControlName="q15">
                     <mat-radio-button value="Yes">Yes</mat-radio-button><br>
                     <mat-radio-button value="No">No</mat-radio-button>
                   </mat-radio-group>
@@ -166,7 +166,7 @@
               <div class="row">
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
                   <button class="btn-space" mat-raised-button color="primary">Save</button>
-                  <button type="button" mat-raised-button color="warn">Cancel</button>
+                  <button type="button" mat-raised-button color="warn" (click)="onCancel()">Cancel</button>
                 </div>
               </div>
             </form>

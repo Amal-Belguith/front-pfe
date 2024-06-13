@@ -58,9 +58,9 @@
                           Medications:
                           <mat-form-field appearance="outline" style="margin-left: 19px;">
                             <mat-label>Choose medications</mat-label>
-                            <mat-select formControlName="medications" (selectionChange)="onSelectMedications($event.value)" multiple required>
-                              <mat-option *ngFor="let med of medicationNames" [value]="med">
-                                {{ med }}
+                            <mat-select formControlName="medications" multiple>
+                              <mat-option *ngFor="let med of medicationOptions" [value]="med">
+                                {{ med.medicationName }}
                               </mat-option>
                             </mat-select>
                           </mat-form-field>                      
@@ -69,9 +69,9 @@
                           Vaccinations:
                           <mat-form-field appearance="outline" style="margin-left: 18px;">
                             <mat-label>Choose vaccinations</mat-label>
-                            <mat-select formControlName="vaccinations" (selectionChange)="onSelectVaccinations($event.value)" multiple required>
-                              <mat-option *ngFor="let vac of vaccinationNames" [value]="vac">
-                                {{ vac }}
+                            <mat-select formControlName="vaccinations" multiple>
+                              <mat-option *ngFor="let vac of vaccinationOptions" [value]="vac">
+                                {{ vac.vaccineLabel }}
                               </mat-option>
                             </mat-select>
                           </mat-form-field>                      
@@ -80,14 +80,14 @@
                           Analysis:
                           <mat-form-field appearance="outline" style="margin-left: 50px;">
                             <mat-label>Choose analysis</mat-label>
-                            <mat-select formControlName="analyses" (selectionChange)="onSelectAnalyses($event.value)" multiple required>
-                              <mat-option *ngFor="let ana of analysisNames" [value]="ana">
-                                {{ ana }}
+                            <mat-select formControlName="analyses" multiple>
+                              <mat-option *ngFor="let ana of analysisOptions" [value]="ana">
+                                {{ ana.biologicalAnalysisName }}
                               </mat-option>
                             </mat-select>
                           </mat-form-field>                      
                         </h2>
-                        <textarea style="width: 600px; height: 80px;" formControlName="descPre" placeholder="Description of the prescription" required></textarea>
+                        <textarea style="width: 600px; height: 80px;" formControlName="descPre" placeholder="Description of the prescription"></textarea>
                       </div>
                     </li>
         
@@ -104,14 +104,14 @@
                           Surgical Procedure:
                           <mat-form-field appearance="outline" style="margin-left: 50px;">
                             <mat-label>Choose Surgical</mat-label>
-                            <mat-select formControlName="surgicalProcedures" (selectionChange)="onSelectSurgical($event.value)" multiple required>
-                              <mat-option *ngFor="let proc of surgicalNames" [value]="proc">
-                                {{ proc}}
+                            <mat-select formControlName="surgicalProcedures" multiple>
+                              <mat-option *ngFor="let proc of surgicalProcedureOptions" [value]="proc">
+                                {{ proc.cptCode }}
                               </mat-option>
                             </mat-select>
                           </mat-form-field>                      
                         </h2>
-                        <textarea style="width: 600px; height: 80px;" formControlName="descSur" placeholder="Description of the surgical procedure" required></textarea>
+                        <textarea style="width: 600px; height: 80px;" formControlName="descSur" placeholder="Description of the surgical procedure"></textarea>
                       </div>
                     </li>
         
@@ -124,7 +124,7 @@
                         <img src="assets/images/user/user6.jpg" alt="">
                       </div>
                       <div class="left-label">
-                        <textarea style="width: 600px; height: 80px;" formControlName="comment" placeholder="Details or Comments" required></textarea>
+                        <textarea style="width: 600px; height: 80px;" formControlName="comment" placeholder="Details or Comments"></textarea>
                       </div>
                     </li>
         
@@ -132,7 +132,7 @@
                     <li>
                       <div class="example-button-row">
                         <button mat-raised-button color="primary" type="submit" class="center-button">Save</button>
-                        <button mat-raised-button color="warn" type="button" class="center-button" (click)="onCancel()">Cancel</button>
+                        <button mat-raised-button color="warn" type="button" class="center-button" (click)="onCancel">Cancel</button>
                       </div>
                     </li>
                   </ul>
@@ -145,4 +145,3 @@
     </div>
   </div>
 </section>
-

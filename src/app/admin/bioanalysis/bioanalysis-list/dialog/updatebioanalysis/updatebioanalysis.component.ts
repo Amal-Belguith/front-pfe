@@ -66,6 +66,17 @@ export class UpdatebioanalysisComponent implements OnInit {
         biologicalAnalysisRefValueMax: this.bioanalysisForm.value.analysisRefValueMax
       };
 
+      this.bioanalysisService.checkIfAnalyseExists(updatedAnalysis.biologicalAnalysisName).subscribe
+      ((exists:boolean) => {
+        if(exists){
+          this.showNotification(
+            'snackbar-warning',
+            ' Biological Analysis already exist',
+            'top',
+            'center'
+          );
+        }else{
+
       this.bioanalysisService.updateAnalysis(this.data.bioanalysis.id, updatedAnalysis).subscribe(() => {
         console.log('BioAnalysis updated successfully.');
         this.dialogRef.close(updatedAnalysis);
@@ -75,17 +86,19 @@ export class UpdatebioanalysisComponent implements OnInit {
           'bottom',
           'center'
         );
-      }, error => {
-        console.error('Error updating BioAnalysis:', error);
-        this.showNotification('error', 'Failed to update BioAnalysis', 'bottom', 'right');
-        // Gérer l'erreur de manière appropriée
-      });
-    } else {
-      console.error('Form is invalid or BioAnalysis data is missing.');
-      // Afficher un message d'erreur ou prendre une autre action
-      this.showNotification('snackbar-warning', 'Please fill all required fields', 'bottom', 'right');
+      }, (error) => {
+        console.error('Error adding Biological Analysis:', error);
+      }
+        );
+      }
     }
+  );
   }
+  else {
+    this.showNotification('snackbar-warning', 'Please fill all required fields', 'bottom', 'right');
+  }
+  
+}
 
   showNotification(
     colorName: string,

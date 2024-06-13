@@ -52,29 +52,42 @@ export class AddVaccinationComponent implements OnInit{
         sideEffects: this.selectedsideEffects   // Assign selected side effects
       };
   
-      // Call vaccination service to create vaccination
+      this.vaccinationService.checkIfvaccExists(vaccinationData.vaccineLabel).subscribe
+      ((exists:boolean) => {
+        if(exists){
+          this.showNotification(
+            'snackbar-warning',
+            'vaccination already exist',
+            'top',
+            'center'
+          );
+        }else{
+          
       this.vaccinationService.createVaccination(vaccinationData).subscribe(
         (response) => {
-          console.log('Vaccination created successfully:', response);
+          console.log('vaccination  added successfully:', response);
+          this.dialogRef.close();
           // Optionally, display a success message or redirect the user
           this.dialogRef.close();
           this.showNotification(
           'snackbar-success',
-          'Add Record Successfully...!!!',
+          'vaccination  added successfully...!!!',
           'bottom',
           'center'
         );
         },
         (error) => {
-          console.error('Error creating vaccination:', error);
-          // Optionally, display an error message
+          console.error('Error adding vaccination:', error);
         }
-      );
-    } else {
-      console.error('Form is invalid');
-        this.showNotification('snackbar-warning', 'Please fill all required fields', 'bottom', 'right');
-      // Optionally, display a validation error message
+          );
+        }
+      }
+    );
     }
+    else {
+      this.showNotification('snackbar-warning', 'Please fill all required fields', 'bottom', 'right');
+    }
+    
   }
 
   onCancel(): void {

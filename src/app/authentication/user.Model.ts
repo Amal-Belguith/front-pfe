@@ -5,7 +5,7 @@ export class User {
     lastname: string;
     email: string; 
     password: string; 
-    role: Role;
+    role?: Role;
   
     constructor(user: User) {
       this.user_ky=user.user_ky;
@@ -19,11 +19,10 @@ export class User {
 }  
 
 export enum Role {
-
-        ADMIN,
-        MANAGER,
-        DOCTOR,
-        PATIENT,
-        NURSE
-      }
+  ADMIN = 'ADMIN',
+  MANAGER = 'MANAGER',
+  DOCTOR = 'DOCTOR',
+  PATIENT = 'PATIENT',
+  NURSE = 'NURSE'
+}
 

@@ -33,6 +33,10 @@ export class VaccinationService {
   updateVaccination(model:Vaccination,id:number): Observable<any>{
     return this.http.put(this.apiServerUrl+"/vaccination/update/"+id,model);
   }
+  checkIfvaccExists(vaccineLabel: string): Observable<boolean> {
+    return this.http.get<boolean>(`${this.apiServerUrl}/vaccination/exists?vaccineLabel=${vaccineLabel}`);
+  }
+  
 
   
 

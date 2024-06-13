@@ -1,6 +1,6 @@
 export class Appointment {
 
-    App_ky?:number;
+    app_ky:any;
     first:string;
     last:string;
     gender:string;
@@ -12,11 +12,11 @@ export class Appointment {
     doa :Date;
     timeslot:string;
     injury:string;
-    user_ky:number;
+    user_ky?:number;
     
   
     constructor(app: Appointment) {
-     this.App_ky=app.App_ky;
+     this.app_ky=app.app_ky;
      this.first=app.first;
      this.last=app.last;
      this.gender=app.gender;

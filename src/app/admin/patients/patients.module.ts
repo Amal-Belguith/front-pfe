@@ -28,6 +28,7 @@ import { SharedModule } from '@shared';
     ReactiveFormsModule,
     ComponentsModule,
     SharedModule,
+    CommonModule,
   ],
   providers: [PatientService],
 })

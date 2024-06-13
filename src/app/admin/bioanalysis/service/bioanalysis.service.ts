@@ -28,7 +28,7 @@ export class BioanalysisService {
       }
 
       createBioAnalysis(bio:BioAnalysis): Observable<any>{
-        return this.http.post(this.apiServerUrl+"/bioanalyses/add/",bio);
+        return this.http.post(this.apiServerUrl+"/bioanalyses/add",bio);
       }
 
       public getAnalysisById(id: any): Observable<BioAnalysis> {
@@ -41,5 +41,8 @@ export class BioanalysisService {
 
       public updateAnalysis(id: number, updatedAnalysis: BioAnalysis): Observable<BioAnalysis> {
         return this.http.put<BioAnalysis>(this.apiServerUrl+"/bioanalyses/update/"+id, updatedAnalysis);
+      }
+      checkIfAnalyseExists(biologicalAnalysisName: string): Observable<boolean> {
+        return this.http.get<boolean>(`${this.apiServerUrl}/bioanalyses/exists?biologicalAnalysisName=${biologicalAnalysisName}`);
       }
 }

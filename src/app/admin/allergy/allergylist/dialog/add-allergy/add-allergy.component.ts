@@ -53,7 +53,18 @@ export class AddAllergyComponent {
         allergySymptoms: formData.allergySymptoms
       };
       console.log('Allergy Data:', allergyData);
-  
+
+      this.allergyService.checkIfAllergyExists(allergyData.allergyName).subscribe
+      ((exists:boolean) => {
+        if(exists){
+          this.showNotification(
+            'snackbar-warning',
+            'Allergy already exist',
+            'top',
+            'center'
+          );
+        }else{
+          
       this.allergyService.addAllergy(allergyData).subscribe(
         (response) => {
           console.log('Allergy added successfully:', response);
@@ -69,13 +80,16 @@ export class AddAllergyComponent {
         },
         (error) => {
           console.error('Error adding allergy:', error);
-          
         }
-      );
+          );
+        }
+      }
+    );
     }
     else {
       this.showNotification('snackbar-warning', 'Please fill all required fields', 'bottom', 'right');
     }
+    
   }
   showNotification(
     colorName: string,

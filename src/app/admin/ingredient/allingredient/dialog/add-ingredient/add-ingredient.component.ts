@@ -50,7 +50,12 @@ export class AddIngredientComponent {
       this.ingredientService.checkIfIngredientExists(ingredientData.ingredientName).subscribe
       ((exists:boolean) => {
         if(exists){
-          alert('Ingredient already exist');
+          this.showNotification(
+            'snackbar-warning',
+            'Ingredient already exist',
+            'top',
+            'center'
+          );
         }else{
           
       this.ingredientService.addIngredient(ingredientData).subscribe(

@@ -1,78 +1,27 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-import { Appointment } from './appointment.model';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { UnsubscribeOnDestroyAdapter } from '@shared';
+import { Appointment } from 'app/patient/appointments/appointmentModel';
 @Injectable()
 export class AppointmentService extends UnsubscribeOnDestroyAdapter {
-  private readonly API_URL = 'assets/data/appointment.json';
+  private readonly API_URL = 'http://localhost:8092/appointment';
   isTblLoading = true;
-  dataChange: BehaviorSubject<Appointment[]> = new BehaviorSubject<
-    Appointment[]
-  >([]);
+ 
   // Temporarily stores data from dialogs
   dialogData!: Appointment;
+  
   constructor(private httpClient: HttpClient) {
     super();
   }
-  get data(): Appointment[] {
-    return this.dataChange.value;
-  }
-  getDialogData() {
-    return this.dialogData;
-  }
-  /** CRUD METHODS */
-  getAllAppointments(): void {
-    this.subs.sink = this.httpClient
-      .get<Appointment[]>(this.API_URL)
-      .subscribe({
-        next: (data) => {
-          this.isTblLoading = false;
-          this.dataChange.next(data);
-        },
-        error: (error: HttpErrorResponse) => {
-          this.isTblLoading = false;
-          console.log(error.name + ' ' + error.message);
-        },
-      });
-  }
-  addAppointment(appointment: Appointment): void {
-    this.dialogData = appointment;
+  
 
-    // this.httpClient.post(this.API_URL, appointment)
-    //   .subscribe({
-    //     next: (data) => {
-    //       this.dialogData = appointment;
-    //     },
-    //     error: (error: HttpErrorResponse) => {
-    //        // error code here
-    //     },
-    //   });
+  getAllApp(): Observable<Appointment[]> {
+    return this.httpClient.get<Appointment[]>(this.API_URL+'/all');
   }
-  updateAppointment(appointment: Appointment): void {
-    this.dialogData = appointment;
+  deleteApp(App_ky: number): Observable<void> {
+    console.log('Attemping to remove appointment with ID:',App_ky);
+    return this.httpClient.delete<void>(`${this.API_URL}/delete/${App_ky}`);
+  }
 
-    // this.httpClient.put(this.API_URL + appointment.id, appointment)
-    //     .subscribe({
-    //       next: (data) => {
-    //         this.dialogData = appointment;
-    //       },
-    //       error: (error: HttpErrorResponse) => {
-    //          // error code here
-    //       },
-    //     });
-  }
-  deleteAppointment(id: number): void {
-    console.log(id);
-
-    // this.httpClient.delete(this.API_URL + id)
-    //     .subscribe({
-    //       next: (data) => {
-    //         console.log(id);
-    //       },
-    //       error: (error: HttpErrorResponse) => {
-    //          // error code here
-    //       },
-    //     });
-  }
 }

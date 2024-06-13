@@ -4,131 +4,141 @@
       <!-- breadcrumb -->
       <app-breadcrumb [title]="'CarePlan'" [items]="[]" [active_item]="'CarePlan'"></app-breadcrumb>
     </div>
+    <form [formGroup]="carePlanForm" (ngSubmit)="onSubmit()">
     <div class="card">
       <div style="text-align: center; margin-top: 20px;">
         <h2>Health Assessment</h2> <!--Douleur-->
+        <strong>Patient Ky : </strong>
+        <span>{{ userKy }}</span>
       </div>
-      <div class="body">
+      <div class="body" >
         <div class="example-container">
           <div class="row-container">
             <h6 style="margin-right: 60px; margin-bottom: 50px;">Physical Assessment :</h6>
-            <mat-form-field class="small-input" style="margin-bottom: 20px;" appearance="outline">
-              <mat-label>Plan </mat-label>
-              <textarea matInput type="text" placeholder="Notes"></textarea>
+            <mat-form-field class="small-input" style="margin-bottom: 20px; margin-top: 20px;" appearance="outline">
+              <mat-label>Plan</mat-label>
+              <textarea matInput placeholder="Notes" formControlName="phyAss"></textarea>
             </mat-form-field>
-         </div> 
-         <div class="row-container">
-          <h6 style="margin-right: 20px; margin-bottom: 50px;">Psychological Assessment :</h6>
-          <mat-form-field class="small-input" style="margin-bottom: 20px;" appearance="outline">
-            <mat-label>Plan </mat-label>
-            <textarea matInput type="text" placeholder="Notes"></textarea>
-          </mat-form-field>
-         </div> 
-         <div class="row-container">
-          <h6 style="margin-right: 90px; margin-bottom: 50px;">Pain Assessment :</h6>
-          <mat-form-field class="small-input" style="margin-bottom: 20px;" appearance="outline">
-            <mat-label>Plan </mat-label>
-            <textarea matInput type="text" placeholder="Notes"></textarea>
-          </mat-form-field>
-         </div> 
-         <div class="row-container">
-          <h6 style="margin-right: 140px; margin-bottom: 50px;">Vital signs :</h6>
-          <mat-form-field class="small-input" style="margin-bottom: 20px;" appearance="outline">
-            <mat-label>Plan </mat-label>
-            <textarea matInput type="text" placeholder="Notes"></textarea>
-          </mat-form-field>
-         </div> 
-      <div class="row-container">
-        <h6 style="margin-right: 120px; margin-bottom: 35px;">Observations :</h6>
-        <mat-form-field class="small-input" appearance="outline">
-          <mat-label>Comments </mat-label>
-          <textarea matInput type="text" placeholder="Notes" ></textarea>
-        </mat-form-field>
-      </div>              
+          </div> 
+          <div class="row-container">
+            <h6 style="margin-right: 20px; margin-bottom: 50px;">Psychological Assessment :</h6>
+            <mat-form-field class="small-input" style="margin-bottom: 20px;" appearance="outline">
+              <mat-label>Plan</mat-label>
+              <textarea matInput placeholder="Notes" formControlName="psyAss"></textarea>
+            </mat-form-field>
+          </div> 
+          <div class="row-container">
+            <h6 style="margin-right: 90px; margin-bottom: 50px;">Pain Assessment :</h6>
+            <mat-form-field class="small-input" style="margin-bottom: 20px;" appearance="outline">
+              <mat-label>Plan</mat-label>
+              <textarea matInput placeholder="Notes" formControlName="painAss"></textarea>
+            </mat-form-field>
+          </div> 
+          <div class="row-container">
+            <h6 style="margin-right: 140px; margin-bottom: 50px;">Vital signs :</h6>
+            <mat-form-field class="small-input" style="margin-bottom: 20px;" appearance="outline">
+              <mat-label>Plan</mat-label>
+              <textarea matInput placeholder="Notes" formControlName="vital"></textarea>
+            </mat-form-field>
+          </div> 
+          <div class="row-container">
+            <h6 style="margin-right: 120px; margin-bottom: 35px;">Observations :</h6>
+            <mat-form-field class="small-input" appearance="outline">
+              <mat-label>Comments</mat-label>
+              <textarea matInput placeholder="Notes" formControlName="obq1"></textarea>
+            </mat-form-field>
+          </div>              
         </div>
       </div>
-    </div>
- <div class="card">
-  <div style="text-align: center; margin-top: 20px;">
-    <h2>Treatment goals</h2> <!--Douleur-->
-  </div>
-  <div class="body">
-    <div class="example-container">
-      <div class="row-container">
-        <h6 style="margin-right: 40px; margin-bottom: 50px;">Specific goals :</h6>
-        <mat-form-field class="small-input" style="margin-bottom: 20px;" appearance="outline">
-          <mat-label>Plan </mat-label>
-          <textarea matInput type="text" placeholder="Notes"></textarea>
-        </mat-form-field>
-       </div> 
-       <div class="row-container">
-        <h6 style="margin-right: 20px; margin-bottom: 50px;">Short-term goals :</h6>
-        <mat-form-field class="small-input" style="margin-bottom: 20px;" appearance="outline">
-          <mat-label>Plan </mat-label>
-          <textarea matInput type="text" placeholder="Notes"></textarea>
-        </mat-form-field>
-       </div> 
-       <div class="row-container">
-        <h6 style="margin-right: 23px; margin-bottom: 50px;">Long-term goals :</h6>
-        <mat-form-field class="small-input" style="margin-bottom: 20px;" appearance="outline">
-          <mat-label>Plan </mat-label>
-          <textarea matInput type="text" placeholder="Notes"></textarea>
-        </mat-form-field>
-       </div> 
-    <div class="row-container">
-      <h6 style="margin-right: 46px; margin-bottom: 35px;">Observations :</h6>
-      <mat-form-field class="small-input" appearance="outline">
-        <mat-label>Comments </mat-label>
-        <textarea matInput type="text" placeholder="Notes" ></textarea>
-      </mat-form-field>
-    </div>        
-  </div>
+      <div class="card" >
+        <div style="text-align: center; margin-top: 20px;">
+          <h2>Planned Interventions</h2>
+        </div>
+        <div class="body">
+          <div class="example-container">
+            <div class="row-container">
+              <h6 style="margin-right: 59px; margin-bottom: 50px;">Specific nursing care :</h6>
+              <mat-form-field class="small-input" style="margin-bottom: 20px;" appearance="outline">
+                <mat-label>Plan</mat-label>
+                <textarea matInput placeholder="Notes" formControlName="nurCare"></textarea>
+              </mat-form-field>
+            </div> 
+            <div class="row-container">
+              <h6 style="margin-right: 20px; margin-bottom: 50px;">Medication administration :</h6>
+              <mat-form-field class="small-input" style="margin-bottom: 20px;" appearance="outline">
+                <mat-label>Plan</mat-label>
+                <textarea matInput placeholder="Notes" formControlName="medAdd"></textarea>
+              </mat-form-field>
+            </div> 
+            <div class="row-container">
+              <h6 style="margin-right: 68px; margin-bottom: 50px;">Medical procedures :</h6>
+              <mat-form-field class="small-input" style="margin-bottom: 20px;" appearance="outline">
+                <mat-label>Plan</mat-label>
+                <textarea matInput placeholder="Notes" formControlName="medProc"></textarea>
+              </mat-form-field>
+            </div> 
+            <div class="row-container">
+              <h6 style="margin-right: 106px; margin-bottom: 50px;">Technical care :</h6>
+              <mat-form-field class="small-input" style="margin-bottom: 20px;" appearance="outline">
+                <mat-label>Plan</mat-label>
+                <textarea matInput placeholder="Notes" formControlName="techCare"></textarea>
+              </mat-form-field>
+            </div> 
+            <div class="row-container">
+              <h6 style="margin-right: 115px; margin-bottom: 35px;">Observations :</h6>
+              <mat-form-field class="small-input" appearance="outline">
+                <mat-label>Comments</mat-label>
+                <textarea matInput placeholder="Notes" formControlName="obq2"></textarea>
+              </mat-form-field>
+            </div>        
+          </div>
+        </div>
+      </div>
+      <div class="card" >
+        <div style="text-align: center; margin-top: 20px;">
+          <h2>Treatment goals</h2>
+        </div>
+        <div class="body">
+          <div class="example-container">
+            <div class="row-container">
+              <h6 style="margin-right: 40px; margin-bottom: 50px;">Specific goals :</h6>
+              <mat-form-field class="small-input" style="margin-bottom: 20px;" appearance="outline">
+                <mat-label>Plan</mat-label>
+                <textarea matInput placeholder="Notes" formControlName="specGol"></textarea>
+              </mat-form-field>
+            </div> 
+            <div class="row-container">
+              <h6 style="margin-right: 20px; margin-bottom: 50px;">Short-term goals :</h6>
+              <mat-form-field class="small-input" style="margin-bottom: 20px;" appearance="outline">
+                <mat-label>Plan</mat-label>
+                <textarea matInput placeholder="Notes" formControlName="shortGol"></textarea>
+              </mat-form-field>
+            </div> 
+            <div class="row-container">
+              <h6 style="margin-right: 23px; margin-bottom: 50px;">Long-term goals :</h6>
+              <mat-form-field class="small-input" style="margin-bottom: 20px;" appearance="outline">
+                <mat-label>Plan</mat-label>
+                <textarea matInput placeholder="Notes" formControlName="longGol"></textarea>
+              </mat-form-field>
+            </div> 
+            <div class="row-container">
+              <h6 style="margin-right: 46px; margin-bottom: 35px;">Observations :</h6>
+              <mat-form-field class="small-input" appearance="outline">
+                <mat-label>Comments</mat-label>
+                <textarea matInput placeholder="Notes" formControlName="obq3"></textarea>
+              </mat-form-field>
+            </div>
+            <div class="row">
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                <button class="btn-space" mat-raised-button color="primary" type="submit">Save</button>
+                <button type="button" mat-raised-button color="warn" (click)="onCancel()">Cancel</button>
+              </div>
+            </div>        
+          </div>
+        </div>
+      </div>      
 </div>
-</div>
-<div class="card">
-  <div style="text-align: center; margin-top: 20px;">
-    <h2>Planned Interventions</h2> <!--Douleur-->
-  </div>
-  <div class="body">
-    <div class="example-container">
-      <div class="row-container">
-        <h6 style="margin-right: 59px; margin-bottom: 50px;">Specific nursing care :</h6>
-        <mat-form-field class="small-input" style="margin-bottom: 20px;" appearance="outline">
-          <mat-label>Plan </mat-label>
-          <textarea matInput type="text" placeholder="Notes"></textarea>
-        </mat-form-field>
-       </div> 
-       <div class="row-container">
-        <h6 style="margin-right: 20px; margin-bottom: 50px;">Medication administration :</h6>
-        <mat-form-field class="small-input" style="margin-bottom: 20px;" appearance="outline">
-          <mat-label>Plan </mat-label>
-          <textarea matInput type="text" placeholder="Notes"></textarea>
-        </mat-form-field>
-       </div> 
-       <div class="row-container">
-        <h6 style="margin-right: 68px; margin-bottom: 50px;">Medical procedures :</h6>
-        <mat-form-field class="small-input" style="margin-bottom: 20px;" appearance="outline">
-          <mat-label>Plan </mat-label>
-          <textarea matInput type="text" placeholder="Notes"></textarea>
-        </mat-form-field>
-       </div> 
-       <div class="row-container">
-        <h6 style="margin-right: 106px; margin-bottom: 50px;">Technical care :</h6>
-        <mat-form-field class="small-input" style="margin-bottom: 20px;" appearance="outline">
-          <mat-label>Plan </mat-label>
-          <textarea matInput type="text" placeholder="Notes"></textarea>
-        </mat-form-field>
-       </div> 
-    <div class="row-container">
-      <h6 style="margin-right: 115px; margin-bottom: 35px;">Observations :</h6>
-      <mat-form-field class="small-input" appearance="outline">
-        <mat-label>Comments </mat-label>
-        <textarea matInput type="text" placeholder="Notes" ></textarea>
-      </mat-form-field>
-    </div>        
-  </div>
-</div>
-</div>
+</form>
   </div>
   
 </section>

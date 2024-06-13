@@ -7,7 +7,9 @@ import { DoctorsComponent } from './doctors/doctors.component';
 import { PatientsComponent } from './patients/patients.component';
 import { SettingsComponent } from './settings/settings.component';
 import { CarePlanComponent } from './careplan/careplan.component';
-import { MedicalRecordsComponent } from './medical-records/medical-records.component';
+import { ConsultationComponent } from './consultation/medical-records.component';
+import { MedicalRecordComponent } from './medical-record/medical-records.component';
+
 const routes: Routes = [
   {
     path: 'dashboard',
@@ -15,7 +17,7 @@ const routes: Routes = [
   },
   {
     path: 'Consultation',
-    component: MedicalRecordsComponent,
+    component: ConsultationComponent,
   },
   {
     path: 'appointments',
@@ -38,7 +40,17 @@ const routes: Routes = [
     component: SettingsComponent,
   },
   { path: 'Consultation/:user_ky', 
-  component: MedicalRecordsComponent },
+  component: ConsultationComponent 
+},
+
+{ path: 'CarePlan/:user_ky', 
+  component: CarePlanComponent 
+},
+
+{
+  path: 'medicalrecord/:user_ky',
+  component: MedicalRecordComponent,
+},
   
   { path: '**', component: Page404Component },
 ];

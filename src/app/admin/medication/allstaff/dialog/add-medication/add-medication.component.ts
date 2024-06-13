@@ -101,7 +101,12 @@ export class AddMedicationComponent implements OnInit {
       this.medicationService.checkIfMedicationExists(newMedication.medicationName, newMedication.medicationCode).subscribe(
         (exists: boolean) => {
           if (exists) {
-            alert('Medication already exist');
+            this.showNotification(
+              'snackbar-warning',
+              'Medication already exist',
+              'top',
+              'center'
+            );
           } else {
             this.medicationService.addMedication(newMedication).subscribe(
               (response) => {

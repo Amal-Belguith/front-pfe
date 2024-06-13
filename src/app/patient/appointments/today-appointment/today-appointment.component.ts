@@ -1,12 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Appointment } from '../appointmentModel';
 import { AppointmentService } from '../appointmentservice';
-import { Observable } from 'rxjs';
 import {
   MatSnackBar,
   MatSnackBarHorizontalPosition,
   MatSnackBarVerticalPosition,
 } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { DeleteAppComponent } from './dialogs/delete/delete.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-today-appointment',
@@ -18,8 +22,10 @@ export class TodayAppointmentComponent implements OnInit {
 
   first: string = '';
   last: string = '';
+  public appointments: Appointment[] = [];
 
   displayedColumns = [
+      'app_ky',
       'first',
       'last',
       'gender',
@@ -30,13 +36,18 @@ export class TodayAppointmentComponent implements OnInit {
       'doctor',
       'doa',
       'timeslot',
-      'injury'
+      'injury',
+      'Actions'
   ];
 
   dataSource: Appointment[] = [];
   originalDataSource: Appointment[] = [];
 
-  constructor(private appointmentService: AppointmentService, private snackBar: MatSnackBar) { }
+  @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort!: MatSort;
+  @ViewChild('filter', { static: true }) filter?: ElementRef;
+
+  constructor(private appointmentService: AppointmentService, private snackBar: MatSnackBar,private router: Router,private dialog: MatDialog,) { }
 
   ngOnInit(): void {
     const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
@@ -67,6 +78,9 @@ export class TodayAppointmentComponent implements OnInit {
       }
     );
   }
+   editAppointment(row: any): void {
+    this.router.navigate(['/patient/appointments/update'], { queryParams: row });
+  }
 
   search(filterValue: string): void {
     if (filterValue.trim()) {
@@ -76,6 +90,52 @@ export class TodayAppointmentComponent implements OnInit {
     } else {
       this.dataSource = this.originalDataSource; // Réinitialiser les données d'origine en cas de recherche vide
     }
+  }
+
+  openDeleteModal(app: Appointment): void {
+    const dialogRef = this.dialog.open(DeleteAppComponent, {
+      width: '400px',
+      data: app // Passer l'ingredient sélectionnée au dialogue de suppression
+    });
+  
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('Delete modal closed with result:', result);
+      if (result === true) {
+        // Supprimer l'ingredient de la base de données
+        this.appointmentService.deleteApp(app.app_ky).subscribe(() => {
+          console.log('Appointment successfully removed');
+          this.appointments = this.appointments.filter(a => a !== app);
+          this.showNotification(
+            'snackbar-success',
+            ' Appointment Delete Successfully...!!!',
+            'bottom',
+            'center'
+          );
+          this.refresh();
+        }, (error) => {
+          console.error('Error removing Appointment from the database:', error);
+          this.showNotification('error', 'Failed to remove Appointment ', 'bottom', 'right');
+          // Afficher un message d'erreur ou gérer l'erreur autrement
+        });
+      }
+    });
+  }
+  showNotification(
+    colorName: string,
+    text: string,
+    placementFrom: MatSnackBarVerticalPosition,
+    placementAlign: MatSnackBarHorizontalPosition
+  ) {
+    this.snackBar.open(text, '', {
+      duration: 2000,
+      verticalPosition: placementFrom,
+      horizontalPosition: placementAlign,
+      panelClass: colorName,
+    });
+  }
+  
+  onCancelClick(): void {
+    console.log('Delete operation canceled.');
   }
 }
 

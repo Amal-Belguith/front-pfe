@@ -53,29 +53,42 @@ export class AddbioanalysisComponent {
         
       };
       
-      // Call the service to add bioanalysis data
+      this.bioanalysisService.checkIfAnalyseExists(bioanalysisData.biologicalAnalysisName).subscribe
+      ((exists:boolean) => {
+        if(exists){
+          this.showNotification(
+            'snackbar-warning',
+            ' Biological Analysis already exist',
+            'top',
+            'center'
+          );
+        }else{
+          
       this.bioanalysisService.createBioAnalysis(bioanalysisData).subscribe(
         (response) => {
-          console.log('BioAnalysis created successfully:', response);
+          console.log('Biological Analysis added successfully:', response);
+          this.dialogRef.close();
           // Optionally, display a success message or redirect the user
           this.dialogRef.close();
           this.showNotification(
           'snackbar-success',
-          'Add Record Successfully...!!!',
+          'Biological Analysis added successfully...!!!',
           'bottom',
           'center'
         );
         },
         (error) => {
-          console.error('Error creating BioAnalysis:', error);
-          // Optionally, display an error message
+          console.error('Error adding Biological Analysis:', error);
         }
-      );
-    } else {
-      console.error('Form is invalid');
-      // Optionally, display a validation error message
+          );
+        }
+      }
+    );
+    }
+    else {
       this.showNotification('snackbar-warning', 'Please fill all required fields', 'bottom', 'right');
     }
+    
   }
   
 

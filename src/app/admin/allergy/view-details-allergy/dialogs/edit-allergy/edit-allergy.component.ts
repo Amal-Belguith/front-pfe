@@ -76,6 +76,18 @@ export class EditAllergyComponent implements OnInit {
             //sideEffects: sideEffectsControl.value,
             allergyKy: undefined
           };
+
+          this.allergyservice.checkIfAllergyExists(updatedVaccination.allergyName).subscribe
+      ((exists:boolean) => {
+        if(exists){
+          this.showNotification(
+            'snackbar-warning',
+            'Allergy already exist',
+            'top',
+            'center'
+          );
+        }else{
+          
           this.allergyservice.updateAllergy(updatedVaccination, this.data.allergy.allergyKy)
             .subscribe(
               () => {
@@ -88,13 +100,17 @@ export class EditAllergyComponent implements OnInit {
                 this.dialogRef.close();
               },
               (error) => {
-                console.error('Error updating :', error);
-                this.showNotification('error', 'Failed to update allergy', 'bottom', 'right');
+                console.error('Error updating allergy:', error);
               }
-            );
+                );
+              }
+            }
+          );
+          }
+          else {
+            this.showNotification('snackbar-warning', 'Please fill all required fields', 'bottom', 'right');
+          }
+          
         }
-      } else {
-        this.showNotification('snackbar-warning', 'Please fill all required fields', 'bottom', 'right');
       }
     }
-  }

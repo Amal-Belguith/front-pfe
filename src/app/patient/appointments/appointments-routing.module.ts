@@ -5,6 +5,8 @@ import { UpcomingAppointmentComponent } from "./upcoming-appointment/upcoming-ap
 import { PastAppointmentComponent } from "./past-appointment/past-appointment.component";
 import { TodayAppointmentComponent } from "./today-appointment/today-appointment.component";
 import { BookAppointmentComponent } from "./book-appointment/book-appointment.component";
+import { UpdateComponent } from "./today-appointment/dialogs/form-dialog/form-dialog.component";
+import { DeleteAppComponent } from "./today-appointment/dialogs/delete/delete.component";
 
 const routes: Routes = [
   {
@@ -23,6 +25,11 @@ const routes: Routes = [
     path: "past",
     component: PastAppointmentComponent,
   },
+  {
+    path: "update",
+    component: UpdateComponent,
+  },
+
   { path: "**", component: Page404Component },
 ];
 

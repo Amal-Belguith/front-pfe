@@ -30,12 +30,21 @@
                     </button>
                   </div>
                 </li>
+                <li>
+                  <div class="export-button m-l-10" matTooltip="XLSX">
+                    <img src="assets/images/icons/xlsx.png" alt="" (click)="exportExcel()" />
+                  </div>
+                </li>
               </ul>
             </div>
           </div>
           <div class="body overflow-auto">
             <div class="responsive_table">
               <table mat-table #table [dataSource]="dataSource" matSort class="mat-cell">
+                <ng-container matColumnDef="app_ky">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Key</mat-header-cell>
+                  <mat-cell *matCellDef="let row">{{row.app_ky}}</mat-cell>
+                </ng-container>
                 
                 <ng-container matColumnDef="first">
                   <mat-header-cell *matHeaderCellDef mat-sort-header>First Name</mat-header-cell>
@@ -86,15 +95,29 @@
                   <mat-cell *matCellDef="let row">{{row.user_ky}}</mat-cell>
                 </ng-container>                
                 <!-- actions -->
-              <ng-container matColumnDef="actions">
-                <mat-header-cell class="pr-0" *matHeaderCellDef>Actions</mat-header-cell>
+              <ng-container matColumnDef="consultation">
+                <mat-header-cell class="pr-0" *matHeaderCellDef>Consultation</mat-header-cell>
                 <mat-cell *matCellDef="let row; let i=index;" class="pr-0">
-                  <!-- Bouton "View Details" -->
+                  <!-- Bouton "Consultation" -->
                   <button mat-icon-button class="tbl-action-btn" [routerLink]="['../Consultation', row.user_ky]">
                     <app-feather-icons [icon]="'edit'" [class]="'tbl-fav-edit'"></app-feather-icons>
-                  </button>                  
+                  </button>
+                </mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="medicalrecord">
+                <mat-header-cell class="pr-0" *matHeaderCellDef>MedicalRecord</mat-header-cell>
+                <mat-cell *matCellDef="let row; let i=index;" class="pr-0">
+                  <!-- Bouton "MedicalRecord" -->
+                  <button mat-icon-button class="tbl-action-btn" [routerLink]="['../medicalrecord', row.user_ky]">
+                    <mat-icon class="tbl-fav-view" color="primary">visibility</mat-icon>
+                  </button>
+                </mat-cell>
+              </ng-container>
+                  <ng-container matColumnDef="actions">
+                    <mat-header-cell class="pr-0" *matHeaderCellDef>Actions</mat-header-cell>
+                    <mat-cell *matCellDef="let row; let i=index;" class="pr-0">          
                   <!-- Bouton "Delete" -->
-                  <button mat-icon-button (click)="$event.stopPropagation()"  class="tbl-action-btn" matTooltip="DELETE">
+                  <button mat-icon-button (click)="$event.stopPropagation()" (click)="openDeleteModal(row)"  class="tbl-action-btn" matTooltip="DELETE">
                     <mat-icon class="tbl-fav-delete" color="warn">delete</mat-icon>
                   </button>
                 </mat-cell>

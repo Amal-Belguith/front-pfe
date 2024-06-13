@@ -84,7 +84,4 @@ export class FormDialogComponent {
   onNoClick(): void {
     this.dialogRef.close();
   }
-  public confirmAdd(): void {
-    this.appointmentService.addAppointment(this.appointmentForm.getRawValue());
-  }
 }

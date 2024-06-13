@@ -42,19 +42,20 @@ export class EditMedicationComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<EditMedicationComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: {medication:MedicationResponse},
+    @Inject(MAT_DIALOG_DATA) public data: { medication: MedicationResponse },
     private medicationService: MedicationService,
     private ingredientService: IngredientService,
     private fb: FormBuilder,
     private snackBar: MatSnackBar,
   ) {
-    this.medicationForm=this.fb.group({
+    this.medicationForm = this.fb.group({
       medicationCode: [data.medication.medicationCode || '', Validators.required],
       medicationName: [data.medication.medicationName || '', Validators.required],
       medicationType: [data.medication.medicationType || '', Validators.required],
       medicationStrength: [data.medication.medicationStrength || '', Validators.required],
       medicationDosageForm: [data.medication.medicationDosageForm || '', Validators.required],
       ingredients: [data.medication.ingredients],
+      medicIngredientLinks: this.fb.array([])
     });
 
     // Update strength options based on the initial medication type
@@ -63,7 +64,7 @@ export class EditMedicationComponent implements OnInit {
     } else {
       // Handle the case where medicationType is not a string (e.g., log an error or set a default value)
       console.error('Unexpected medicationType type:', data.medication.medicationType);
-    }    
+    }
   }
 
   ngOnInit(): void {
@@ -83,26 +84,28 @@ export class EditMedicationComponent implements OnInit {
   }
 
   compareWithIngredients(option1: any, option2: any): boolean {
-    return option1 && option2 && option1.ingredientName === option2.ingredientName;
+    return option1 && option2 && option1.ingredientKy === option2.ingredientKy;
   }
-
 
   getStrengthOptions(medicationType: string): string[] {
     return this.medicationTypes[medicationType] || [];
-  } 
+  }
 
   public fetchIngredients() {
     this.ingredientService.getAllIngredients().subscribe((res) => {
       console.log(res);
       this.ingredients = res;
+      this.medicationForm.patchValue({
+        ingredients: this.data.medication.ingredients || []
+      });
     });
   }
+  
 
   onCancel(): void {
     this.dialogRef.close();
   }
 
-  
   showNotification(
     colorName: string,
     text: string,
@@ -115,63 +118,52 @@ export class EditMedicationComponent implements OnInit {
       horizontalPosition: placementAlign,
       panelClass: colorName,
     });
-  } 
-  ingredientLinks:any = []
+  }
+
   onSubmit() {
-    if (this.medicationForm.valid){
+    if (this.medicationForm.valid) {
       const updatedMedication = this.medicationForm.value;
+      updatedMedication.medicIngredientLinks = [];
 
       updatedMedication.ingredients.map((ing: any) => {
         this.ingredients.map((item: any) => {
-          if ((item.ingredientName == ing.ingredientName) && (item.ingredientDesc == ing.ingredientDesc)) {
-            this.ingredientLinks.push({ ing: { ingredientKy: item.ingredientKy } });
+          if (item.ingredientKy === ing.ingredientKy) {
+            updatedMedication.medicIngredientLinks.push({ ing: { ingredientKy: item.ingredientKy } });
           }
         });
       });
 
-      const medicationCode = this.medicationForm.get('medicationCode');
-      const medicationName = this.medicationForm.get('medicationName');
-      const medicationType = this.medicationForm.get('medicationType');
-      const medicationStrength = this.medicationForm.get('medicationStrength');
-      const medicationDosageForm = this.medicationForm.get('medicationDosageForm');
-      const ingredients = this.medicationForm.get('ingredients');
-      
-    if(medicationCode && medicationName && medicationType && medicationStrength && medicationDosageForm && ingredients &&
-      medicationCode.value && medicationName.value && medicationType.value && medicationStrength.value && medicationDosageForm.value && ingredients.value
-    ){
-      const updatedMedication:MedicationResponse={
+      this.medicationService.checkIfMedicationExists(updatedMedication.medicationName, updatedMedication.medicationCode).subscribe(
+        (exists: boolean) => {
+          if (exists) {
+            this.showNotification(
+              'snackbar-warning',
+              'Medication already exist',
+              'top',
+              'center'
+            );
+          } else {
 
-        medicationCode: medicationCode.value,
-        medicationName: medicationName.value,
-        medicationType: medicationType.value,
-        medicationStrength:medicationStrength.value,
-        medicationDosageForm: medicationDosageForm.value,
-        ingredients: ingredients.value,
-        medicationKy:undefined
-
-      };
-    
-  
-  
-    this.medicationService.updateMedication(this.data.medication.medicationKy, updatedMedication)
-      .subscribe(
-        () => {
-          this.showNotification(
-            'snackbar-success',
-            ' Update medication Successfully...!!!',
-            'bottom',
-            'center'
-          );
-          this.dialogRef.close();
-        },
-        (error) => {
-          console.error('Error updating :', error);
-        }
-      );
-  }
-}else{
-  this.showNotification('snackbar-warning','Please fill all required fiels','bottom','right')
+      this.medicationService.updateMedication(this.data.medication.medicationKy, updatedMedication)
+        .subscribe(
+          () => {
+            this.showNotification(
+              'snackbar-success',
+              'Update medication Successfully...!!!',
+              'bottom',
+              'center'
+            );
+            this.dialogRef.close();
+          },
+          (error) => {
+            console.error('Error updating medication:', error);
+          }
+        );
+      }
+    }
+  );
+} else {
+  this.showNotification('snackbar-warning', 'Please fill all required fields', 'bottom', 'right');
 }
-  
 }
 }

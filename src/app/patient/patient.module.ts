@@ -14,6 +14,7 @@ import { ComponentsModule } from '@shared/components/components.module';
 import { SharedModule } from '@shared';
 import { HistoryComponent } from './CareFile/History/History.component';
 import { AppointmentModule } from 'app/admin/appointment/appointment.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { AppointmentModule } from 'app/admin/appointment/appointment.module';
     NgScrollbarModule,
     ComponentsModule,
     SharedModule,
+    ReactiveFormsModule,
   ],
 })
 export class PatientModule {}

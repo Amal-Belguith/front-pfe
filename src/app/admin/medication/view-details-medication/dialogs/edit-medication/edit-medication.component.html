@@ -37,9 +37,7 @@
             <mat-label>Medication Type</mat-label>
             <mat-icon class="material-icons-two-tone color-icon p-3" matSuffix>receipt</mat-icon>
             <mat-select formControlName="medicationType" required (selectionChange)="onTypeChange()">
-              <mat-option [value]="'OINTMENT'">OINTMENT</mat-option>
-              <mat-option [value]="'SOFT_CAPSULE'">SOFT_CAPSULE</mat-option>
-              <mat-option [value]="'FILM_COATED_TABLET'">FILM_COATED_TABLET</mat-option>
+              <mat-option *ngFor="let key of getMedicationTypeKeys()" [value]="key">{{ key }}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
@@ -50,9 +48,7 @@
             <mat-label>Medication Strength</mat-label>
             <mat-icon class="material-icons-two-tone color-icon p-3" matSuffix>receipt</mat-icon>
             <mat-select formControlName="medicationStrength" required>
-              <ng-container *ngFor="let medicationStrength of strengthOptions">
-                <mat-option [value]="medicationStrength">{{ medicationStrength }}</mat-option>
-              </ng-container>
+              <mat-option *ngFor="let strength of strengthOptions" [value]="strength">{{ strength }}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
@@ -60,12 +56,12 @@
       <div class="row">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
           <mat-form-field class="example-full-width" appearance="outline">
-            <mat-label>Medication DosageForm</mat-label>
+            <mat-label>Medication Dosage Form</mat-label>
             <mat-icon class="material-icons-two-tone color-icon p-3" matSuffix>receipt</mat-icon>
             <mat-select formControlName="medicationDosageForm" required>
-              <mat-option [value]="'ORAL'">ORAL</mat-option>
-              <mat-option [value]="'TOPICAL'">TOPICAL</mat-option>
-              <mat-option [value]="'INJECTABLE'">INJECTABLE</mat-option>
+              <mat-option value="ORAL">ORAL</mat-option>
+              <mat-option value="TOPICAL">TOPICAL</mat-option>
+              <mat-option value="INJECTABLE">INJECTABLE</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
@@ -75,7 +71,7 @@
           <mat-form-field class="example-full-width" appearance="outline">
             <mat-label>Ingredients</mat-label>
             <mat-select formControlName="ingredients" multiple [compareWith]="compareWithIngredients">
-              <mat-option *ngFor="let ingredient of ingredients" [value]="ingredient" >
+              <mat-option *ngFor="let ingredient of ingredients" [value]="ingredient">
                 {{ ingredient.ingredientName }}
               </mat-option>
             </mat-select>

@@ -6,75 +6,122 @@ import {
 } from '@angular/forms';
 import { History } from '../historyModel';
 import { HistoryService } from '../historyservice';
+import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-history',
   templateUrl: './History.component.html',
   styleUrls: ['./History.component.scss'],
 })
 export class HistoryComponent implements OnInit {
-  
-  minDate: Date;
+
   historyForm: UntypedFormGroup;
-  hide3 = true;
-  agree3 = false;
-  isDisabled = true;
-  constructor(private fb: UntypedFormBuilder, private appservice:HistoryService) {
+  userKy!: number;
+
+  constructor(
+    private fb: UntypedFormBuilder,
+    private hisservice: HistoryService,
+    private snackBar: MatSnackBar
+  ) {
     this.historyForm = this.fb.group({
-      asthma: ['', [Validators.required]],
-      cancer: [''],
-      heartDiseases: ['', [Validators.required]],
-      diabetes: ['', [Validators.required]],
-      hepatitis: [''],
-      tuberculosis: ['',[Validators.required]],
-      medic: ['', [Validators.required]],
-      alcohol: ['', [Validators.required]],
-      illegalDrugs: ['', [Validators.required]],
-      gastrointestinal: ['', [Validators.required]],
-      majorSurgery: ['', [Validators.required]],
-      thyroidProblems: ['', [Validators.required]],
-      infectiousDiseases: ['', [Validators.required]],
-      tobacco: ['', [Validators.required]],
-      allergies: ['', [Validators.required]],
-      allergiesDetails: ['', [Validators.required]],
-      majorSurgeryDetails: ['', [Validators.required]],
-      medicDetails: ['', [Validators.required]],
-
-
-      
+      q1: ['', [Validators.required]],
+      q2: [''],
+      q3: ['', [Validators.required]],
+      q4: ['', [Validators.required]],
+      q5: [''],
+      q6: ['', [Validators.required]],
+      q7: ['', [Validators.required]],
+      med_details: [''],
+      q8: ['', [Validators.required]],
+      q9: ['', [Validators.required]],
+      q10: ['', [Validators.required]],
+      q11: ['', [Validators.required]],
+      all_details: [''],
+      q12: ['', [Validators.required]],
+      sur_details: [''],
+      q13: ['', [Validators.required]],
+      q14: ['', [Validators.required]],
+      q15: ['', [Validators.required]]
     });
-
-    this.minDate = new Date(); // Définir la date minimale comme la date actuelle
-  
   }
 
   ngOnInit(): void {
+    const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+    this.userKy = currentUser.user_ky;
+    console.log('le userKy est:',this.userKy)
   }
-  onSubmit() {
-   
-    const formData = this.historyForm.value;
-    const newApp: History = {
 
-      Q1: formData.Q1,
-      Q2: formData.Q2,
-      Q3: formData.Q3,
-      Q4: formData.Q4,
-      Q5: formData.Q5,
-      Q6: formData.Q6,
-      Q7: formData.Q7,
+  onSubmit(): void {
+    if (this.historyForm.valid) {
+      this.hisservice.historyExistsForUser(this.userKy).subscribe(
+        exists => {
+          if (exists) {
+            this.showNotification('snackbar-error', 'You cannot add a new history. You already have one.', 'top', 'center');
+          } else {
+            this.addHistory();
+          }
+        },
+        error => {
+          console.error('Error checking history existence:', error);
+        }
+      );
+    } else {
+      this.showNotification('snackbar-warning', 'Please fill all required fields', 'bottom', 'right');
+  }}
+
+  addHistory(): void {
+    const formData = this.historyForm.value;
+    const newHis: History = {
+      his_ky: null,
+      q1: formData.q1,
+      q2: formData.q2,
+      q3: formData.q3,
+      q4: formData.q4,
+      q5: formData.q5,
+      q6: formData.q6,
+      q7: formData.q7,
+      med_details: formData.med_details,
+      q8: formData.q8,
+      q9: formData.q9,
+      q10: formData.q10,
+      q11: formData.q11,
+      all_details: formData.all_details,
+      q12: formData.q12,
+      sur_details: formData.sur_details,
+      q13: formData.q13,
+      q14: formData.q14,
+      q15: formData.q15,
+      userKy: this.userKy
     };
     
-   /* this.appservice.addApp(newApp);
-    console.log('Appointment added successfully', newApp)
-    alert('Appointment added successfully');
-    this.bookingForm.reset();
-
+    this.hisservice.addHistory(newHis).subscribe(
+      response => {
+        this.showNotification('snackbar-success', 'History added successfully', 'bottom', 'center');
+        this.historyForm.reset();
+      },
+      error => {
+        console.error('Error adding history:', error);
+        this.showNotification('snackbar-error', 'Failed to add history', 'bottom', 'center');
+      }
+    );
   }
-    get f() {
-    return this.bookingForm.controls;
-    }
-    Cancel() {
-    this.bookingForm.reset(); 
-    }*/
 
+
+  showNotification(
+    colorName: string,
+    text: string,
+    placementFrom: MatSnackBarVerticalPosition,
+    placementAlign: MatSnackBarHorizontalPosition
+  ): void {
+    this.snackBar.open(text, '', {
+      duration: 4000,
+      verticalPosition: placementFrom,
+      horizontalPosition: placementAlign,
+      panelClass: colorName,
+    });
+  }
+
+  onCancel(): void {
+    this.historyForm.reset();
+  }
 }
-}
+

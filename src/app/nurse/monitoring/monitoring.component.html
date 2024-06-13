@@ -4,382 +4,218 @@
       <!-- breadcrumb -->
       <app-breadcrumb [title]="'Monitoring'" [items]="[]" [active_item]="'Monitoring'"></app-breadcrumb>
     </div>
-    <div class="card">
-      <div style="text-align: center; margin-top: 20px;">
-        <h2>Health Assessment</h2> <!--Douleur-->
-      </div>
-      <div class="header">
-        <h2>Physical Assessment</h2>
-      </div>
-      <div class="body">
-        <div class="example-container">
-          <div class="row-container">
-            <h6 style="margin-right: 20px; margin-bottom: 35px;">General informations</h6>
-            <mat-form-field class="example-full-width mb-3" appearance="outline">
-              <mat-label>Pain level</mat-label>
-              <mat-select  required>
-                <mat-option [value]="'Aucune douleur'" style="color: rgb(3, 90, 23);">
-                  <mat-icon>sentiment_satisfied_alt</mat-icon> No pain
-                </mat-option>
-                <mat-option [value]="'Douleur Faible'" style="color: rgb(113, 183, 43);">
-                  <mat-icon>sentiment_satisfied</mat-icon> Low Pain
-                </mat-option>
-                <mat-option [value]="'Douleur moyenne'" style="color: rgb(208, 193, 64);">
-                  <mat-icon>sentiment_neutral</mat-icon> Average pain
-                </mat-option>
-                <mat-option [value]="'Douleur sévére'" style="color: rgb(209, 123, 25);">
-                  <mat-icon>sentiment_dissatisfied</mat-icon> Severe pain
-                </mat-option>
-                <mat-option [value]="'Douleur insupportable'" style="color: rgb(161, 20, 9);">
-                  <mat-icon>sentiment_very_dissatisfied</mat-icon> Unbearable pain
-                </mat-option>
+    <form [formGroup]="monitoringForm" (ngSubmit)="onSubmit()">
+      <div class="card">
+        <div style="text-align: center; margin-top: 20px;">
+          <h2>Health Assessment</h2> <!--Douleur-->
+          <strong>Patient Ky : </strong>
+        <span>{{ userKy }}</span>
+        </div>
+        <div class="header">
+          <h2>Physical Assessment</h2>
+        </div>
+        <div class="body">
+          <div class="example-container">
+            <div class="row-container">
+              <h6 style="margin-right: 20px; margin-bottom: 35px;">General informations</h6>
+              <mat-form-field class="example-full-width mb-3" appearance="outline">
+                <mat-label>Pain level</mat-label>
+                <mat-select formControlName="genInf" required>
+                  <mat-option [value]="'No pain'" style="color: rgb(3, 90, 23);">
+                    <mat-icon>sentiment_satisfied_alt</mat-icon> No pain
+                  </mat-option>
+                  <mat-option [value]="'Low Pain'" style="color: rgb(113, 183, 43);">
+                    <mat-icon>sentiment_satisfied</mat-icon> Low Pain
+                  </mat-option>
+                  <mat-option [value]="'Average pain'" style="color: rgb(208, 193, 64);">
+                    <mat-icon>sentiment_neutral</mat-icon> Average pain
+                  </mat-option>
+                  <mat-option [value]="'Severe pain'" style="color: rgb(209, 123, 25);">
+                    <mat-icon>sentiment_dissatisfied</mat-icon> Severe pain
+                  </mat-option>
+                  <mat-option [value]="'Unbearable pain'" style="color: rgb(161, 20, 9);">
+                    <mat-icon>sentiment_very_dissatisfied</mat-icon> Unbearable pain
+                  </mat-option>
                 </mat-select>
-            </mat-form-field>  
-            <mat-form-field class="example-full-width mb-3" style="margin-left: 20px;" appearance="outline">
-              <mat-label>Allergies</mat-label>
-              <mat-select>
-                <mat-option value="HAY_FEVER">HAY_FEVER</mat-option>
-                <mat-option value="FOOD_ALLERGY">FOOD_ALLERGY</mat-option>
-                <mat-option value="INSECT_STING_ALLERGY">INSECT_STING_ALLERGY</mat-option>
-                <mat-option value="DRUG_ALLERGY">DRUG_ALLERGY</mat-option>
-                <mat-option value="ATOPIC_DERMATITIS">ATOPIC_DERMATITIS</mat-option>
-                <mat-option value="ANAPHYLAXIS">ANAPHYLAXIS</mat-option> 
-              </mat-select>
+              </mat-form-field>  
+              <mat-form-field class="small-input" appearance="outline" style="margin-left: 19px;">
+                <mat-label>Choose Allergies</mat-label>
+                <mat-select formControlName="allergies" multiple>
+                  <mat-option *ngFor="let all of allergyOptions" [value]="all">
+                    {{ all.allergyName }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>  
+              <mat-form-field class="small-input" appearance="outline" style="margin-left: 20px;" >
+                <mat-label>Height </mat-label>
+                <input matInput type="text" formControlName="height" placeholder="height">
+              </mat-form-field>
+              <span class="text-fixe" style="margin-bottom: 35px;">Cm</span>
+              <mat-form-field class="small-input" appearance="outline">
+                <mat-label>Weight</mat-label>
+                <input matInput type="text" formControlName="weight" placeholder="weight">
+              </mat-form-field>
+              <span class="text-fixe" style="margin-bottom: 35px;">Kg</span>
+           </div> 
+           <div class="row-container">
+              <h6 style="margin-right: 20px; margin-bottom: 35px;">Wound measurement</h6>
+              <mat-form-field class="small-input" appearance="outline">
+                <mat-label>Length </mat-label>
+                <input matInput type="text" formControlName="length_w" placeholder="Length">
+              </mat-form-field>
+              <span class="text-fixe" style="margin-bottom: 35px;">Cm</span>
+              <mat-form-field class="small-input" appearance="outline">
+                <mat-label>Width</mat-label>
+                <input matInput type="text" formControlName="width_w" placeholder="Width">
+              </mat-form-field>
+              <span class="text-fixe" style="margin-bottom: 35px;">Cm</span>
+              <mat-form-field class="small-input" appearance="outline">
+                <mat-label>Depth</mat-label>
+                <input matInput type="text" formControlName="depth_w" placeholder="Depth">
+              </mat-form-field>
+              <span class="text-fixe" style="margin-bottom: 35px;">Cm</span>
+          </div>
+          <div class="row-container">      
+            <h6 style="margin-right: 20px; margin-bottom: 35px;">Scar measurement</h6>
+            <mat-form-field class="small-input" appearance="outline">
+              <mat-label>Length </mat-label>
+              <input matInput type="text" formControlName="length_s" placeholder="Length" >
             </mat-form-field>
-            <mat-form-field class="example-full-width mb-3" style="margin-left: 20px;" appearance="outline">
-              <mat-label>Symptoms</mat-label>
-              <mat-select>
-                <mat-option value="SNEEZING">SNEEZING</mat-option>
-                <mat-option value="RUNNY_NOSE">RUNNY_NOSE</mat-option>
-                <mat-option value="ITCHY_EYES">ITCHY_EYES</mat-option>
-                <mat-option value="HIVES">HIVES</mat-option>
-                <mat-option value="SWELLING">SWELLING</mat-option>
-                <mat-option value="SHORTNESS_OF_BREATH">SHORTNESS_OF_BREATH</mat-option>
-                <mat-option value="NAUSEA">NAUSEA</mat-option>
-              </mat-select>
+            <span class="text-fixe" style="margin-bottom: 35px; ">Cm</span>
+            <mat-form-field class="small-input" appearance="outline">
+              <mat-label>Width</mat-label>
+              <input matInput type="text" formControlName="width_s" placeholder="Width" class="small-input">
             </mat-form-field>
-            <button class="btn btn-danger " style="margin-left: 20px; margin-right: 10px; margin-bottom: 40px;" >No</button>
-            <button class="btn btn-success" style="margin-bottom: 40px;">Yes</button>
-         </div> 
-         <div class="row-container">
-          <h6 style="margin-right: 20px; margin-bottom: 35px;">Wound measurement</h6>
-          <mat-form-field class="small-input" appearance="outline">
-            <mat-label>Length </mat-label>
-            <input matInput type="text" placeholder="Recommended">
-          </mat-form-field>
-          <span class="text-fixe" style="margin-bottom: 35px;">Cm</span>
-          <mat-form-field class="small-input" appearance="outline">
-            <mat-label>Width</mat-label>
-            <input matInput type="text" placeholder="Recommended">
-          </mat-form-field>
-          <span class="text-fixe" style="margin-bottom: 35px;">Cm</span>
-          <mat-form-field class="small-input" appearance="outline">
-            <mat-label>Depth</mat-label>
-            <input matInput type="text" placeholder="Recommended">
-          </mat-form-field>
-          <span class="text-fixe" style="margin-bottom: 35px;">Cm</span>
-          <button class="btn btn-danger " style="margin-left: 20px; margin-right: 10px; margin-bottom: 40px;" >No</button>
-          <button class="btn btn-success" style="margin-bottom: 40px;">Yes</button>
-           </div>
-        <div class="row-container">      
-        <h6 style="margin-right: 20px; margin-bottom: 35px;">Scar measurement</h6>
-        <mat-form-field class="small-input" appearance="outline">
-          <mat-label>Length </mat-label>
-          <input matInput type="text" placeholder="Recommended" >
-        </mat-form-field>
-        <span class="text-fixe" style="margin-bottom: 35px; ">Cm</span>
-        <mat-form-field class="small-input" appearance="outline">
-          <mat-label>Width</mat-label>
-          <input matInput type="text" placeholder="Recommended" class="small-input">
-        </mat-form-field>
-        <span class="text-fixe" style="margin-bottom: 35px;">Cm</span>
-        <mat-form-field class="small-input" appearance="outline">
-          <mat-label>Depth</mat-label>
-          <input matInput type="text" placeholder="Recommended" class="small-input">
-        </mat-form-field>
-        <span class="text-fixe" style="margin-bottom: 35px;">Cm</span>
-        <button class="btn btn-danger " style="margin-left: 20px; margin-right: 10px; margin-bottom: 40px;" >No</button>
-        <button class="btn btn-success" style="margin-bottom: 40px;">Yes</button>
-      </div> 
-      <div class="row-container">
-        <h6 style="margin-right: 60px; margin-bottom: 35px;">Vital Signs</h6>
-        <mat-form-field class="small-input" appearance="outline">
-          <mat-label>Height </mat-label>
-          <input matInput type="text" placeholder="height">
-        </mat-form-field>
-        <span class="text-fixe" style="margin-bottom: 35px;">Cm</span>
-        <mat-form-field class="small-input" appearance="outline">
-          <mat-label>Weight</mat-label>
-          <input matInput type="text" placeholder="weight">
-        </mat-form-field>
-        <span class="text-fixe" style="margin-bottom: 35px;">Kg</span>
-        <mat-form-field class="small-input" appearance="outline">
-          <mat-label>Temperature </mat-label>
-          <input matInput type="text" placeholder="height">
-        </mat-form-field>
-        <span class="text-fixe" style="margin-bottom: 35px;">°C</span>
-        <mat-form-field class="small-input" appearance="outline">
-          <mat-label>Respiratory Frequency</mat-label>
-          <input matInput type="text" placeholder="weight">
-        </mat-form-field>
-        <span class="text-fixe" style="margin-bottom: 35px;">/min</span>
-        <mat-form-field class="small-input" appearance="outline">
-          <mat-label>Heart Rythm</mat-label>
-          <input matInput type="text" placeholder="weight">
-        </mat-form-field>
-        <span class="text-fixe" style="margin-bottom: 35px;">/min</span>
-        <button class="btn btn-danger " style="margin-left: 20px; margin-right: 10px; margin-bottom: 40px;" >No</button>
-        <button class="btn btn-success" style="margin-bottom: 40px;">Yes</button>
-     </div>      
+            <span class="text-fixe" style="margin-bottom: 35px;">Cm</span>
+            <mat-form-field class="small-input" appearance="outline">
+              <mat-label>Depth</mat-label>
+              <input matInput type="text" formControlName="depth_s" placeholder="Depth" class="small-input">
+            </mat-form-field>
+            <span class="text-fixe" style="margin-bottom: 35px;">Cm</span>
+          </div> 
+          <div class="row-container">
+            <h6 style="margin-right: 60px; margin-bottom: 35px;">Vital Signs</h6>
+            <mat-form-field class="small-input" appearance="outline">
+              <mat-label>Temperature </mat-label>
+              <input matInput type="text" formControlName="temperature" placeholder="Temperature">
+            </mat-form-field>
+            <span class="text-fixe" style="margin-bottom: 35px;">°C</span>
+            <mat-form-field class="small-input" appearance="outline">
+              <mat-label>Respiratory Frequency</mat-label>
+              <input matInput type="text" formControlName="respiratory" placeholder="Respiratory Frequency">
+            </mat-form-field>
+            <span class="text-fixe" style="margin-bottom: 35px;">/min</span>
+            <mat-form-field class="small-input" appearance="outline">
+              <mat-label>Heart Rythm</mat-label>
+              <input matInput type="text" formControlName="heart" placeholder="Heart Rythm">
+            </mat-form-field>
+            <span class="text-fixe" style="margin-bottom: 35px;">/min</span>
+          </div>
           <div class="row-container">
             <h6 style="margin-right: 20px; margin-bottom: 35px;">Blood pressure measurement</h6>
             <mat-form-field class="small-input" appearance="outline">
               <mat-label>Systolic pressure </mat-label>
-              <input matInput type="text" placeholder="Recommended">
+              <input matInput type="text" formControlName="systolic" placeholder="Systolic pressure">
             </mat-form-field>
             <span class="text-fixe" style="margin-bottom: 35px;">mmHg</span>
             <mat-form-field class="small-input" appearance="outline">
               <mat-label>Diastolic pressure</mat-label>
-              <input matInput type="text" placeholder="Recommended">
+              <input matInput type="text" formControlName="diastolic" placeholder="Diastolic pressure">
             </mat-form-field>
             <span class="text-fixe" style="margin-bottom: 35px;">mmHg</span> 
-          <h6 style="margin-right: 20px; margin-bottom: 35px;">Blood pressure measurement</h6>
-          <mat-form-field class="small-input" appearance="outline">
-            <mat-label>Glycemic </mat-label>
-            <input matInput type="text" placeholder="Recommended" >
-          </mat-form-field>
-          <span class="text-fixe" style="margin-bottom: 35px; ">mg/dl</span>
-          <button class="btn btn-danger " style="margin-left: 20px; margin-right: 10px; margin-bottom: 40px;" >No</button>
-          <button class="btn btn-success" style="margin-bottom: 40px;">Yes</button>
-        </div>   
-        <div class="row-container">
-          <h6 style="margin-right: 20px; margin-bottom: 35px;">Observations</h6>
-          <mat-form-field class="small-input" appearance="outline">
-            <mat-label>Comments </mat-label>
-            <input matInput type="text" placeholder="Recommended" >
-          </mat-form-field>
-        </div>              
+          </div>
+          <div class="row-container">
+            <h6 style="margin-right: 20px; margin-bottom: 35px;">Blood glucose measurement</h6>
+            <mat-form-field class="small-input" appearance="outline">
+              <mat-label>Glycemic</mat-label>
+              <input matInput type="text" formControlName="gly" placeholder="Blood glucose">
+            </mat-form-field>
+            <span class="text-fixe" style="margin-bottom: 35px;">mg/dl</span>
+          </div>
+          <div class="row-container">
+            <h6 style="margin-right: 20px; margin-bottom: 35px;">Observations</h6>
+            <mat-form-field class="small-input" appearance="outline">
+              <mat-label>Comments</mat-label>
+              <input matInput type="text" formControlName="comment" placeholder="Comments">
+            </mat-form-field>
+          </div> 
+          </div>
         </div>
       </div>
-    </div>
-    <div class="card">
-      <div class="header">
-        <h2>Health Monitoring</h2>
-      </div>
-      <div class="body">
-        <div class="example-container">     
-         <div class="row-container">
-          <span class="text-fixe" style="margin-bottom: 35px;">Bandage change</span>
-          <button id="btnNo" class="btn" style="margin-left: 20px; margin-right: 10px; margin-bottom: 40px;" 
-        [class]="buttonState === 'btn-danger' ? 'btn-danger' : 'btn-default'"
-        (click)="onNoButtonClick()">No</button>
-
-          <button id="btnYes" class="btn" style="margin-bottom: 40px;" 
-        [class]="buttonState === 'btn-success' ? 'btn-success' : 'btn-default'"
-        (click)="onYesButtonClick()">Yes</button>
-         </div>
-         <div class="row-container">
-          <span class="text-fixe" style="margin-bottom: 35px;">Take the medication</span>
-          <button id="btnNo" class="btn" style="margin-left: 20px; margin-right: 10px; margin-bottom: 40px;" 
-          [class]="buttonState === 'btn-danger' ? 'btn-danger' : 'btn-default'"
-          (click)="onNoButtonClick()">No</button>
-  
-          <button id="btnYes" class="btn" style="margin-bottom: 40px;" 
-          [class]="buttonState === 'btn-success' ? 'btn-success' : 'btn-default'"
-          (click)="onYesButtonClick()">Yes</button>
-  
-  
-         </div>
-         <div class="row-container">
-          <span class="text-fixe" style="margin-bottom: 35px;">Conduct the analyses</span>
-          <button id="btnNo" class="btn" style="margin-left: 20px; margin-right: 10px; margin-bottom: 40px;" 
-        [class]="buttonState === 'btn-danger' ? 'btn-danger' : 'btn-default'"
-        (click)="onNoButtonClick()">No</button>
-
-          <button id="btnYes" class="btn" style="margin-bottom: 40px;" 
-        [class]="buttonState === 'btn-success' ? 'btn-success' : 'btn-default'"
-        (click)="onYesButtonClick()">Yes</button>
-         </div>
-        </div>
-      </div>   
-    </div>
-    <div class="card">
-      <div class="header">
-        <h2>Dietary regimen</h2>
-      </div>
-      <div class="body">
-          <div class="col-lg-12 col-md-12">
-        <table>
-          <thead>
-            <tr>
-              <th>Foods</th>
-              <th >Yes</th>
-              <th >No</th>
-              <th >A Little</th>
-              <th >Recommended</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th colspan="5">Breakfast</th>
-            </tr>
-            <tr>
-              <td>Bread-Crackers</td> <!--pain biscotte-->
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-            </tr>
-            <tr>
-              <td>Coffee</td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-            </tr>
-            <tr>
-              <td>Dairy products</td> <!--produit laitier-->
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-            </tr>
-            <tr>
-              <td>Fruit juice</td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-            </tr>
-            <tr>
-              <td>Desserts</td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-            </tr>
-            <tr>
-              <th colspan="5">Lunch</th>
-            </tr>
-            <tr>
-              <td>Meat</td> <!--Viande-->
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-            </tr>
-            <tr>
-              <td>Vegetables</td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-            </tr>
-            <tr>
-              <td>Seafood</td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-            </tr>
-            <tr>
-              <td>Pasta</td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-            </tr>
-            <tr>
-              <td>Bread</td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-            </tr>
-            <tr>
-              <td>Dairy products</td> 
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-            </tr>
-            <tr>
-              <td>Salads</td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-            </tr>
-            <tr>
-              <td>Fruits</td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-            </tr>
-            <tr>
-              <td>Beverages</td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-            </tr>
-            <tr>
-              <th colspan="5">Dinner</th>
-            </tr>
-            <tr>
-              <td>Vegetables</td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-            </tr>
-            <tr>
-              <td>Desserts</td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-            </tr>
-            <tr>
-              <td>Salads</td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-            </tr>
-            <tr>
-              <td>Fruits</td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-            </tr>
-            <tr>
-              <th colspan="5">Limit</th>
-            </tr>
-            <tr>
-              <td>Sugar</td> <!--pain biscotte-->
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-            </tr>
-            <tr>
-              <td>Salt</td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-              <td><input type="checkbox"></td>
-            </tr>
-          </tbody>
-        </table>
-        </div>
-        <div class="col-md-12">
-          <button mat-raised-button color="primary">Save Changes</button>
+      <div class="card">
+        <div class="body">
+          <div class="example-container">
+            <div class="row">
+              <!-- Column for the first 3 questions -->
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-md-12">
+                    <p>Change the bandage</p>
+                    <mat-radio-group formControlName="bandage">
+                      <mat-radio-button value="Yes">Yes</mat-radio-button><br>
+                      <mat-radio-button value="No">No</mat-radio-button>
+                    </mat-radio-group>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <p>Take medications</p>
+                    <mat-radio-group formControlName="medications">
+                      <mat-radio-button value="Yes">Yes</mat-radio-button><br>
+                      <mat-radio-button value="No">No</mat-radio-button>
+                    </mat-radio-group>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <p>Perform analysis</p>
+                    <mat-radio-group formControlName="analysis">
+                      <mat-radio-button value="Yes">Yes</mat-radio-button><br>
+                      <mat-radio-button value="No">No</mat-radio-button>
+                    </mat-radio-group>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="row">
+                  <div class="col-md-12">
+                    <p>Conduct vaccinations</p>
+                    <mat-radio-group formControlName="vaccinations">
+                      <mat-radio-button value="Yes">Yes</mat-radio-button><br>
+                      <mat-radio-button value="No">No</mat-radio-button>
+                    </mat-radio-group>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <p>Assist with walking exercises</p>
+                    <mat-radio-group formControlName="exercises">
+                      <mat-radio-button value="Yes">Yes</mat-radio-button><br>
+                      <mat-radio-button value="No">No</mat-radio-button>
+                    </mat-radio-group>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <p>Perform massage therapy</p>
+                    <mat-radio-group formControlName="massage">
+                      <mat-radio-button value="Yes">Yes</mat-radio-button><br>
+                      <mat-radio-button value="No">No</mat-radio-button>
+                    </mat-radio-group>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                <button class="btn-space" mat-raised-button color="primary" type="submit">Save</button>
+                <button type="button" mat-raised-button color="warn" (click)="onCancel()">Cancel</button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>      
-    </div>
+    </form>
   </div>
 </section>
 

@@ -23,7 +23,5 @@ export class DeleteDialogComponent {
   onNoClick(): void {
     this.dialogRef.close();
   }
-  confirmDelete(): void {
-    this.appointmentService.deleteAppointment(this.data.id);
-  }
+
 }

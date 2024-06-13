@@ -38,4 +38,8 @@ export class PhyTreatmentService {
   searchPhyTreatmentByCriteria(criteria: string): Observable<PhysicalTreatment[]> {
     return this.http.get<PhysicalTreatment[]>(`${this.apiServerUrl}/phytreatments/search?criteria=${criteria}`);
   }
+
+  checkIfTrExists(phyTrName: string): Observable<boolean> {
+    return this.http.get<boolean>(`${this.apiServerUrl}/phytreatments/exists?phyTrName=${phyTrName}`);
+  }
 }

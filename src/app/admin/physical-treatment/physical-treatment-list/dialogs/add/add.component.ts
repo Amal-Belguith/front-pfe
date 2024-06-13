@@ -61,24 +61,42 @@ export class AddComponent {
         physicalTreatmentCategory: this.selectedCategory
       };
   
-      this.treatmentService.saveTreatment(treatmentData).subscribe(
-        (response) => {
-          console.log('Traitement added successfully :', response);
-          this.dialogRef.close();
+      this.treatmentService.checkIfTrExists(treatmentData.phyTrName).subscribe
+      ((exists:boolean) => {
+        if(exists){
           this.showNotification(
-            'snackbar-success',
-            'Physical Treatment added successfully...!!!',
-            'bottom',
+            'snackbar-warning',
+            'Physical Treatment already exist',
+            'top',
             'center'
           );
+        }else{
+          
+      this.treatmentService.saveTreatment(treatmentData).subscribe(
+        (response) => {
+          console.log('Physical Treatment  added successfully:', response);
+          this.dialogRef.close();
+          // Optionally, display a success message or redirect the user
+          this.dialogRef.close();
+          this.showNotification(
+          'snackbar-success',
+          'Physical Treatment  added successfully...!!!',
+          'bottom',
+          'center'
+        );
         },
         (error) => {
-          console.error('Erreur lors de l\'ajout du traitement :', error);
+          console.error('Error adding Physical Treatment:', error);
         }
-      );
-    } else {
+          );
+        }
+      }
+    );
+    }
+    else {
       this.showNotification('snackbar-warning', 'Please fill all required fields', 'bottom', 'right');
     }
+    
   }
   
   showNotification(

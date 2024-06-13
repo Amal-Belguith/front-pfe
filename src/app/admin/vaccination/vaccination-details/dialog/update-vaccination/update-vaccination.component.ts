@@ -109,7 +109,16 @@ export class UpdateVaccinationComponent implements OnInit {
             sideEffects: sideEffectsControl.value,
             idVaccination: undefined
           };
-    
+          this.vaccinationService.checkIfvaccExists(updatedVaccination.vaccineLabel).subscribe
+          ((exists:boolean) => {
+            if(exists){
+              this.showNotification(
+                'snackbar-warning',
+                'vaccination already exist',
+                'top',
+                'center'
+              );
+            }else{
           this.vaccinationService.updateVaccination(updatedVaccination, this.data.vaccination.idVaccination)
             .subscribe(
               () => {
@@ -118,14 +127,16 @@ export class UpdateVaccinationComponent implements OnInit {
               },
               (error) => {
                 console.error('Error updating vaccination:', error);
-                this.showNotification('snackbar-error', 'Failed to update vaccination', 'bottom', 'center');
               }
-            );
+                );
+              }
+            }
+          );
+          }
+          else {
+            this.showNotification('snackbar-warning', 'Please fill all required fields', 'bottom', 'right');
+          }
+          
         }
-      } else {
-        this.showNotification('snackbar-warning', 'Please fill all required fields', 'bottom', 'right');
       }
     }
-    
-
-}

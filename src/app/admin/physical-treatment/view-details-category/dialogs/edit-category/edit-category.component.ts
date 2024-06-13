@@ -70,6 +70,17 @@ export class EditCategoryComponent implements OnInit {
         phyCategoryDesc: this.categoryForm.value.phyCategoryDesc, // Récupérer la description à partir du formulaire
         physicalTreatments: this.data.category.physicalTreatments // Conserver les traitements existants
       };
+
+      this.categoryService.checkIfTrCatExists(updatedCategory.phyCategoryName).subscribe
+      ((exists:boolean) => {
+        if(exists){
+          this.showNotification(
+            'snackbar-warning',
+            'Physical Treatment Category already exist',
+            'top',
+            'center'
+          );
+        }else{
   
       this.categoryService.updatePhyTrCategory(updatedCategory).subscribe(
         () => {
@@ -82,13 +93,17 @@ export class EditCategoryComponent implements OnInit {
           this.dialogRef.close('updated'); // Envoyer un signal pour indiquer que la mise à jour est effectuée
         },
         (error) => {
-          console.error('Error updating category:', error);
-          this.showNotification('error', 'Failed to update category', 'bottom', 'right');
+          console.error('Error updating Physical Treatment Category:', error);
         }
-      );
-    } else {
+          );
+        }
+      }
+    );
+    }
+    else {
       this.showNotification('snackbar-warning', 'Please fill all required fields', 'bottom', 'right');
     }
+    
   }
   
   

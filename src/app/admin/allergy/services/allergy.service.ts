@@ -54,4 +54,7 @@ getVaccination(): Observable<Allergy[]> {
   createAllergy(model:Allergy): Observable<any>{
     return this.http.post(this.apiServerUrl+"/allergies/add",model);
   }
+  checkIfAllergyExists(allergyName: string): Observable<boolean> {
+    return this.http.get<boolean>(`${this.apiServerUrl}/allergies/exists?allergyName=${allergyName}`);
+  }
 }

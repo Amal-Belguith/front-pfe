@@ -10,7 +10,7 @@ import { NurseRoutingModule  } from './nurse-routing.module';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AppointmentsComponent } from './appointments/appointments.component';
 import { FormComponent } from './appointments/form/form.component';
-import { DoctorsComponent } from './doctors/doctors.component';
+import { CarePlansComponent } from './careplans/careplans.component';
 import { PatientsComponent } from './patients/patients.component';
 import { SettingsComponent } from './settings/settings.component';
 import { AppointmentsService } from './appointments/appointments.service';
@@ -23,7 +23,7 @@ import { MonitoringComponent } from './monitoring/monitoring.component';
     DashboardComponent,
     AppointmentsComponent,
     FormComponent,
-    DoctorsComponent,
+    CarePlansComponent,
     PatientsComponent,
     SettingsComponent,
     MonitoringComponent,

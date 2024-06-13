@@ -1,56 +1,48 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { UnsubscribeOnDestroyAdapter } from '@shared';
 import { Observable } from 'rxjs';
 import { History } from './historyModel';
+
 @Injectable({
   providedIn: 'root'
 })
 export class HistoryService {
-  private readonly API_URL = 'http://localhost:8090/appointment';
   isTblLoading = true;
-  //dataChange: BehaviorSubject<Ingredient[]> = new BehaviorSubject<Ingredient[]>([]);
-  // Temporarily stores data from dialogs
-  dialogData!: History;
-  constructor(private httpClient: HttpClient) {}
-  /*get data(): Ingredient[] {
-    return this.dataChange.value;
+  private apiServerUrl = 'http://localhost:8090';
+  constructor(private http:HttpClient) { }
+
+  /*// Vaccination List
+  getVaccination(): Observable<Vaccination[]> {
+    return this.http.get<Vaccination[]>(this.apiServerUrl+"/vaccination/all");
   }
-  getDialogData() {
-    return this.dialogData;
+  //delete vaccination
+  removeVaccination(id:number): Observable<any>{
+    return this.http.delete(this.apiServerUrl+"/vaccination/delete/"+id);
+  }
+
+  getVaccinationById(id:any){
+    return this.http.get<Vaccination>(this.apiServerUrl+"/vaccination/search/"+id);
+  }
+
+  updateVaccination(model:Vaccination,id:number): Observable<any>{
+    return this.http.put(this.apiServerUrl+"/vaccination/update/"+id,model);
   }*/
-  
-  /** CRUD METHODS 
 
-  
-  
-  addApp(app: Appointment): void {
-    this.dialogData = app;
-
-  this.httpClient.post(this.API_URL + '/add', app)
-     .subscribe({
-      next: (data) => {
-        this.dialogData = app;
-       },
-       error: (error: HttpErrorResponse) => {
-        this.isTblLoading = false;
-        console.log(error.name + ' ' + error.message);
-      },
-     });
+  addHistory(model: History): Observable<any>{
+    return this.http.post(this.apiServerUrl+"/history/add",model);
+  }
+  historyExistsForUser(userKy: number): Observable<boolean> {
+    return this.http.get<boolean>(`${this.apiServerUrl}/history/check/${userKy}`);
   }
 
-  
-  updateApp(App_ky: number, updatedApp: any): Observable<void> {
-    return this.httpClient.put<void>(`${this.API_URL}/update/${App_ky}`, updatedApp);
+  getAllHis(): Observable<History[]> {
+    return this.http.get<History[]>(this.apiServerUrl+"/history/all");
   }
-  deleteApp(App_ky: number): Observable<void> {
-    return this.httpClient.delete<void>(`${this.API_URL}/delete/${App_ky}`);
+
+  getHistoryByUserky(userKy: number): Observable<History> {
+    return this.http.get<History>(`${this.apiServerUrl}/history/user/${userKy}`);
   }
-  
-  getAllApp(): Observable<Appointment[]> {
-    return this.httpClient.get<Appointment[]>(this.API_URL+'/all');
-  }*/
-  
+
+ 
   
 }

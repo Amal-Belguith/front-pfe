@@ -1,13 +1,91 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import {  FormBuilder, FormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
+import { CarePlanService } from './careplan.service';
+import { ActivatedRoute } from '@angular/router';
+import { CarePlan } from './careplan.model';
+
 
 @Component({
   selector: 'app-careplan',
   templateUrl: './careplan.component.html',
   styleUrls: ['./careplan.component.scss'],
 })
-export class CarePlanComponent {
-  
-  constructor() {
-    // constructor code
+export class CarePlanComponent implements OnInit {
+  carePlanForm: FormGroup;
+  userKy: number = 0;
+
+  constructor(
+    private fb: FormBuilder,
+    private careService: CarePlanService,
+    private route: ActivatedRoute
+  ) {
+    this.carePlanForm = this.fb.group({
+      phyAss: ['', Validators.required],
+      psyAss: ['', Validators.required],
+      painAss: ['', Validators.required],
+      vital: ['', Validators.required],
+      obq1: ['', Validators.required],
+      nurCare: ['', Validators.required],
+      medAdd: ['', Validators.required],
+      medProc: ['', Validators.required],
+      techCare: ['', Validators.required],
+      obq2: ['', Validators.required],
+      specGol: ['', Validators.required],
+      shortGol: ['', Validators.required],
+      longGol: ['', Validators.required],
+      obq3: ['', Validators.required]
+    });
   }
+
+  ngOnInit(): void {
+    this.route.paramMap.subscribe(params => {
+      const userKyParam = params.get('user_ky');
+      this.userKy = userKyParam ? +userKyParam : 0;
+    });
+  }
+
+  onSubmit() {
+    if (this.carePlanForm.valid) {
+      const formData = this.carePlanForm.value;
+      const carePlan: CarePlan = {
+        care_ky: null,
+        phyAss: formData.phyAss,
+        psyAss: formData.psyAss,
+        painAss: formData.painAss,
+        vital: formData.vital,
+        obq1: formData.obq1,
+        nurCare: formData.nurCare,
+        medAdd: formData.medAdd,
+        medProc: formData.medProc,
+        techCare: formData.techCare,
+        obq2: formData.obq2,
+        specGol: formData.specGol,
+        shortGol: formData.shortGol,
+        longGol: formData.longGol,
+        obq3: formData.obq3,
+        userKy: this.userKy
+      };
+
+      this.careService.addCarePlan(carePlan).subscribe(
+        response => {
+          console.log('CarePlan saved successfully', response);
+          alert('CarePlan added successfully');
+          this.carePlanForm.reset();
+        },
+        error => {
+          alert('Error saving CarePlan');
+          console.error('Error saving CarePlan', error);
+          this.carePlanForm.reset();
+        }
+      );
+    } else {
+      alert('Please fill in all required fields correctly.');
+    }
+  }
+
+  onCancel() {
+    this.carePlanForm.reset();
+  }
+
+
 }

@@ -10,7 +10,8 @@ import { SharedModule } from '../../shared/shared.module';
 @NgModule({
   declarations: [
  
-    HistoryComponent,
+       HistoryComponent,
+
   ],
   imports: [
     CommonModule,

@@ -28,22 +28,42 @@ export class AddCategoryComponent {
   onSubmit(): void {
     if (this.treatmentForm.valid) {
       const categoryData: PhysicalTreatmentCategory = this.treatmentForm.value;
-      this.phyTrCategoryService.addPhyTrCategory(categoryData).subscribe(() => {
-        console.log('Category added successfully');
-        this.dialogRef.close();
-        this.showNotification(
+      this.phyTrCategoryService.checkIfTrCatExists(categoryData.phyCategoryName).subscribe
+      ((exists:boolean) => {
+        if(exists){
+          this.showNotification(
+            'snackbar-warning',
+            'Physical Treatment Category already exist',
+            'top',
+            'center'
+          );
+        }else{
+          
+      this.phyTrCategoryService.addPhyTrCategory(categoryData).subscribe(
+        (response) => {
+          console.log('Physical Treatment Category added successfully:', response);
+          this.dialogRef.close();
+          // Optionally, display a success message or redirect the user
+          this.dialogRef.close();
+          this.showNotification(
           'snackbar-success',
-          'Category Added Successfully',
+          'Physical Treatment Category added successfully...!!!',
           'bottom',
           'center'
         );
-      }, error => {
-        console.error('Error adding category:', error);
-        this.showNotification('error', 'Failed to add category', 'bottom', 'right');
-      });
-    } else {
+        },
+        (error) => {
+          console.error('Error adding Physical Treatment Category:', error);
+        }
+          );
+        }
+      }
+    );
+    }
+    else {
       this.showNotification('snackbar-warning', 'Please fill all required fields', 'bottom', 'right');
     }
+    
   }
 
   onCancel(): void {

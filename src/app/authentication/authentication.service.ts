@@ -33,4 +33,9 @@ export class authenticateservice  {
   getUserDetails(): Observable<UserDetails> {
     return this.httpClient.get<UserDetails>(this.API_URL+'/user-details');
   }
+
+  updateUser(user_ky: number, updatedUser: any): Observable<any> {
+    return this.httpClient.put(`${this.API_URL}/update/${user_ky}`, updatedUser);
+  }
+
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AdverseEffect } from '../model/vaccination';
 import { ActivatedRoute } from '@angular/router';
 import { AdverseEffectService } from '../services/adverse-effect.service';

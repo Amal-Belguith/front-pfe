@@ -8,6 +8,8 @@ const routes: Routes = [
     path: "History",
     component: HistoryComponent,
   },
+
+
   { path: "**", component: Page404Component },
 ];
 

@@ -50,6 +50,11 @@ const routes: Routes = [
       import('./physical-treatment/physical-treatment.module').then((m) => m.PhysicalTreatmentModule),
   },
   {
+    path: 'surgical',
+    loadChildren: () =>
+      import('./surgical/surgical.module').then((m) => m.SurgicalModule),
+  },
+  {
     path: 'document-template',
     loadChildren: () =>
     import('./document-template/document-template.module').then((m) => m.DocumentTemplateModule),

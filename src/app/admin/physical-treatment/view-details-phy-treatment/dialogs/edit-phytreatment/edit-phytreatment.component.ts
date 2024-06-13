@@ -76,37 +76,48 @@ export class EditPhytreatmentComponent implements OnInit {
   
       console.log('Updated treatment:', updatedTreatment);
   
-      const saveOrUpdateOperation = this.treatment ?
-        this.treatmentService.updateTreatment(updatedTreatment.idtreatment, updatedTreatment) :
-        this.treatmentService.saveTreatment(updatedTreatment);
-  
-      saveOrUpdateOperation.subscribe(
-        () => {
-          const message = this.treatment ? 'updated' : 'saved';
+      this.treatmentService.checkIfTrExists(updatedTreatment.phyTrName).subscribe((exists: boolean) => {
+        if (exists) {
           this.showNotification(
-            'snackbar-success',
-            `Physical Treatment ${message} successfully.`,
-            'bottom',
+            'snackbar-warning',
+            'Physical Treatment already exists',
+            'top',
             'center'
           );
-          this.dialogRef.close();
-        },
-        (error) => {
-          console.error('Error saving/updating treatment:', error);
-          const message = this.treatment ? 'update' : 'save';
-          this.showNotification(
-            'snackbar-error',
-            `Failed to ${message} Physical Treatment. Please try again later.`,
-            'bottom',
-            'center'
+        } else {
+          const saveOrUpdateOperation = this.treatment ?
+            this.treatmentService.updateTreatment(updatedTreatment.idtreatment, updatedTreatment) :
+            this.treatmentService.saveTreatment(updatedTreatment);
+  
+          saveOrUpdateOperation.subscribe(
+            () => {
+              const message = this.treatment ? 'updated' : 'saved';
+              this.showNotification(
+                'snackbar-success',
+                `Physical Treatment ${message} successfully.`,
+                'bottom',
+                'center'
+              );
+              this.dialogRef.close();
+            },
+            (error) => {
+              console.error('Error saving/updating treatment:', error);
+              const message = this.treatment ? 'update' : 'save';
+              this.showNotification(
+                'snackbar-error',
+                `Failed to ${message} Physical Treatment. Please try again later.`,
+                'bottom',
+                'center'
+              );
+            }
           );
         }
-      );
+      });
     } else {
-      console.log('Form is invalid or category is not selected.');
-      this.showNotification('snackbar-warning', 'Please fill all required fields.', 'bottom', 'right');
+      this.showNotification('snackbar-warning', 'Please fill all required fields', 'bottom', 'right');
     }
   }
+  
   
   
   onSelectCategory(categoryId: number): void {

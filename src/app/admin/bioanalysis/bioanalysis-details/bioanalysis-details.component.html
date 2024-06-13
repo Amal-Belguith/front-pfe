@@ -36,13 +36,13 @@
                 <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                   <h6>BioAnalysis Name</h6>
                   <mat-form-field class="example-full-width" appearance="outline">
-                    <input matInput [value]="bioanalysis.biologicalAnalysisName" readonly >
+                    <input matInput [value]="bioanalysis.biologicalAnalysisName" [disabled]="isInputDisabled" >
                   </mat-form-field>
                 </div>
                 <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                   <h6>BioAnalysis Type</h6>
                   <mat-form-field class="example-full-width" appearance="outline">
-                    <input matInput [value]="bioanalysis.biologicalAnalysisType" readonly>
+                    <input matInput [value]="bioanalysis.biologicalAnalysisType" [disabled]="isInputDisabled">
                   </mat-form-field>
                 </div>
               </div>
@@ -50,7 +50,7 @@
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
                   <h6>BioAnalysis Description</h6>
                   <mat-form-field class="example-full-width" appearance="outline">
-                    <input matInput [value]="bioanalysis.biologicalAnalysisDesc" readonly>
+                    <input matInput [value]="bioanalysis.biologicalAnalysisDesc" [disabled]="isInputDisabled">
                   </mat-form-field>
                 </div>
                 </div>
@@ -58,7 +58,7 @@
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
                   <h6>BioAnalysis Measurement</h6>
                   <mat-form-field class="example-full-width" appearance="outline">
-                    <input matInput [value]="bioanalysis.biologicalAnalysisMeasurmentUnit" readonly>
+                    <input matInput [value]="bioanalysis.biologicalAnalysisMeasurmentUnit" [disabled]="isInputDisabled">
                   </mat-form-field>
                 </div>
               </div>
@@ -66,18 +66,17 @@
                 <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                   <h6>BioAnalysis RefValueMin</h6>
                   <mat-form-field class="example-full-width" appearance="outline">
-                    <input matInput [value]="bioanalysis.biologicalAnalysisRefValueMin" readonly >
+                    <input matInput [value]="bioanalysis.biologicalAnalysisRefValueMin" [disabled]="isInputDisabled" >
                   </mat-form-field>
                 </div>
                 <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-2">
                   <h6>BioAnalysis RefValueMax</h6>
                   <mat-form-field class="example-full-width" appearance="outline">
-                    <input matInput [value]="bioanalysis.biologicalAnalysisRefValueMax" readonly>
+                    <input matInput [value]="bioanalysis.biologicalAnalysisRefValueMax" [disabled]="isInputDisabled">
                   </mat-form-field>
                 </div>
               </div>               
-            </div>
-            
+            </div>        
           </div>
         </div>
       </div>

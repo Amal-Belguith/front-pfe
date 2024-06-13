@@ -1,0 +1,154 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header">
+      <!-- breadcrumb -->
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <ul class="breadcrumb">
+            <li>
+              <h4 class="page-title">Care Plans</h4>
+            </li>
+            <li class="breadcrumb-item bcrumb-1">
+              <a [routerLink]="'/admin/dashboard/main'">
+                <!-- <i class="fas fa-home"></i> -->
+                <i-feather name="home" class="breadcrumb-icon"></i-feather>
+              </a>
+            </li>
+            <li class="breadcrumb-item">Care Plan List</li>
+            <li class="breadcrumb-item active">Care Plans</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+          <div class="materialTableHeader">
+            <div class="left">
+              <ul class="header-buttons-left ms-0">
+                <li class="tbl-title">
+                  <h2>Care Plans</h2>
+                </li>
+                <li class="tbl-search-box">
+                  <label for="search-input"><i class="material-icons search-icon">search</i></label>
+                  <input placeholder="Search" type="text" #filter class="browser-default search-field"
+                  aria-label="Search box" (input)="search(filter.value)">
+                </li>                
+              </ul>
+            </div>
+            <div class="right">
+              <ul class="tbl-export-btn">
+                <li class="tbl-header-btn">
+                  <div class="m-l-10" matTooltip="REFRESH">
+                    <button mat-mini-fab color="primary" (click)="refresh()">
+                      <mat-icon class="col-white">refresh</mat-icon>
+                    </button>
+                  </div>  
+                </li>
+                <li>
+                  <div class="export-button m-l-10" matTooltip="XLSX">
+                    <img src="assets/images/icons/xlsx.png" alt="" (click)="exportExcel()" />
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="body overflow-auto">
+            <div class="responsive_table">
+              <mat-table #table [dataSource]="dataSource" matSort class="mat-cell">
+                <!-- Checkbox Column -->
+                <ng-container matColumnDef="care_ky">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Key</mat-header-cell>
+                  <mat-cell *matCellDef="let row">{{row.care_ky}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="phyAss">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>phyAss</mat-header-cell>
+                  <mat-cell *matCellDef="let row">{{row.phyAss}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="psyAss">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>psyAss</mat-header-cell>
+                  <mat-cell *matCellDef="let row">{{row.psyAss}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="painAss">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>painAss</mat-header-cell>
+                  <mat-cell *matCellDef="let row">{{row.painAss}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="vital">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>vital</mat-header-cell>
+                  <mat-cell *matCellDef="let row">{{row.vital}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="obq1">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>obq1</mat-header-cell>
+                  <mat-cell *matCellDef="let row">{{row.obq1}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="nurCare">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>nurCare</mat-header-cell>
+                  <mat-cell *matCellDef="let row">{{row.nurCare}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="medAdd">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>medAdd</mat-header-cell>
+                  <mat-cell *matCellDef="let row">{{row.medAdd}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="medProc">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>medProc</mat-header-cell>
+                  <mat-cell *matCellDef="let row">{{row.medProc}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="techCare">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>techCare</mat-header-cell>
+                  <mat-cell *matCellDef="let row">{{row.techCare}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="obq2">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>obq2</mat-header-cell>
+                  <mat-cell *matCellDef="let row">{{row.obq2}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="specGol">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>specGol</mat-header-cell>
+                  <mat-cell *matCellDef="let row">{{row.specGol}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="shortGol">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>shortGol</mat-header-cell>
+                  <mat-cell *matCellDef="let row">{{row.shortGol}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="longGol">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>longGol</mat-header-cell>
+                  <mat-cell *matCellDef="let row">{{row.longGol}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="obq3">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>obq3</mat-header-cell>
+                  <mat-cell *matCellDef="let row">{{row.obq3}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="userKy">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>userky</mat-header-cell>
+                  <mat-cell *matCellDef="let row">{{row.userKy}}</mat-cell>
+                </ng-container>
+                
+                <ng-container matColumnDef="monitor">
+                  <mat-header-cell class="pr-0" *matHeaderCellDef>Monitor</mat-header-cell>
+                  <mat-cell *matCellDef="let row; let i=index;" class="pr-0">
+                    <!-- Bouton "Careplan" -->
+                    <button mat-icon-button class="tbl-action-btn" [routerLink]="['../monitoring', row.userKy]">
+                      <app-feather-icons [icon]="'edit'" [class]="'tbl-fav-edit'"></app-feather-icons>
+                    </button>        
+                  </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="actions">
+                  <mat-header-cell class="pr-0" *matHeaderCellDef>Actions</mat-header-cell>
+                  <mat-cell *matCellDef="let row; let i=index;" class="pr-0">          
+                <!-- Bouton "Delete" -->
+                <button mat-icon-button (click)="$event.stopPropagation()" (click)="openDeleteModal(row)"  class="tbl-action-btn" matTooltip="DELETE">
+                  <mat-icon class="tbl-fav-delete" color="warn">delete</mat-icon>
+                </button>
+              </mat-cell>
+            </ng-container>
+              
+                <!-- Define displayed columns -->
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+              </mat-table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

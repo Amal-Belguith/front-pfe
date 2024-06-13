@@ -46,6 +46,11 @@
             <div class="responsive_table">
               <table mat-table #table [dataSource]="dataSource" matSort class="mat-cell">
 
+                <ng-container matColumnDef="app_ky">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Key</mat-header-cell>
+                  <mat-cell *matCellDef="let row">{{row.app_ky}}</mat-cell>
+                </ng-container>
+
                 <ng-container matColumnDef="first">
                   <mat-header-cell *matHeaderCellDef mat-sort-header>First Name</mat-header-cell>
                   <mat-cell *matCellDef="let row">{{row.first}}</mat-cell>
@@ -90,6 +95,21 @@
                   <mat-header-cell *matHeaderCellDef mat-sort-header>Injury</mat-header-cell>
                   <mat-cell *matCellDef="let row">{{row.injury}}</mat-cell>
                 </ng-container>
+
+                <ng-container matColumnDef="Actions">
+                  <mat-header-cell class="pr-0" *matHeaderCellDef>Actions</mat-header-cell>
+                  <mat-cell *matCellDef="let row; let i=index;" class="pr-0">
+                    <!-- Bouton "Consultation" -->
+                    <button mat-icon-button class="tbl-action-btn"  (click)="editAppointment(row)">
+                      <app-feather-icons [icon]="'edit'" [class]="'tbl-fav-edit'"></app-feather-icons>
+                    </button>
+                    <!-- Bouton "Delete" -->
+                  <button mat-icon-button (click)="$event.stopPropagation()" (click)="openDeleteModal(row)" class="tbl-action-btn" matTooltip="DELETE">
+                    <mat-icon class="tbl-fav-delete" color="warn">delete</mat-icon>
+                  </button>
+                  </mat-cell>
+                </ng-container>
+                
                 
                 <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
                 <!-- <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row> -->

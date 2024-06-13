@@ -1,0 +1,187 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header">
+      <h2>MedicalRecord</h2>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+      <div class="card">
+        <div class="header centered-header">
+          <h2>
+            <strong>MedicalRecord details</strong>
+          </h2>
+        </div>        
+        <div class="body overflow-auto">
+          <div class="responsive_table">
+            <h6>
+              <strong>Medical History details</strong>
+            </h6>
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>History ID</th>
+                  <th>Q1</th>
+                  <th>Q2</th>
+                  <th>Q3</th>
+                  <th>Q4</th>
+                  <th>Q5</th>
+                  <th>Q6</th>
+                  <th>Q7</th>
+                  <th>med_details</th>
+                  <th>Q8</th>
+                  <th>Q9</th>
+                  <th>Q10</th>
+                  <th>Q11</th>
+                  <th>all_details</th>
+                  <th>Q12</th>
+                  <th>sur_details</th>
+                  <th>Q13</th>
+                  <th>Q14</th>
+                  <th>Q15</th>
+                  <th>user Key</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let history of hist">
+                  <td>{{ history.his_ky }}</td>
+                  <td>{{ history.q1 }}</td>
+                  <td>{{ history.q2 }}</td>
+                  <td>{{ history.q3 }}</td>
+                  <td>{{ history.q4 }}</td>
+                  <td>{{ history.q5 }}</td>
+                  <td>{{ history.q6 }}</td>
+                  <td>{{ history.q7 }}</td>
+                  <td>{{ history.med_details }}</td>
+                  <td>{{ history.q8 }}</td>
+                  <td>{{ history.q9 }}</td>
+                  <td>{{ history.q10 }}</td>
+                  <td>{{ history.q11 }}</td>
+                  <td>{{ history.all_details }}</td>
+                  <td>{{ history.q12 }}</td>
+                  <td>{{ history.sur_details }}</td>
+                  <td>{{ history.q13 }}</td>
+                  <td>{{ history.q14 }}</td>
+                  <td>{{ history.q15 }}</td>
+                  <td>{{ history.userKy }}</td>
+                </tr>
+              </tbody>
+            </table>
+            <h6>
+              <strong>Consultations details</strong>
+            </h6>
+            <!-- Consultation -->
+            <table class="table table-striped mt-4">
+              <thead>
+                <tr>
+                  <th>Consultation ID</th>
+                  <th>Doctor Name</th>
+                  <th>Consultation Description</th>
+                  <th>Medications</th>
+                  <th>Vaccinations</th>
+                  <th>Analyses</th>
+                  <th>Prescription Description</th>
+                  <th>Surgical Procedures</th>
+                  <th>Surgical Description</th>
+                  <th>Comments</th>
+                  <th>User Key</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let consultation of consultations">
+                  <td>{{ consultation.con_ky }}</td>
+                  <td>{{ consultation.doctorName }}</td>
+                  <td>{{ consultation.descCon }}</td>
+                  <td>
+                    <ul>
+                      <li *ngFor="let medId of consultation.medicationIds">
+                        {{ getMedicationName(medId) }}
+                      </li>
+                    </ul>
+                  </td>
+                  <td>
+                    <ul>
+                      <li *ngFor="let vacId of consultation.vaccinationIds">
+                        {{ getVaccineName(vacId) }}
+                      </li>
+                    </ul>
+                  </td>
+                  <td>
+                    <ul>
+                      <li *ngFor="let analysisId of consultation.analysesIds">
+                        {{ getAnalysisName(analysisId) }}
+                      </li>
+                    </ul>
+                  </td>
+                  <td>{{ consultation.descPre }}</td>
+                  <td>
+                    <ul>
+                      <li *ngFor="let surgicalId of consultation.surgicalIds">
+                        {{ getSurgicalName(surgicalId) }}
+                      </li>
+                    </ul>
+                  </td>
+                  <td>{{ consultation.descSur }}</td>
+                  <td>{{ consultation.comment }}</td>
+                  <td>{{ consultation.userKy }}</td>
+                </tr>
+              </tbody>
+            </table>            
+            <h6>
+              <strong>Careplans details</strong>
+            </h6>
+            <!-- Table des plans de soins -->
+            <table class="table table-striped mt-4">
+              <thead>
+                <tr>
+                  <th>Care Plan ID</th>
+                  <th>Physical Assessment</th>
+                  <th>Psychological Assessment</th>
+                  <th>Pain Assessment</th>
+                  <th>Vital Signs</th>
+                  <th>Other Question 1</th>
+                  <th>Nursing Care</th>
+                  <th>Medication Administration</th>
+                  <th>Medical Procedures</th>
+                  <th>Technical Care</th>
+                  <th>Other Question 2</th>
+                  <th>Special Goals</th>
+                  <th>Short-term Goals</th>
+                  <th>Long-term Goals</th>
+                  <th>Other Question 3</th>
+                  <th>User Key</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let carePlan of careplans">
+                  <td>{{ carePlan.care_ky }}</td>
+                  <td>{{ carePlan.phyAss }}</td>
+                  <td>{{ carePlan.psyAss }}</td>
+                  <td>{{ carePlan.painAss }}</td>
+                  <td>{{ carePlan.vital }}</td>
+                  <td>{{ carePlan.obq1 }}</td>
+                  <td>{{ carePlan.nurCare }}</td>
+                  <td>{{ carePlan.medAdd }}</td>
+                  <td>{{ carePlan.medProc }}</td>
+                  <td>{{ carePlan.techCare }}</td>
+                  <td>{{ carePlan.obq2 }}</td>
+                  <td>{{ carePlan.specGol }}</td>
+                  <td>{{ carePlan.shortGol }}</td>
+                  <td>{{ carePlan.longGol }}</td>
+                  <td>{{ carePlan.obq3 }}</td>
+                  <td>{{ carePlan.userKy }}</td>
+                </tr>
+              </tbody>
+            </table>            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+
+
+

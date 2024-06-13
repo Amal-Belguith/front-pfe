@@ -63,7 +63,17 @@ export class EditIngredientComponent implements OnInit {
             ingredientDesc: ingredientDesc.value,
             ingredientKy: undefined
           };
-    
+
+          this.ingredientservice.checkIfIngredientExists(updatedIngredient.ingredientName).subscribe
+          ((exists:boolean) => {
+            if(exists){
+              this.showNotification(
+                'snackbar-warning',
+                'Ingredient already exist',
+                'top',
+                'center'
+              );
+            }else{
           
                 this.ingredientservice.updateIngredient( this.data.ingredient.ingredientKy,updatedIngredient)
                   .subscribe(
@@ -77,12 +87,17 @@ export class EditIngredientComponent implements OnInit {
                       this.dialogRef.close();
                     },
                     (error) => {
-                      console.error('Error updating :', error);
+                      console.error('Error updating ingredient:', error);
                     }
-                  );
+                      );
+                    }
+                  }
+                );
+                }
+                else {
+                  this.showNotification('snackbar-warning', 'Please fill all required fields', 'bottom', 'right');
+                }
+                
               }
-      } else {
-        this.showNotification('snackbar-warning', 'Please fill all required fields', 'bottom', 'right');
-      }
-    } 
-  }
+            }
+          }

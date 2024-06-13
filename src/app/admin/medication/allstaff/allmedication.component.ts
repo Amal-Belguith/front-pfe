@@ -36,6 +36,8 @@ export class AllMedicationComponent
   implements OnInit
 {
   displayedColumns = [
+    'select',
+    'medicationKy',
     'medicationCode',
     'medicationName',
     'medicationType',

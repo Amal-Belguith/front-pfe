@@ -1,14 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Consultation, SurgicalProcedure } from './Consultation.model';
+import { Consultation} from './Consultation.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ConsultationService {
   isTblLoading = true;
-  private apiServerUrl = 'http://localhost:8090';
+  private apiServerUrl = 'http://localhost:8092';
   constructor(private http:HttpClient) { }
 
   /*// Vaccination List
@@ -31,7 +31,13 @@ export class ConsultationService {
   addConsultation(model:Consultation): Observable<any>{
     return this.http.post(this.apiServerUrl+"/consultation/add",model);
   }
-  getAllSurgical(): Observable<SurgicalProcedure[]> {
-    return this.http.get<SurgicalProcedure[]>(this.apiServerUrl+"/procedures");
+ 
+  getAllConsultations(): Observable<Consultation[]> {
+    return this.http.get<Consultation[]>(this.apiServerUrl+"/consultation/all");
   }
+
+  getConsultationsByUserKy(userKy: number): Observable<Consultation[]> {
+    return this.http.get<Consultation[]>(`${this.apiServerUrl}/consultation/user/${userKy}`);
+  }
+
 }

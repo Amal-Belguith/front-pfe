@@ -2,344 +2,94 @@
   <div class="content-block">
     <div class="block-header">
       <!-- breadcrumb -->
-      <app-breadcrumb [title]="'Patients'" [items]="[]" [active_item]="'Patients'"></app-breadcrumb>
-    </div>
-    <div class="row">
-      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-        <div class="card py-3 py-md-3">
-          <div class=" d-flex justify-content-between px-3 px-md-4">
-            <img src="assets/images/user/usrbig1.jpg" height="55sspx" width="55px" alt="" class="rounded-circle">
-            <div class="">
-              <h6 class="col-green">Lindsey Johnson</h6>
-              <p>Patient Id : 1234</p>
-            </div>
-            <div>
-              <h6 class="">10:00 - 10:30 AM</h6>
-              <p class="grey"> Friday, June 26 </p>
-            </div>
-          </div>
-          <hr class="light-hr">
-          <div class="d-flex flex-column justify-content-start w-100 px-3 px-md-4">
-            <div><i class="fas fa-map-marker-alt pt-3 psr-3"></i> Shanti Nagar Bldg No B 4, Sector No 6, Mira
-              Road</div>
-            <div><i class="fas fa-phone pt-3 psr-3"></i>+123 87654565</div>
-          </div>
-          <hr class="light-hr">
-          <div class="d-flex justify-content-between px-3 px-md-4">
-            <div>
-              <div class="d-flex">
-                <p class="psr-2">Blood Group:</p>
-                <div class="font-weight-bold"> O+ </div>
-              </div>
-              <div class="d-flex">
-                <p class="psr-2">Reports:</p>
-                <div class="font-weight-bold"> <i class="far fa-file-pdf col-red"></i></div>
-              </div>
-            </div>
-          </div>
-          <hr class="light-hr">
-          <div class="d-flex justify-content-around px-4"> <button mat-stroked-button color="primary">Read
-              More</button></div>
-        </div>
-      </div>
-      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-        <div class="card py-3 py-md-3">
-          <div class=" d-flex justify-content-between px-3 px-md-4">
-            <img src="assets/images/user/usrbig2.jpg" height="55sspx" width="55px" alt="" class="rounded-circle">
-            <div class="">
-              <h6 class="col-green">Lindsey Johnson</h6>
-              <p>Patient Id : 1234</p>
-            </div>
-            <div>
-              <h6 class="">10:00 - 10:30 AM</h6>
-              <p class="grey"> Friday, June 26 </p>
-            </div>
-          </div>
-          <hr class="light-hr">
-          <div class="d-flex flex-column justify-content-start w-100 px-3 px-md-4">
-            <div><i class="fas fa-map-marker-alt pt-3 psr-3"></i> Shanti Nagar Bldg No B 4, Sector No 6, Mira
-              Road</div>
-            <div><i class="fas fa-phone pt-3 psr-3"></i>+123 87654565</div>
-          </div>
-          <hr class="light-hr">
-          <div class="d-flex justify-content-between px-3 px-md-4">
-            <div>
-              <div class="d-flex">
-                <p class="psr-2">Blood Group:</p>
-                <div class="font-weight-bold"> O+ </div>
-              </div>
-              <div class="d-flex">
-                <p class="psr-2">Reports:</p>
-                <div class="font-weight-bold"> <i class="far fa-file-pdf col-red"></i></div>
-              </div>
-            </div>
-          </div>
-          <hr class="light-hr">
-          <div class="d-flex justify-content-around px-4"> <button mat-stroked-button color="primary">Read
-              More</button></div>
-        </div>
-      </div>
-      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-        <div class="card py-3 py-md-3">
-          <div class=" d-flex justify-content-between px-3 px-md-4">
-            <img src="assets/images/user/usrbig4.jpg" height="55sspx" width="55px" alt="" class="rounded-circle">
-            <div class="">
-              <h6 class="col-green">Lindsey Johnson</h6>
-              <p>Patient Id : 1234</p>
-            </div>
-            <div>
-              <h6 class="">10:00 - 10:30 AM</h6>
-              <p class="grey"> Friday, June 26 </p>
-            </div>
-          </div>
-          <hr class="light-hr">
-          <div class="d-flex flex-column justify-content-start w-100 px-3 px-md-4">
-            <div><i class="fas fa-map-marker-alt pt-3 psr-3"></i> Shanti Nagar Bldg No B 4, Sector No 6, Mira
-              Road</div>
-            <div><i class="fas fa-phone pt-3 psr-3"></i>+123 87654565</div>
-          </div>
-          <hr class="light-hr">
-          <div class="d-flex justify-content-between px-3 px-md-4">
-            <div>
-              <div class="d-flex">
-                <p class="psr-2">Blood Group:</p>
-                <div class="font-weight-bold"> O+ </div>
-              </div>
-              <div class="d-flex">
-                <p class="psr-2">Reports:</p>
-                <div class="font-weight-bold"> <i class="far fa-file-pdf col-red"></i></div>
-              </div>
-            </div>
-          </div>
-          <hr class="light-hr">
-          <div class="d-flex justify-content-around px-4"> <button mat-stroked-button color="primary">Read
-              More</button></div>
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <ul class="breadcrumb">
+            <li>
+              <h4 class="page-title">Patients</h4>
+            </li>
+            <li class="breadcrumb-item bcrumb-1">
+              <a [routerLink]="'/admin/dashboard/main'">
+                <!-- <i class="fas fa-home"></i> -->
+                <i-feather name="home" class="breadcrumb-icon"></i-feather>
+              </a>
+            </li>
+            <li class="breadcrumb-item">Patient List</li>
+            <li class="breadcrumb-item active">Patients</li>
+          </ul>
         </div>
       </div>
     </div>
     <div class="row">
-      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-        <div class="card py-3 py-md-3">
-          <div class=" d-flex justify-content-between px-3 px-md-4">
-            <img src="assets/images/user/usrbig3.jpg" height="55sspx" width="55px" alt="" class="rounded-circle">
-            <div class="">
-              <h6 class="col-green">Lindsey Johnson</h6>
-              <p>Patient Id : 1234</p>
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+          <div class="materialTableHeader">
+            <div class="left">
+              <ul class="header-buttons-left ms-0">
+                <li class="tbl-title">
+                  <h2>Patients</h2>
+                </li>
+                <li class="tbl-search-box">
+                  <label for="search-input"><i class="material-icons search-icon">search</i></label>
+                  <input placeholder="Search" type="text" #filter class="browser-default search-field"
+                  aria-label="Search box" (input)="search(filter.value)">
+                </li>
+              </ul>
             </div>
-            <div>
-              <h6 class="">10:00 - 10:30 AM</h6>
-              <p class="grey"> Friday, June 26 </p>
-            </div>
-          </div>
-          <hr class="light-hr">
-          <div class="d-flex flex-column justify-content-start w-100 px-3 px-md-4">
-            <div><i class="fas fa-map-marker-alt pt-3 psr-3"></i> Shanti Nagar Bldg No B 4, Sector No 6, Mira
-              Road</div>
-            <div><i class="fas fa-phone pt-3 psr-3"></i>+123 87654565</div>
-          </div>
-          <hr class="light-hr">
-          <div class="d-flex justify-content-between px-3 px-md-4">
-            <div>
-              <div class="d-flex">
-                <p class="psr-2">Blood Group:</p>
-                <div class="font-weight-bold"> O+ </div>
-              </div>
-              <div class="d-flex">
-                <p class="psr-2">Reports:</p>
-                <div class="font-weight-bold"> <i class="far fa-file-pdf col-red"></i></div>
-              </div>
-            </div>
-          </div>
-          <hr class="light-hr">
-          <div class="d-flex justify-content-around px-4"> <button mat-stroked-button color="primary">Read
-              More</button></div>
-        </div>
-      </div>
-      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-        <div class="card py-3 py-md-3">
-          <div class=" d-flex justify-content-between px-3 px-md-4">
-            <img src="assets/images/user/usrbig5.jpg" height="55sspx" width="55px" alt="" class="rounded-circle">
-            <div class="">
-              <h6 class="col-green">Lindsey Johnson</h6>
-              <p>Patient Id : 1234</p>
-            </div>
-            <div>
-              <h6 class="">10:00 - 10:30 AM</h6>
-              <p class="grey"> Friday, June 26 </p>
+            <div class="right">
+              <ul class="tbl-export-btn">
+                <li class="tbl-header-btn">
+                  <div class="m-l-10" matTooltip="REFRESH">
+                    <button mat-mini-fab color="primary" (click)="refresh()">
+                      <mat-icon class="col-white">refresh</mat-icon>
+                    </button>
+                  </div>  
+                </li>
+                <li>
+                  <div class="export-button m-l-10" matTooltip="XLSX">
+                    <img src="assets/images/icons/xlsx.png" alt="" (click)="exportExcel()" />
+                  </div>
+                </li>
+              </ul>
             </div>
           </div>
-          <hr class="light-hr">
-          <div class="d-flex flex-column justify-content-start w-100 px-3 px-md-4">
-            <div><i class="fas fa-map-marker-alt pt-3 psr-3"></i> Shanti Nagar Bldg No B 4, Sector No 6, Mira
-              Road</div>
-            <div><i class="fas fa-phone pt-3 psr-3"></i>+123 87654565</div>
-          </div>
-          <hr class="light-hr">
-          <div class="d-flex justify-content-between px-3 px-md-4">
-            <div>
-              <div class="d-flex">
-                <p class="psr-2">Blood Group:</p>
-                <div class="font-weight-bold"> O+ </div>
-              </div>
-              <div class="d-flex">
-                <p class="psr-2">Reports:</p>
-                <div class="font-weight-bold"> <i class="far fa-file-pdf col-red"></i></div>
-              </div>
+          <div class="body overflow-auto">
+            <div class="responsive_table">
+              <mat-table #table [dataSource]="dataSource" matSort class="mat-cell">
+                <!-- Checkbox Column -->
+                <ng-container matColumnDef="user_ky">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Key</mat-header-cell>
+                  <mat-cell *matCellDef="let row">{{row.user_ky}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="firstname">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>First Name</mat-header-cell>
+                  <mat-cell *matCellDef="let row">{{row.firstname}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="lastname">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Last Name</mat-header-cell>
+                  <mat-cell *matCellDef="let row">{{row.lastname}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="email">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Email</mat-header-cell>
+                  <mat-cell *matCellDef="let row">{{row.email}}</mat-cell>
+                </ng-container>
+                
+                <ng-container matColumnDef="careplan">
+                  <mat-header-cell class="pr-0" *matHeaderCellDef>CarePlan</mat-header-cell>
+                  <mat-cell *matCellDef="let row; let i=index;" class="pr-0">
+                    <!-- Bouton "Careplan" -->
+                    <button mat-icon-button class="tbl-action-btn" [routerLink]="['../CarePlan', row.user_ky]">
+                      <app-feather-icons [icon]="'edit'" [class]="'tbl-fav-edit'"></app-feather-icons>
+                    </button>        
+                  </mat-cell>
+                </ng-container>
+              
+                <!-- Define displayed columns -->
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+              </mat-table>
             </div>
           </div>
-          <hr class="light-hr">
-          <div class="d-flex justify-content-around px-4"> <button mat-stroked-button color="primary">Read
-              More</button></div>
-        </div>
-      </div>
-      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-        <div class="card py-3 py-md-3">
-          <div class=" d-flex justify-content-between px-3 px-md-4">
-            <img src="assets/images/user/usrbig6.jpg" height="55sspx" width="55px" alt="" class="rounded-circle">
-            <div class="">
-              <h6 class="col-green">Lindsey Johnson</h6>
-              <p>Patient Id : 1234</p>
-            </div>
-            <div>
-              <h6 class="">10:00 - 10:30 AM</h6>
-              <p class="grey"> Friday, June 26 </p>
-            </div>
-          </div>
-          <hr class="light-hr">
-          <div class="d-flex flex-column justify-content-start w-100 px-3 px-md-4">
-            <div><i class="fas fa-map-marker-alt pt-3 psr-3"></i> Shanti Nagar Bldg No B 4, Sector No 6, Mira
-              Road</div>
-            <div><i class="fas fa-phone pt-3 psr-3"></i>+123 87654565</div>
-          </div>
-          <hr class="light-hr">
-          <div class="d-flex justify-content-between px-3 px-md-4">
-            <div>
-              <div class="d-flex">
-                <p class="psr-2">Blood Group:</p>
-                <div class="font-weight-bold"> O+ </div>
-              </div>
-              <div class="d-flex">
-                <p class="psr-2">Reports:</p>
-                <div class="font-weight-bold"> <i class="far fa-file-pdf col-red"></i></div>
-              </div>
-            </div>
-          </div>
-          <hr class="light-hr">
-          <div class="d-flex justify-content-around px-4"> <button mat-stroked-button color="primary">Read
-              More</button></div>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-        <div class="card py-3 py-md-3">
-          <div class=" d-flex justify-content-between px-3 px-md-4">
-            <img src="assets/images/user/usrbig7.jpg" height="55sspx" width="55px" alt="" class="rounded-circle">
-            <div class="">
-              <h6 class="col-green">Lindsey Johnson</h6>
-              <p>Patient Id : 1234</p>
-            </div>
-            <div>
-              <h6 class="">10:00 - 10:30 AM</h6>
-              <p class="grey"> Friday, June 26 </p>
-            </div>
-          </div>
-          <hr class="light-hr">
-          <div class="d-flex flex-column justify-content-start w-100 px-3 px-md-4">
-            <div><i class="fas fa-map-marker-alt pt-3 psr-3"></i> Shanti Nagar Bldg No B 4, Sector No 6, Mira
-              Road</div>
-            <div><i class="fas fa-phone pt-3 psr-3"></i>+123 87654565</div>
-          </div>
-          <hr class="light-hr">
-          <div class="d-flex justify-content-between px-3 px-md-4">
-            <div>
-              <div class="d-flex">
-                <p class="psr-2">Blood Group:</p>
-                <div class="font-weight-bold"> O+ </div>
-              </div>
-              <div class="d-flex">
-                <p class="psr-2">Reports:</p>
-                <div class="font-weight-bold"> <i class="far fa-file-pdf col-red"></i></div>
-              </div>
-            </div>
-          </div>
-          <hr class="light-hr">
-          <div class="d-flex justify-content-around px-4"> <button mat-stroked-button color="primary">Read
-              More</button></div>
-        </div>
-      </div>
-      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-        <div class="card py-3 py-md-3">
-          <div class=" d-flex justify-content-between px-3 px-md-4">
-            <img src="assets/images/user/usrbig8.jpg" height="55sspx" width="55px" alt="" class="rounded-circle">
-            <div class="">
-              <h6 class="col-green">Lindsey Johnson</h6>
-              <p>Patient Id : 1234</p>
-            </div>
-            <div>
-              <h6 class="">10:00 - 10:30 AM</h6>
-              <p class="grey"> Friday, June 26 </p>
-            </div>
-          </div>
-          <hr class="light-hr">
-          <div class="d-flex flex-column justify-content-start w-100 px-3 px-md-4">
-            <div><i class="fas fa-map-marker-alt pt-3 psr-3"></i> Shanti Nagar Bldg No B 4, Sector No 6, Mira
-              Road</div>
-            <div><i class="fas fa-phone pt-3 psr-3"></i>+123 87654565</div>
-          </div>
-          <hr class="light-hr">
-          <div class="d-flex justify-content-between px-3 px-md-4">
-            <div>
-              <div class="d-flex">
-                <p class="psr-2">Blood Group:</p>
-                <div class="font-weight-bold"> O+ </div>
-              </div>
-              <div class="d-flex">
-                <p class="psr-2">Reports:</p>
-                <div class="font-weight-bold"> <i class="far fa-file-pdf col-red"></i></div>
-              </div>
-            </div>
-          </div>
-          <hr class="light-hr">
-          <div class="d-flex justify-content-around px-4"> <button mat-stroked-button color="primary">Read
-              More</button></div>
-        </div>
-      </div>
-      <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-        <div class="card py-3 py-md-3">
-          <div class=" d-flex justify-content-between px-3 px-md-4">
-            <img src="assets/images/user/usrbig9.jpg" height="55sspx" width="55px" alt="" class="rounded-circle">
-            <div class="">
-              <h6 class="col-green">Lindsey Johnson</h6>
-              <p>Patient Id : 1234</p>
-            </div>
-            <div>
-              <h6 class="">10:00 - 10:30 AM</h6>
-              <p class="grey"> Friday, June 26 </p>
-            </div>
-          </div>
-          <hr class="light-hr">
-          <div class="d-flex flex-column justify-content-start w-100 px-3 px-md-4">
-            <div><i class="fas fa-map-marker-alt pt-3 psr-3"></i> Shanti Nagar Bldg No B 4, Sector No 6, Mira
-              Road</div>
-            <div><i class="fas fa-phone pt-3 psr-3"></i>+123 87654565</div>
-          </div>
-          <hr class="light-hr">
-          <div class="d-flex justify-content-between px-3 px-md-4">
-            <div>
-              <div class="d-flex">
-                <p class="psr-2">Blood Group:</p>
-                <div class="font-weight-bold"> O+ </div>
-              </div>
-              <div class="d-flex">
-                <p class="psr-2">Reports:</p>
-                <div class="font-weight-bold"> <i class="far fa-file-pdf col-red"></i></div>
-              </div>
-            </div>
-          </div>
-          <hr class="light-hr">
-          <div class="d-flex justify-content-around px-4"> <button mat-stroked-button color="primary">Read
-              More</button></div>
         </div>
       </div>
     </div>

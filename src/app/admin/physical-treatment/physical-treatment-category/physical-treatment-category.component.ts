@@ -21,7 +21,7 @@ export class PhysicalTreatmentCategoryComponent implements OnInit {
   categories: PhysicalTreatmentCategory[] = []; // Modifiez le nom de la variable et son type
   dataSource!: MatTableDataSource<PhysicalTreatmentCategory>; // Modifiez le type de MatTableDataSource
   selection = new SelectionModel<PhysicalTreatmentCategory>(true, []); // Modifiez le type de SelectionModel
-  displayedColumns: string[] = ['categoryid', 'phyCategoryName', 'phyCategoryDesc', 'actions']; // Modifiez les noms des colonnes
+  displayedColumns: string[] = ['select','categoryid', 'phyCategoryName', 'phyCategoryDesc', 'actions']; // Modifiez les noms des colonnes
   exampleDatabase?:PhyTrCategoryService;
 
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;

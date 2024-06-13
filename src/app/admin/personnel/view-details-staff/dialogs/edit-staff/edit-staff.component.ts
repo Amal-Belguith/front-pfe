@@ -32,7 +32,7 @@ export class EditStaffComponent implements OnInit {
         data.staff.email,
         [Validators.required, Validators.email, Validators.minLength(5)],
       ],
-      password: [{ value: '', disabled: true }, Validators.required],
+      password: [''],
       role: [data.staff.role, Validators.required],
       department: [data.staff.department],
       uploadedFile: [''],
@@ -42,20 +42,24 @@ export class EditStaffComponent implements OnInit {
   ngOnInit(): void {
     this.personalservice.getStaffById(this.data.staff.user_ky) 
     .subscribe(staff => {
+      console.log('User details:', staff); 
+      this.user_ky = staff.user_ky; 
       this.staff = staff;
       this.selectedFile = staff.uploadedFile ? new File([], staff.uploadedFile, { type: 'application/pdf' }) : undefined;
       this.staffForm.patchValue({
         firstname: staff.firstname,
         lastname: staff.lastname,
         email: staff.email,
-        password: staff.password,  // Patch the password value
+        password: '' ,// Keep password field empty
         role: staff.role,
         department: staff.department,
         uploadedFile: this.selectedFile ? this.selectedFile.name : ''
       });
+    }, (error) => {
+      console.error('Error loading Personal details:', error); 
     });
-    
   }
+
 
   onFileSelected(event: any) {
     this.selectedFile = event.target.files[0];
@@ -81,43 +85,39 @@ export class EditStaffComponent implements OnInit {
 
   onSubmit() {
     if (this.staffForm.valid) {
-      const firstname = this.staffForm.get('firstname');
-      const lastname = this.staffForm.get('lastname');
-      const email = this.staffForm.get('email');
-      const role = this.staffForm.get('role'); // Correction de la récupération de l'élément ingredientDesc
-      const department = this.staffForm.get('department');
-      const uploadedFile = this.staffForm.get('uploadedFile');
+      const formData = this.staffForm.value;
+      const updatedPersonal: any = {
+        user_ky: this.user_ky,
+        firstname: formData.firstname,
+        lastname: formData.lastname,
+        email: formData.email,
+        role: formData.role,
+        department: formData.department,
+        uploadedFile: formData.uploadedFile
+      };
   
-      // Vérifiez si ingredientName et ingredientDesc sont définis avant d'accéder à leur propriété value pour éviter d'accéder à des propriétés de null
-      if (firstname && lastname && email  && role && department && uploadedFile && firstname.value && lastname.value && email.value  && role.value && department.value && uploadedFile.value) { // Ajout de la vérification de ingredientName.value et ingredientDesc.value
-        const updatedPersonal: Personal = {
-          firstname: firstname.value,
-          lastname: lastname.value,
-          email: email.value,
-          password: this.staff.password,
-          role: role.value,
-          department: department.value,
-          uploadedFile: uploadedFile.value,
-          user_ky: undefined
-        };
-              this.personalservice.updatePersonal( this.data.staff.user_ky,updatedPersonal)
-                .subscribe(
-                  () => {
-                    this.showNotification(
-                      'snackbar-success',
-                      ' Update ingredient Successfully...!!!',
-                      'bottom',
-                      'center'
-                    );
-                    this.dialogRef.close();
-                  },
-                  (error) => {
-                    console.error('Error updating :', error);
-                  }
-                );
-            }
+      // Include password only if it is provided
+      if (formData.password) {
+        updatedPersonal.password = formData.password;
+      }
+  
+      // Check for null before calling updateUser
+      if (this.user_ky !== null) {
+        this.personalservice.updatePersonal(this.user_ky, updatedPersonal).subscribe({
+          next: () => {
+            this.showNotification('snackbar-success', 'Data Updated successfully', 'bottom', 'center');
+            this.dialogRef.close(); // Close the dialog on success
+          },
+          error: (error) => {
+            this.showNotification('snackbar-error', 'Error Updating Data', 'bottom', 'center');
+          }
+        });
+      } else {
+        this.showNotification('snackbar-error', 'Error Updating Data', 'bottom', 'center');
+      }
     } else {
       this.showNotification('snackbar-warning', 'Please fill all required fields', 'bottom', 'right');
     }
-  } 
+  }  
+
 }

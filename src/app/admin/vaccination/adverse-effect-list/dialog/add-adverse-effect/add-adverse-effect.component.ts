@@ -41,32 +41,43 @@ export class AddAdverseEffectComponent {
         adverseEffectSeverity: formData.adverseEffectSeverity,
         adverseEffectDesc: formData.adverseEffectDesc,
       };
-  
-      // Call vaccination service to create vaccination
+      this.vaccinationService.checkIfadveffExists(vaccinationData.adverseEffectName).subscribe
+      ((exists:boolean) => {
+        if(exists){
+          this.showNotification(
+            'snackbar-warning',
+            'Adverse Effect already exist',
+            'top',
+            'center'
+          );
+        }else{
+          
       this.vaccinationService.createSideEffects(vaccinationData).subscribe(
         (response) => {
-          console.log('Adverse Effect created successfully:', response);
+          console.log('Adverse Effect added successfully:', response);
+          this.dialogRef.close();
           // Optionally, display a success message or redirect the user
           this.dialogRef.close();
           this.showNotification(
           'snackbar-success',
-          'Add Record Successfully...!!!',
+          'Adverse Effect added successfully...!!!',
           'bottom',
           'center'
         );
         },
         (error) => {
-          console.error('Error creating vaccination:', error);
-          // Optionally, display an error message
+          console.error('Error adding Adverse Effect:', error);
         }
-      );
-    } else {
-      console.error('Form is invalid');
-      // Optionally, display a validation error message
+          );
+        }
+      }
+    );
+    }
+    else {
       this.showNotification('snackbar-warning', 'Please fill all required fields', 'bottom', 'right');
     }
+    
   }
-
   onCancel(): void {
     this.dialogRef.close();
   }

@@ -105,7 +105,7 @@ export class AllpersonalsComponent implements OnInit {
 openAddModal(): void {
   const dialogRef = this.dialog.open(AddPersonalComponent, {
     width: '600px', // Définir la largeur de la modal selon vos besoins
-    height: '700px',
+    height: '600px',
     // Autres configurations de la modal
   });
 

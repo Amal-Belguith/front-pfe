@@ -22,7 +22,7 @@ export class PhysicalTreatmentListComponent implements OnInit {
   treatments: PhysicalTreatment[] = [];
   dataSource!: MatTableDataSource<PhysicalTreatment>;
   selection = new SelectionModel<PhysicalTreatment>(true, []); // Assuming you're using a SelectionModel
-  displayedColumns: string[] = ['idtreatment', 'phyTrName', 'phyTrDesc', 'phyTrDuration', 'phyTrNote', 'actions'];
+  displayedColumns: string[] = ['select','idtreatment', 'phyTrName', 'phyTrDesc', 'phyTrDuration', 'phyTrNote', 'actions'];
   exampleDatabase?:PhyTreatmentService;
   //isTblLoading: boolean = false; // Define the property isTblLoading
 

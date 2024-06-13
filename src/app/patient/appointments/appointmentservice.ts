@@ -4,11 +4,12 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { UnsubscribeOnDestroyAdapter } from '@shared';
 import { Observable } from 'rxjs';
 import { Appointment } from 'app/patient/appointments/appointmentModel';
+
 @Injectable({
   providedIn: 'root'
 })
 export class AppointmentService {
-  private readonly API_URL = 'http://localhost:8090/appointment';
+  private readonly API_URL = 'http://localhost:8092/appointment';
   isTblLoading = true;
   //dataChange: BehaviorSubject<Ingredient[]> = new BehaviorSubject<Ingredient[]>([]);
   // Temporarily stores data from dialogs
@@ -25,32 +26,25 @@ export class AppointmentService {
 
   
   
-  addApp(app: Appointment): void {
-    this.dialogData = app;
-
-  this.httpClient.post(this.API_URL + '/add', app)
-     .subscribe({
-      next: (data) => {
-        this.dialogData = app;
-       },
-       error: (error: HttpErrorResponse) => {
-        this.isTblLoading = false;
-        console.log(error.name + ' ' + error.message);
-      },
-     });
+  addApp(app: Appointment): Observable<any> {
+    return this.httpClient.post<any>(`${this.API_URL}/add`, app);
   }
 
+  updateApp(Appky: number, updatedApp: Appointment): Observable<any> {
+    return this.httpClient.put(`${this.API_URL}/update/${Appky}`, updatedApp);
+  }
   
-  updateApp(App_ky: number, updatedApp: any): Observable<void> {
-    return this.httpClient.put<void>(`${this.API_URL}/update/${App_ky}`, updatedApp);
-  }
+
   deleteApp(App_ky: number): Observable<void> {
+    console.log('Attemping to remove appointment with ID:',App_ky);
     return this.httpClient.delete<void>(`${this.API_URL}/delete/${App_ky}`);
   }
   
   getAllApp(): Observable<Appointment[]> {
     return this.httpClient.get<Appointment[]>(this.API_URL+'/all');
   }
+
+
   
   
 }
