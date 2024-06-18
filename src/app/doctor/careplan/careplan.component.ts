@@ -3,6 +3,7 @@ import {  FormBuilder, FormGroup, UntypedFormBuilder, Validators } from '@angula
 import { CarePlanService } from './careplan.service';
 import { ActivatedRoute } from '@angular/router';
 import { CarePlan } from './careplan.model';
+import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -17,7 +18,8 @@ export class CarePlanComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private careService: CarePlanService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private snackBar: MatSnackBar
   ) {
     this.carePlanForm = this.fb.group({
       phyAss: ['', Validators.required],
@@ -69,22 +71,36 @@ export class CarePlanComponent implements OnInit {
       this.careService.addCarePlan(carePlan).subscribe(
         response => {
           console.log('CarePlan saved successfully', response);
-          alert('CarePlan added successfully');
+          this.showNotification('snackbar-success', 'Care Plan added successfully ', 'top', 'center');
           this.carePlanForm.reset();
         },
         error => {
-          alert('Error saving CarePlan');
+          this.showNotification('snackbar-error', 'Error adding careplan ', 'top', 'center');
           console.error('Error saving CarePlan', error);
           this.carePlanForm.reset();
         }
       );
     } else {
-      alert('Please fill in all required fields correctly.');
+      this.showNotification('snackbar-warning', 'Please fill all required fields', 'top', 'center');
     }
   }
 
   onCancel() {
     this.carePlanForm.reset();
+  }
+
+  showNotification(
+    colorName: string,
+    text: string,
+    placementFrom: MatSnackBarVerticalPosition,
+    placementAlign: MatSnackBarHorizontalPosition
+  ) {
+    this.snackBar.open(text, '', {
+      duration: 4000,
+      verticalPosition: placementFrom,
+      horizontalPosition: placementAlign,
+      panelClass: colorName,
+    });
   }
 
 

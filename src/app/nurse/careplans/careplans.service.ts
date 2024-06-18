@@ -8,7 +8,7 @@ import { CarePlan } from 'app/doctor/careplan/careplan.model';
 })
 export class CarePlanService {
   isTblLoading = true;
-  private apiServerUrl = 'http://localhost:8092';
+  private apiServerUrl = 'http://localhost:8093/careplan';
   constructor(private http:HttpClient) { }
 
   /*// Vaccination List
@@ -30,10 +30,10 @@ export class CarePlanService {
 
  
   getCarePlans(): Observable<CarePlan[]> {
-    return this.http.get<CarePlan[]>(this.apiServerUrl+"/careplan/all");
+    return this.http.get<CarePlan[]>(this.apiServerUrl+"/all-careplan");
   }
   deleteCare(care_ky: number): Observable<void> {
     console.log('Attemping to remove care plan with ID:',care_ky);
-    return this.http.delete<void>(`${this.apiServerUrl}/delete/${care_ky}`);
+    return this.http.delete<void>(`${this.apiServerUrl}/delete-careplan/${care_ky}`);
   }
 }

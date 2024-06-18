@@ -9,14 +9,16 @@ import { Monitoring } from './monitoring.model';
 
 export class MonitoringService {
     isTblLoading = true;
-    private apiServerUrl = 'http://localhost:8092';
+    private apiServerUrl = 'http://localhost:8093/careplan';
     constructor(private http:HttpClient) { }
 
   
-    addMonitoring(model:Monitoring): Observable<any>{
-      return this.http.post(this.apiServerUrl+"/monitoring/add",model);
+    addMonitoring(model:Monitoring): Observable<Monitoring>{
+      return this.http.post<Monitoring>(this.apiServerUrl+"/add-monitoring",model);
     }
     
-
+    getMonitoriesByUserKy(userKy: number): Observable<Monitoring[]> {
+      return this.http.get<Monitoring[]>(`${this.apiServerUrl}/user-monitoring/${userKy}`);
+    }
 
   }

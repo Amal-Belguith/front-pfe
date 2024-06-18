@@ -10,36 +10,36 @@ import { environment } from 'environments/environment';
 })
 export class PhyTreatmentService {
     isTblLoading= true;
-  private apiServerUrl = 'http://localhost:8090';
+  private apiServerUrl = 'http://localhost:8093/parameterization';
 
   constructor(private http: HttpClient) { }
 
   getAllTreatments(): Observable<PhysicalTreatment[]> {
-    return this.http.get<PhysicalTreatment[]>(`${this.apiServerUrl}/phytreatments/all`);
+    return this.http.get<PhysicalTreatment[]>(`${this.apiServerUrl}/all-phytreatment`);
   }
 
   getTreatmentById(id: number): Observable<PhysicalTreatment> {
-    return this.http.get<PhysicalTreatment>(`${this.apiServerUrl}/phytreatments/${id}`);
+    return this.http.get<PhysicalTreatment>(`${this.apiServerUrl}/view-phytreatment/${id}`);
   }
 
   saveTreatment(treatment: PhysicalTreatment): Observable<PhysicalTreatment> {
-    return this.http.post<PhysicalTreatment>(`${this.apiServerUrl}/phytreatments/add`, treatment);
+    return this.http.post<PhysicalTreatment>(`${this.apiServerUrl}/add-phytreatment`, treatment);
   }
 
   updateTreatment(id: number, treatment: PhysicalTreatment): Observable<PhysicalTreatment> {
-    return this.http.put<PhysicalTreatment>(`${this.apiServerUrl}/phytreatments/update/${id}`, treatment);
+    return this.http.put<PhysicalTreatment>(`${this.apiServerUrl}/update-phytreatment/${id}`, treatment);
   }
   
 
   deleteTreatment(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiServerUrl}/phytreatments/delete/${id}`);
+    return this.http.delete<void>(`${this.apiServerUrl}/delete-phytreatment/${id}`);
   }
 
   searchPhyTreatmentByCriteria(criteria: string): Observable<PhysicalTreatment[]> {
-    return this.http.get<PhysicalTreatment[]>(`${this.apiServerUrl}/phytreatments/search?criteria=${criteria}`);
+    return this.http.get<PhysicalTreatment[]>(`${this.apiServerUrl}/search-phytreatment?criteria=${criteria}`);
   }
 
   checkIfTrExists(phyTrName: string): Observable<boolean> {
-    return this.http.get<boolean>(`${this.apiServerUrl}/phytreatments/exists?phyTrName=${phyTrName}`);
+    return this.http.get<boolean>(`${this.apiServerUrl}/exists-phytreatment?phyTrName=${phyTrName}`);
   }
 }

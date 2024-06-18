@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AllergyService } from 'app/admin/allergy/services/allergy.service';
 import { Allergy } from 'app/admin/allergy/model/allergy';
 import { Monitoring } from './monitoring.model';
+import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-monitoring',
@@ -20,7 +21,8 @@ export class MonitoringComponent implements OnInit {
     private fb: FormBuilder,
     private monService: MonitoringService,
     private route: ActivatedRoute,
-    private allServ: AllergyService
+    private allServ: AllergyService,
+    private snackBar: MatSnackBar
   ) {
     this.monitoringForm = this.fb.group({
       genInf: [''],
@@ -40,12 +42,6 @@ export class MonitoringComponent implements OnInit {
       diastolic: [''],
       gly: [''],
       comment: [''],
-      bandage: [''],
-      medications: [''],
-      analysis: [''],
-      vaccinations: [''],
-      exercises: [''],
-      massage: ['']
     });
   }
 
@@ -86,25 +82,33 @@ export class MonitoringComponent implements OnInit {
       diastolic: formValues.diastolic,
       gly: formValues.gly,
       comment: formValues.comment,
-      bandage: formValues.bandage,
-      medications: formValues.medications,
-      analysis: formValues.analysis,
-      vaccinations: formValues.vaccinations,
-      exercises: formValues.exercises,
-      massage: formValues.massage,
-      user_ky: this.userKy,
+      userKy: this.userKy,
     };
 
     console.log(mont);
 
     this.monService.addMonitoring(mont).subscribe(response => {
       console.log('Monitoring saved successfully', response);
-      alert('Monitoring added successfully');
+      this.showNotification('snackbar-success', 'Monitoring added successfully', 'top', 'center');
       this.monitoringForm.reset();
     }, error => {
-      alert('Error saving monitoring');
+      this.showNotification('snackbar-error', 'Failed to add Monitoring', 'top', 'center');
       console.error('Error saving monitoring', error);
       this.monitoringForm.reset();
+    });
+  }
+
+  showNotification(
+    colorName: string,
+    text: string,
+    placementFrom: MatSnackBarVerticalPosition,
+    placementAlign: MatSnackBarHorizontalPosition
+  ): void {
+    this.snackBar.open(text, '', {
+      duration: 4000,
+      verticalPosition: placementFrom,
+      horizontalPosition: placementAlign,
+      panelClass: colorName,
     });
   }
 

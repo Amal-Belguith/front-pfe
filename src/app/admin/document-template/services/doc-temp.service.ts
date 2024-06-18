@@ -10,24 +10,24 @@ import { Observable } from 'rxjs';
 export class DocTempService {
 
   isTblLoading = true;
-  private apiServerUrl = 'http://localhost:8090';
+  private apiServerUrl = 'http://localhost:8093/parameterization';
   constructor(private http:HttpClient) { }
     // SideEffects List
     getAllDocTemp(): Observable<DocTemp[]> {
-      return this.http.get<DocTemp[]>(this.apiServerUrl+"/docTemp/all");
+      return this.http.get<DocTemp[]>(this.apiServerUrl+"/all-docTemp");
     }
   
 //delete vaccination
 removeDocTemp(id:number): Observable<any>{
-  return this.http.delete(this.apiServerUrl+"/docTemp/remove/"+id);
+  return this.http.delete(this.apiServerUrl+"/remove-docTemp/"+id);
 }
     
 uploadDocument(formData: FormData): Observable<any> {
-  return this.http.post<any>(this.apiServerUrl+"/docTemp/upload", formData);
+  return this.http.post<any>(this.apiServerUrl+"/upload-docTemp", formData);
 }
 
   getDocTempById(id:any){
-    return this.http.get<DocTemp>(this.apiServerUrl+"/docTemp/"+id);
+    return this.http.get<DocTemp>(this.apiServerUrl+"/view-docTemp/"+id);
   }
 
  /* updateDocument(documentId: number, title: string, description: string, format: string, parentElementType: string, parentElementKey: number): Observable<any> {
@@ -44,14 +44,14 @@ uploadDocument(formData: FormData): Observable<any> {
     });
   }*/
   updateDocument(documentId: number, formData: FormData): Observable<any> {
-    return this.http.put(this.apiServerUrl + "/docTemp/" + documentId, formData);
+    return this.http.put(this.apiServerUrl + "/update-docTemp/" + documentId, formData);
   }
   
   
 
   downloadDocument(documentId: any): Observable<any> {
     // Make an HTTP GET request to download the document
-    return this.http.get(this.apiServerUrl+"/docTemp/download/"+documentId, {
+    return this.http.get(this.apiServerUrl+"/download-docTemp/"+documentId, {
       responseType: 'arraybuffer' // Specify the response type as arraybuffer
     });
   }
@@ -59,7 +59,7 @@ uploadDocument(formData: FormData): Observable<any> {
   
 
   checkTitleExists(title: string): Observable<boolean> {
-    return this.http.get<boolean>(`${this.apiServerUrl}/docTemp/checkTitleExists?title=${title}`);
+    return this.http.get<boolean>(`${this.apiServerUrl}/checkTitleExists-docTemp?title=${title}`);
   }
   
 }

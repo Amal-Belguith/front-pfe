@@ -10,38 +10,38 @@ import { PhysicalTreatmentCategory } from '../model/physical-treatment.category'
 })
 export class PhyTrCategoryService {
   isTblLoading= true;
-  private apiServerUrl =  'http://localhost:8090';
+  private apiServerUrl =  'http://localhost:8093/parameterization';
 
   constructor(private http: HttpClient) { }
 
   getAllPhyTrCategories(): Observable<PhysicalTreatmentCategory[]> {
-    return this.http.get<PhysicalTreatmentCategory[]>(`${this.apiServerUrl}/phycategories/all`);
+    return this.http.get<PhysicalTreatmentCategory[]>(`${this.apiServerUrl}/all-phycategories`);
   }
 
   getPhyTrCategoryById(id: number): Observable<PhysicalTreatmentCategory> {
-    return this.http.get<PhysicalTreatmentCategory>(`${this.apiServerUrl}/phycategories/${id}`);
+    return this.http.get<PhysicalTreatmentCategory>(`${this.apiServerUrl}/view-phycategories/${id}`);
   }
 
   addPhyTrCategory(category: PhysicalTreatmentCategory): Observable<PhysicalTreatmentCategory> {
-    return this.http.post<PhysicalTreatmentCategory>(`${this.apiServerUrl}/phycategories/add`, category);
+    return this.http.post<PhysicalTreatmentCategory>(`${this.apiServerUrl}/add-phycategories`, category);
   }
 
   updatePhyTrCategory(category: PhysicalTreatmentCategory): Observable<PhysicalTreatmentCategory> {
-    return this.http.put<PhysicalTreatmentCategory>(`${this.apiServerUrl}/phycategories/update/${category.categoryid}`, category);
+    return this.http.put<PhysicalTreatmentCategory>(`${this.apiServerUrl}/update-phycategories/${category.categoryid}`, category);
   }
 
   deletePhyTrCategory(id: number): Observable<void> {
-    return this.http.delete<void>(`${this.apiServerUrl}/phycategories/delete/${id}`);
+    return this.http.delete<void>(`${this.apiServerUrl}/delete-phycategories/${id}`);
   }
 
   retrievePhyTrCategoryByCriteria(criteria: string): Observable<PhysicalTreatmentCategory[]> {
-    return this.http.get<PhysicalTreatmentCategory[]>(`${this.apiServerUrl}/phycategories/search?criteria=${criteria}`);
+    return this.http.get<PhysicalTreatmentCategory[]>(`${this.apiServerUrl}/search-phycategories?criteria=${criteria}`);
   }
 
   checkIfTrCatExists(phyCategoryName: string): Observable<boolean> {
-    return this.http.get<boolean>(`${this.apiServerUrl}/phycategories/exists?phyCategoryName=${phyCategoryName}`);
+    return this.http.get<boolean>(`${this.apiServerUrl}/exists-phycategories?phyCategoryName=${phyCategoryName}`);
   }
   addTrCatFile(formData: FormData): Observable<any> {
-    return this.http.post(`${this.apiServerUrl}/phycategories/upload-data`, formData);
+    return this.http.post(`${this.apiServerUrl}/upload-data-phycategories`, formData);
   }
 }

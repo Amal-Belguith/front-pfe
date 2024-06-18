@@ -11,6 +11,7 @@ import { BioanalysisService } from 'app/admin/bioanalysis/service/bioanalysis.se
 import { VaccinationService } from 'app/admin/vaccination/services/vaccination.service';
 import { Surgical } from 'app/admin/surgical/allsurgical/surgical.model';
 import { SurgicalService } from 'app/admin/surgical/allsurgical/surgical.service';
+import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-medical-records',
@@ -32,7 +33,8 @@ export class ConsultationComponent implements OnInit {
     private medicationService: MedicationService,
     private analysisService: BioanalysisService,
     private vaccinationService: VaccinationService,
-    private surgicalservice: SurgicalService
+    private surgicalservice: SurgicalService,
+    private snackBar: MatSnackBar
   ) {
     this.consultationForm = this.fb.group({
       doctorName: ['',Validators.required],
@@ -105,15 +107,30 @@ export class ConsultationComponent implements OnInit {
 
       this.consultationService.addConsultation(consultation).subscribe(response => {
         console.log('Consultation saved successfully', response);
-        alert('Consultation added successfully');
+        this.showNotification('snackbar-success', 'Consultation added successfully ', 'top', 'center');
+        this.consultationForm.reset();
       }, error => {
         alert('Error saving consultation')
-        console.error('Error saving consultation', error);
+        this.showNotification('snackbar-error', 'Error adding consultation', 'top', 'center');
         this.consultationForm.reset();
       });
     }
 
     onCancel(): void {
       this.consultationForm.reset();
+    }
+
+    showNotification(
+      colorName: string,
+      text: string,
+      placementFrom: MatSnackBarVerticalPosition,
+      placementAlign: MatSnackBarHorizontalPosition
+    ) {
+      this.snackBar.open(text, '', {
+        duration: 4000,
+        verticalPosition: placementFrom,
+        horizontalPosition: placementAlign,
+        panelClass: colorName,
+      });
     }
 }

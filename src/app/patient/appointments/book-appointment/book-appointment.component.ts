@@ -68,19 +68,19 @@ export class BookAppointmentComponent implements OnInit {
   
       this.appservice.addApp(newApp).subscribe(
         response => {
-          this.showNotification('snackbar-success', 'Appointment added successfully, please check your email!', 'bottom', 'center');
+          this.showNotification('snackbar-success', 'Appointment added successfully, please check your email!', 'top', 'center');
           this.bookingForm.reset();
         },
         error => {
           if (error.status === 409) {
-            this.showNotification('snackbar-warning', 'Please choose another date or time.', 'bottom', 'right');
+            this.showNotification('snackbar-error', 'Please choose another date or time', 'top', 'center');
           } else {
-            this.showNotification('snackbar-error', 'Please choose another date or time.', 'bottom', 'right');
+            this.showNotification('snackbar-error', 'Error adding appointment ', 'top', 'center');
           }
         }
       );
     } else {
-      this.showNotification('snackbar-warning', 'Please fill all required fields', 'bottom', 'right');
+      this.showNotification('snackbar-warning', 'Please fill all required fields', 'top', 'center');
     }
   }
   
@@ -92,7 +92,7 @@ export class BookAppointmentComponent implements OnInit {
     placementAlign: MatSnackBarHorizontalPosition
   ) {
     this.snackBar.open(text, '', {
-      duration: 2000,
+      duration: 4000,
       verticalPosition: placementFrom,
       horizontalPosition: placementAlign,
       panelClass: colorName,

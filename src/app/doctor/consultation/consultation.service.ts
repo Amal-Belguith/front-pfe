@@ -8,7 +8,7 @@ import { Consultation} from './Consultation.model';
 })
 export class ConsultationService {
   isTblLoading = true;
-  private apiServerUrl = 'http://localhost:8092';
+  private apiServerUrl = 'http://localhost:8093/careplan';
   constructor(private http:HttpClient) { }
 
   /*// Vaccination List
@@ -28,16 +28,16 @@ export class ConsultationService {
     return this.http.put(this.apiServerUrl+"/vaccination/update/"+id,model);
   }*/
 
-  addConsultation(model:Consultation): Observable<any>{
-    return this.http.post(this.apiServerUrl+"/consultation/add",model);
+  addConsultation(model:Consultation): Observable<Consultation>{
+    return this.http.post<Consultation>(this.apiServerUrl+"/add-consultation",model);
   }
  
   getAllConsultations(): Observable<Consultation[]> {
-    return this.http.get<Consultation[]>(this.apiServerUrl+"/consultation/all");
+    return this.http.get<Consultation[]>(this.apiServerUrl+"/all-consultation");
   }
 
   getConsultationsByUserKy(userKy: number): Observable<Consultation[]> {
-    return this.http.get<Consultation[]>(`${this.apiServerUrl}/consultation/user/${userKy}`);
+    return this.http.get<Consultation[]>(`${this.apiServerUrl}/user-consultation/${userKy}`);
   }
 
 }

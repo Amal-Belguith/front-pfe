@@ -170,7 +170,65 @@
                   <td>{{ carePlan.userKy }}</td>
                 </tr>
               </tbody>
-            </table>            
+            </table>    
+            <h6>
+              <strong>Monitoring details</strong>
+            </h6>   
+            <!-- monitoring -->     
+            <table class="table table-striped mt-4">
+              <thead>
+                <tr>
+                  <th>Care Plan ID</th>
+                  <th>General Information</th>
+                  <th>Allergy IDs</th>
+                  <th>Height</th>
+                  <th>Weight</th>
+                  <th>Length W</th>
+                  <th>Width W</th>
+                  <th>Depth W</th>
+                  <th>Length S</th>
+                  <th>Width S</th>
+                  <th>Depth S</th>
+                  <th>Temperature</th>
+                  <th>Respiratory</th>
+                  <th>Heart</th>
+                  <th>Systolic</th>
+                  <th>Diastolic</th>
+                  <th>Gly</th>
+                  <th>Comment</th>
+                  <th>User Key</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let monit of monitories">
+                  <td>{{ monit.mon_ky }}</td>
+                  <td>{{ monit.genInf }}</td>
+                  <td>
+                    <ul>
+                      <li *ngFor="let allId of monit.allergyIds">
+                        {{ getAllergiesName(allId) }}
+                      </li>
+                    </ul>
+                  </td>
+                  <td>{{ monit.height }}</td>
+                  <td>{{ monit.weight }}</td>
+                  <td>{{ monit.length_w }}</td>
+                  <td>{{ monit.width_w }}</td>
+                  <td>{{ monit.depth_w }}</td>
+                  <td>{{ monit.length_s }}</td>
+                  <td>{{ monit.width_s }}</td>
+                  <td>{{ monit.depth_s }}</td>
+                  <td>{{ monit.temperature }}</td>
+                  <td>{{ monit.respiratory }}</td>
+                  <td>{{ monit.heart }}</td>
+                  <td>{{ monit.systolic }}</td>
+                  <td>{{ monit.diastolic }}</td>
+                  <td>{{ monit.gly }}</td>
+                  <td>{{ monit.comment }}</td>
+                  <td>{{ monit.userKy }}</td>
+                </tr>
+              </tbody>
+            </table>                                
           </div>
         </div>
       </div>

@@ -8,39 +8,23 @@ import { History } from './historyModel';
 })
 export class HistoryService {
   isTblLoading = true;
-  private apiServerUrl = 'http://localhost:8090';
+  private apiServerUrl = 'http://localhost:8093/careplan';
   constructor(private http:HttpClient) { }
 
-  /*// Vaccination List
-  getVaccination(): Observable<Vaccination[]> {
-    return this.http.get<Vaccination[]>(this.apiServerUrl+"/vaccination/all");
-  }
-  //delete vaccination
-  removeVaccination(id:number): Observable<any>{
-    return this.http.delete(this.apiServerUrl+"/vaccination/delete/"+id);
-  }
 
-  getVaccinationById(id:any){
-    return this.http.get<Vaccination>(this.apiServerUrl+"/vaccination/search/"+id);
-  }
-
-  updateVaccination(model:Vaccination,id:number): Observable<any>{
-    return this.http.put(this.apiServerUrl+"/vaccination/update/"+id,model);
-  }*/
-
-  addHistory(model: History): Observable<any>{
-    return this.http.post(this.apiServerUrl+"/history/add",model);
+  addHistory(model: History): Observable<History>{
+    return this.http.post<History>(this.apiServerUrl+"/add-history",model);
   }
   historyExistsForUser(userKy: number): Observable<boolean> {
-    return this.http.get<boolean>(`${this.apiServerUrl}/history/check/${userKy}`);
+    return this.http.get<boolean>(`${this.apiServerUrl}/check-history/${userKy}`);
   }
 
   getAllHis(): Observable<History[]> {
-    return this.http.get<History[]>(this.apiServerUrl+"/history/all");
+    return this.http.get<History[]>(this.apiServerUrl+"/all-history");
   }
 
   getHistoryByUserky(userKy: number): Observable<History> {
-    return this.http.get<History>(`${this.apiServerUrl}/history/user/${userKy}`);
+    return this.http.get<History>(`${this.apiServerUrl}/user-history/${userKy}`);
   }
 
  

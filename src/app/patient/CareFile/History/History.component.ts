@@ -65,7 +65,7 @@ export class HistoryComponent implements OnInit {
         }
       );
     } else {
-      this.showNotification('snackbar-warning', 'Please fill all required fields', 'bottom', 'right');
+      this.showNotification('snackbar-warning', 'Please fill all required fields', 'top', 'center');
   }}
 
   addHistory(): void {
@@ -94,13 +94,14 @@ export class HistoryComponent implements OnInit {
     };
     
     this.hisservice.addHistory(newHis).subscribe(
-      response => {
-        this.showNotification('snackbar-success', 'History added successfully', 'bottom', 'center');
+      (response) => {
+        console.log('response:', response);
+        this.showNotification('snackbar-success', 'History added successfully', 'top', 'center');
         this.historyForm.reset();
       },
       error => {
         console.error('Error adding history:', error);
-        this.showNotification('snackbar-error', 'Failed to add history', 'bottom', 'center');
+        this.showNotification('snackbar-error', 'Failed to add history', 'top', 'center');
       }
     );
   }

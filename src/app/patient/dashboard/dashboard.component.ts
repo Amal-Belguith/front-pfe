@@ -1,5 +1,8 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { AuthService, Role } from '@core';
+import { RouteInfo } from 'app/layout/sidebar/sidebar.metadata';
+import { ROUTES } from 'app/layout/sidebar/sidebar-items';
 import {
   ChartComponent,
   ApexAxisChartSeries,
@@ -76,13 +79,49 @@ export class DashboardComponent implements OnInit {
   public radialChartOptions!: Partial<radialChartOptions>;
   public restRateChartOptions!: Partial<restRateChartOptions>;
   public performanceRateChartOptions!: Partial<performanceRateChartOptions>;
+  userFullName : any;
+  userType?: string;
+  public sidebarItems!: RouteInfo[];
 
-  constructor() {}
+  constructor(
+    private authService:AuthService
+  ) {
+
+  }
   ngOnInit() {
     this.chart1();
     this.chart2();
     this.chart3();
     this.chart4();
+
+    if (this.authService.currentUserValue) {
+      const userRole = this.authService.currentUserValue.role;
+   console.log(this.authService.currentUserValue)
+      this.userFullName =
+        this.authService.currentUserValue
+  
+      this.sidebarItems = ROUTES.filter(
+        (x:any) => {
+   
+          x.role = x.role.map((i:string)=>{
+           
+            return i.toLocaleUpperCase()
+          })
+          return x.role.indexOf(userRole) !== -1 || x.role.indexOf('All') !== -1
+        }
+      );     if (userRole === Role.Admin) {
+        this.userType = Role.Admin;
+      } else if (userRole === Role.Patient) {
+        this.userType = Role.Patient;
+      } else if (userRole === Role.Nurse) {
+        this.userType = Role.Nurse;
+      }
+       else if (userRole === Role.Doctor) {
+        this.userType = Role.Doctor;
+      } else {
+        this.userType = Role.Admin;
+      }
+    }
   }
   private chart1() {
     this.areaChartOptions = {

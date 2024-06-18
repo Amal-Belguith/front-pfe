@@ -11,7 +11,7 @@ import { throwError } from 'rxjs';
   providedIn: 'root'
 })
 export class MedicationService  {
-  private readonly API_URL = 'http://localhost:8090/medication';
+  private readonly API_URL = 'http://localhost:8093/parameterization';
   isTblLoading = true;
   //dataChange: BehaviorSubject<Medication[]> = new BehaviorSubject<Medication[]>([]);
   // Temporarily stores data from dialogs
@@ -25,32 +25,32 @@ export class MedicationService  {
   }*/
   /** CRUD METHODS */
   getAllMedications(): Observable<MedicationResponse[]> {
-    return this.httpClient.get<MedicationResponse[]>(this.API_URL)
+    return this.httpClient.get<MedicationResponse[]>(this.API_URL+"/all-medication")
 
   }
    
 
   checkIfMedicationExists(medicationName: string, medicationCode: string): Observable<boolean> {
-  return this.httpClient.get<boolean>(`${this.API_URL}/exists?medicationName=${medicationName}&medicationCode=${medicationCode}`);
+  return this.httpClient.get<boolean>(`${this.API_URL}/exists-medication?medicationName=${medicationName}&medicationCode=${medicationCode}`);
   }
    
   addMedication(medication: MedicationResponse):Observable<any> {
     
-    return this.httpClient.post(this.API_URL+'/add', medication);
+    return this.httpClient.post(this.API_URL+'/add-medication', medication);
     
   }
 
   addMedicationFile(formData: FormData): Observable<any> {
  
-    return this.httpClient.post(`${this.API_URL}/upload-data`, formData);
+    return this.httpClient.post(`${this.API_URL}/upload-data-medication`, formData);
   }
   
   deleteMedication(medicationKy: number): Observable<void> {
     console.log('Attemping to remove medication with ID:',medicationKy);
-    return this.httpClient.delete<void>(`${this.API_URL}/delete/${medicationKy}`);
+    return this.httpClient.delete<void>(`${this.API_URL}/delete-medication/${medicationKy}`);
   }
   updateMedication(medicationKy: any, updatedMedication: any):Observable<any>{
-    return this.httpClient.put(`${this.API_URL}/edit/${medicationKy}`, updatedMedication);
+    return this.httpClient.put(`${this.API_URL}/edit-medication/${medicationKy}`, updatedMedication);
   }
 
   searchMedication(medicationName: string): Observable<MedicationResponse[]> {
@@ -58,10 +58,10 @@ export class MedicationService  {
   }
 
   getMedicationById(medicationKy:any){
-    return this.httpClient.get<MedicationResponse>(`${this.API_URL}/details/${medicationKy}`);
+    return this.httpClient.get<MedicationResponse>(`${this.API_URL}/details-medication/${medicationKy}`);
   }
   createMedication(model:MedicationResponse): Observable<any>{
-    return this.httpClient.post(this.API_URL + '/add', model);
+    return this.httpClient.post(this.API_URL + '/add-medication', model);
   }
 
 }

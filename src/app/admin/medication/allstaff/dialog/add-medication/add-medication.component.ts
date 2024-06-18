@@ -102,7 +102,7 @@ export class AddMedicationComponent implements OnInit {
         (exists: boolean) => {
           if (exists) {
             this.showNotification(
-              'snackbar-warning',
+              'snackbar-error',
               'Medication already exist',
               'top',
               'center'
@@ -116,7 +116,7 @@ export class AddMedicationComponent implements OnInit {
                 this.showNotification(
                   'snackbar-success',
                   'Medication added successfully...!!!',
-                  'bottom',
+                  'top',
                   'center'
                 );
               },
@@ -128,7 +128,7 @@ export class AddMedicationComponent implements OnInit {
         }
       );
     } else {
-      this.showNotification('snackbar-warning', 'Please fill all required fields', 'bottom', 'right');
+      this.showNotification('snackbar-warning', 'Please fill all required fields', 'top', 'center');
     }
   }
   
@@ -139,7 +139,7 @@ export class AddMedicationComponent implements OnInit {
     placementAlign: MatSnackBarHorizontalPosition
   ): void {
     this.snackBar.open(text, '', {
-      duration: 2000,
+      duration: 4000,
       verticalPosition: placementFrom,
       horizontalPosition: placementAlign,
       panelClass: colorName,

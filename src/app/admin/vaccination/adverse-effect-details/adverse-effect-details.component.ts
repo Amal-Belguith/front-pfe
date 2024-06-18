@@ -14,6 +14,7 @@ import { UpdateAdverseEffectComponent } from './dialog/update-adverse-effect/upd
 export class AdverseEffectDetailsComponent {
   isInputDisabled: boolean = true;
   adverseEffect!: AdverseEffect;
+  public isLoading = true;
 
   constructor(
     private route: ActivatedRoute,
@@ -32,6 +33,7 @@ export class AdverseEffectDetailsComponent {
       this.adverseEffectService.getSideEffectsById(id).subscribe(
         (adverseEffect: AdverseEffect) => {
           this.adverseEffect = adverseEffect;
+          this.isLoading=false;
         },
         (error) => {
           console.error('Error fetching vaccination details:', error);
@@ -50,6 +52,7 @@ export class AdverseEffectDetailsComponent {
     console.log('The dialog was closed');
     // Handle any actions after modal is closed, such as refreshing vaccination details
     this.getVaccinationDetails();
+    this.isLoading = true;
   });
 }
 

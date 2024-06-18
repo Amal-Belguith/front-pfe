@@ -108,13 +108,13 @@ export class TodayAppointmentComponent implements OnInit {
           this.showNotification(
             'snackbar-success',
             ' Appointment Delete Successfully...!!!',
-            'bottom',
+            'top',
             'center'
           );
           this.refresh();
         }, (error) => {
           console.error('Error removing Appointment from the database:', error);
-          this.showNotification('error', 'Failed to remove Appointment ', 'bottom', 'right');
+          this.showNotification('snackbar-error', 'Failed to remove Appointment ', 'top', 'center');
           // Afficher un message d'erreur ou gérer l'erreur autrement
         });
       }

@@ -16,6 +16,10 @@ import { MedicationService } from 'app/admin/medication/allstaff/medication.serv
 import { VaccinationService } from 'app/admin/vaccination/services/vaccination.service';
 import { SurgicalService } from 'app/admin/surgical/allsurgical/surgical.service';
 import { BioanalysisService } from 'app/admin/bioanalysis/service/bioanalysis.service';
+import { MonitoringService } from 'app/nurse/monitoring/monitoring.service';
+import { Monitoring } from 'app/nurse/monitoring/monitoring.model';
+import { Allergy } from 'app/admin/allergy/model/allergy';
+import { AllergyService } from 'app/admin/allergy/services/allergy.service';
 @Component({
   selector: 'app-medical-records',
   templateUrl: './medical-records.component.html',
@@ -27,17 +31,20 @@ export class MedicalRecordComponent implements OnInit {
   histories: History[] = [];
   consultations: Consultation[] = [];
   careplans: CarePlan[] = [];
+  monitories: Monitoring[] = [];
   hist: any;
   medicationOptions: MedicationResponse[] = [];
   vaccinationOptions: Vaccination[] = [];
   analysisOptions: BioAnalysis[] = [];
   surgicalProcedureOptions: Surgical[] = [];
+  allergyOptions: Allergy[] = []; // Ajout de la liste des allergies
 
   // Loading flags
   medicationsLoaded: boolean = false;
   vaccinationsLoaded: boolean = false;
   analysesLoaded: boolean = false;
   surgicalsLoaded: boolean = false;
+  allergiesLoaded: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -47,7 +54,9 @@ export class MedicalRecordComponent implements OnInit {
     private medicationService: MedicationService,
     private vaccinationService: VaccinationService,
     private analysisService: BioanalysisService,
-    private surgicalService: SurgicalService
+    private surgicalService: SurgicalService,
+    private monitoringService: MonitoringService,
+    private allergyService: AllergyService // Ajout du service d'allergies
   ) {}
 
   ngOnInit(): void {
@@ -96,6 +105,16 @@ export class MedicalRecordComponent implements OnInit {
       }
     );
 
+    this.monitoringService.getMonitoriesByUserKy(this.userKy).subscribe(
+      (data: Monitoring[]) => {
+        this.monitories = data;
+        console.log('monitories sont:', this.monitories);
+      },
+      error => {
+        console.error('Error fetching monitories', error);
+      }
+    );
+
     this.medicationService.getAllMedications().subscribe(
       (data: MedicationResponse[]) => {
         this.medicationOptions = data;
@@ -139,6 +158,18 @@ export class MedicalRecordComponent implements OnInit {
         console.error('Error fetching surgical procedures', error);
       }
     );
+
+    // Charger les allergies
+    this.allergyService.getAllAllergies().subscribe(
+      (data: Allergy[]) => {
+        this.allergyOptions = data;
+        this.allergiesLoaded = true;
+        console.log('allergyOptions sont:', this.allergyOptions);
+      },
+      error => {
+        console.error('Error fetching allergies', error);
+      }
+    );
   }
 
   // Méthode de mapping pour les médicaments
@@ -167,5 +198,12 @@ export class MedicalRecordComponent implements OnInit {
     if (!this.vaccinationsLoaded) return 'Loading...';
     const vaccine = this.vaccinationOptions.find(vac => vac.idVaccination === vaccineId);
     return vaccine ? vaccine.vaccineLabel : 'Non trouvé';
+  }
+
+  // Méthode de mapping pour les allergies
+  getAllergiesName(allergyId: number): string {
+    if (!this.allergiesLoaded) return 'Loading...';
+    const allergy = this.allergyOptions.find(all => all.allergyKy === allergyId);
+    return allergy ? allergy.allergyName : 'Non trouvé';
   }
 }

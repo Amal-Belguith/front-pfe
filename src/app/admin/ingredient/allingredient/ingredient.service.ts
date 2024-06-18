@@ -8,53 +8,48 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class IngredientService {
-  private readonly API_URL = 'http://localhost:8090/ingredient';
+  private readonly API_URL = 'http://localhost:8093/parameterization';
   isTblLoading = true;
   //dataChange: BehaviorSubject<Ingredient[]> = new BehaviorSubject<Ingredient[]>([]);
   // Temporarily stores data from dialogs
   dialogData!: Ingredient;
   constructor(private httpClient: HttpClient) {}
-  /*get data(): Ingredient[] {
-    return this.dataChange.value;
-  }
-  getDialogData() {
-    return this.dialogData;
-  }*/
+
   
   /** CRUD METHODS */
   getAllIngredients(): Observable<Ingredient[]> {
-    return this.httpClient.get<Ingredient[]>(this.API_URL);
+    return this.httpClient.get<Ingredient[]>(this.API_URL+"/all-ingredient");
   }
   
   checkIfIngredientExists(ingredientName: string): Observable<boolean> {
-      return this.httpClient.get<boolean>(`${this.API_URL}/exists?ingredientName=${ingredientName}`);
-    }
-
-  addIngredient(ingredient: Ingredient): Observable<Ingredient> {
-     return this.httpClient.post<Ingredient>(this.API_URL + '/add', ingredient);
-    
+    return this.httpClient.get<boolean>(`${this.API_URL}/exists-ingredient?ingredientName=${ingredientName}`);
   }
 
   addIngredientFile(formData: FormData): Observable<any> {
-    return this.httpClient.post(`${this.API_URL}/upload-data`, formData);
+    return this.httpClient.post(`${this.API_URL}/upload-data-ingredient`, formData);
   }
-  
+
+  addIngredient(ingredient: Ingredient): Observable<Ingredient> {
+     return this.httpClient.post<Ingredient>(this.API_URL + '/add-ingredient', ingredient);
+    
+  }
+
   updateIngredient(ingredientKy: any, updatedIngredient: Ingredient): Observable<any> {
-    return this.httpClient.put(`${this.API_URL}/edit/${ingredientKy}`, updatedIngredient);
+    return this.httpClient.put(`${this.API_URL}/edit-ingredient/${ingredientKy}`, updatedIngredient);
   }
   deleteIngredient(ingredientKy: number): Observable<void> {
     console.log('Attemping to remove ingredient with ID:',ingredientKy);
-    return this.httpClient.delete<void>(`${this.API_URL}/delete/${ingredientKy}`);
+    return this.httpClient.delete<void>(`${this.API_URL}/delete-ingredient/${ingredientKy}`);
   }
   searchIngredient(ingredientName: string): Observable<Ingredient[]> {
     return this.httpClient.get<Ingredient[]>(`${this.API_URL}/search/${ingredientName}`);
   }
 
   getIngredientById(ingredientKy:any){
-    return this.httpClient.get<Ingredient>(`${this.API_URL}/details/${ingredientKy}`);
+    return this.httpClient.get<Ingredient>(`${this.API_URL}/details-ingredient/${ingredientKy}`);
   }
   createMedication(model:Ingredient): Observable<any>{
-    return this.httpClient.post(this.API_URL + '/add', model);
+    return this.httpClient.post(this.API_URL + '/add-ingredient', model);
   }
   
 }

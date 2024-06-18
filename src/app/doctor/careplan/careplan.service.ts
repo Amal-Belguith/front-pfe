@@ -8,7 +8,7 @@ import { CarePlan } from './careplan.model';
 })
 export class CarePlanService {
   isTblLoading = true;
-  private apiServerUrl = 'http://localhost:8092';
+  private apiServerUrl = 'http://localhost:8093/careplan';
   constructor(private http:HttpClient) { }
 
   /*// Vaccination List
@@ -29,10 +29,10 @@ export class CarePlanService {
   }*/
 
   addCarePlan(model: CarePlan): Observable<any>{
-    return this.http.post(this.apiServerUrl+"/careplan/add",model);
+    return this.http.post(this.apiServerUrl+"/add-careplan",model);
   }
   getCareplansByUserKy(userKy: number): Observable<CarePlan[]> {
-    return this.http.get<CarePlan[]>(`${this.apiServerUrl}/careplan/user/${userKy}`);
+    return this.http.get<CarePlan[]>(`${this.apiServerUrl}/user-careplan/${userKy}`);
   }
   
 }

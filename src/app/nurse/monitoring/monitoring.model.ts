@@ -19,11 +19,5 @@ export interface Monitoring {
   diastolic: string;
   gly: string;
   comment: string;
-  bandage: string;
-  medications: string;
-  analysis: string;
-  vaccinations: string;
-  exercises: string;
-  massage: string;
-  user_ky: number;
+  userKy: number;
 }
