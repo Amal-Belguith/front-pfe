@@ -15,7 +15,7 @@
             <div class="row justify-content-center upload-buttons border-bottom">
               <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-5 mt-3">
                 <label for="fileUpload" class="custom-file-upload">
-                  <input type="file" id="fileUpload" (change)="onFileSelected($event)" class="form-control-file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+                  <input type="file" id="fileUpload" (change)="onFileSelected($event)" class="form-control-file" enctype="multipart/form-data" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
                   <div class="select-file-button">Choose File</div>
                   <span class="selected-file-name" *ngIf="selectedFile">{{ selectedFile.name }}</span>
                   <span class="selected-file-name" *ngIf="!selectedFile">No file chosen</span>

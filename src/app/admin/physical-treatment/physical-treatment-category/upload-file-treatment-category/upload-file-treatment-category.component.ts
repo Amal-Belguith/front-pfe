@@ -23,64 +23,75 @@ export class UploadFiletrcatComponent {
 
   uploadFile() {
     if (this.selectedFile) {
-      const formData = new FormData();
-      formData.append('file', this.selectedFile);
-  
       // Lire le fichier Excel
       const fileReader = new FileReader();
-      fileReader.onload = (event) => {
+      fileReader.onload = () => {
         const data = new Uint8Array(fileReader.result as ArrayBuffer);
         const workbook = XLSX.read(data, { type: 'array' });
-  
+
         // Récupérer la première feuille de calcul
         const sheet = workbook.Sheets[workbook.SheetNames[0]];
-  
+
         // Convertir la feuille de calcul en tableau de données
         const TrCatData: trcatData[] = XLSX.utils.sheet_to_json<trcatData>(sheet);
-  
-        // Vérifier l'existence de chaque ingrédient dans le fichier Excel
+
+        // Vérifier l'existence de chaque catégorie de traitement dans le fichier Excel
         let allTrCatExist = true;
+        let categoriesChecked = 0;
+
         for (const trcateg of TrCatData) {
           const phyCategoryName = trcateg.phyCategoryName;
-  
+
           this.trcatser.checkIfTrCatExists(phyCategoryName).subscribe({
             next: (exists: boolean) => {
+              categoriesChecked++;
               if (exists) {
-                alert(`The Treatment Category '${phyCategoryName}' already exist`);
+                alert(`The Treatment Category '${phyCategoryName}' already exists`);
               } else {
                 allTrCatExist = false;
               }
+              if (categoriesChecked === TrCatData.length) {
+                this.processFileUpload(allTrCatExist);
+              }
             },
             error: (error) => {
-              console.error('An error occurred while checking for the existence of the Treatment Category :', error);
+              console.error('An error occurred while checking for the existence of the Treatment Category:', error);
               allTrCatExist = false;
+              categoriesChecked++;
+              if (categoriesChecked === TrCatData.length) {
+                this.processFileUpload(allTrCatExist);
+              }
             }
           });
         }
-  
-        setTimeout(() => {
-          if (!allTrCatExist) {
-            this.trcatser.addTrCatFile(formData).subscribe({
-              next: (data) => {
-                console.log('The file has been successfully added to the database', data);
-                alert('File Added Successfully');
-               
-                this.selectedFile = null;
-              },
-              error: (error) => {
-                console.error('Une erreur s\'est produite lors de l\'ajout du fichier :', error);
-              }
-            });
-          } else {
-            console.log('No files selected or all Treatments Categories already exist');
-          }
-        }, 1000); // Attendre une seconde pour permettre la vérification des ingrédients avant d'ajouter le fichier
       };
       fileReader.readAsArrayBuffer(this.selectedFile);
     } else {
       console.log('No files selected');
     }
   }
-  
-  
+
+  private processFileUpload(allTrCatExist: boolean) {
+    if (!allTrCatExist && this.selectedFile) { // Ajouter une vérification pour this.selectedFile
+      const formData = new FormData();
+      formData.append('file', this.selectedFile);
+
+      fetch('http://localhost:8093/parameterization/upload-data-phycategories', {
+        method: 'POST',
+        body: formData
+        // Note: Content-Type is automatically set by FormData
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log('File upload response:', data);
+        alert('File Added Successfully');
+        this.selectedFile = null;
+      })
+      .catch(error => {
+        console.error('Error uploading file:', error);
+      });
+    } else {
+      console.log('No files selected or all Treatment Categories already exist');
+    }
+  }
 }
