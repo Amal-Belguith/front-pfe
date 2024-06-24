@@ -6,10 +6,8 @@ import { SupportComponent } from './support/support.component';
 import { Page404Component } from '../authentication/page404/page404.component';
 import { DragDropComponent } from './drag-drop/drag-drop.component';
 const routes: Routes = [
-  {
-    path: 'chat',
-    component: ChatComponent,
-  },
+  {path: 'chat/:userId', component: ChatComponent} ,
+
   {
     path: 'contact-grid',
     component: ContactGridComponent,

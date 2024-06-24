@@ -6,6 +6,7 @@ import { Role } from './core/models/role';
 import { AuthLayoutComponent } from './layout/app-layout/auth-layout/auth-layout.component';
 import { MainLayoutComponent } from './layout/app-layout/main-layout/main-layout.component';
 const routes: Routes = [
+
   {
     path: '',
     component: MainLayoutComponent,
@@ -136,6 +137,8 @@ const routes: Routes = [
         (m) => m.AuthenticationModule
       ),
   },
+
+
   { path: '**', component: Page404Component },
 ];
 @NgModule({

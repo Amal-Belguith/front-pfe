@@ -1,53 +1,34 @@
-<section class="content">
-  <div class="content-block">
-    <div class="block-header">
-      <!-- breadcrumb -->
-      <app-breadcrumb [title]="'Chat'" [items]="['Apps']" [active_item]="'Chat'"></app-breadcrumb>
-    </div>
-    <body>
-
-      <h2>Chatting With Your Doctor</h2>
-      
-      <div class="user-form" id="username-page">
-          <h2>Enter Chatroom</h2>
-          <form id="usernameForm">
-              <label for="nickname">Nickname:</label>
-              <input type="text" id="nickname" name="nickname" required>
-      
-              <label for="fullname">Real Name:</label>
-              <input type="text" id="fullname" name="realname" required>
-      
-              <button type="submit">Enter Chatroom</button>
-          </form>
+<div class="chat_window">
+  <div class="top_menu">
+    <div class="buttons">
+      <div class="user_list">
+        <div *ngFor="let user of userList">
+          <span class="fas fa-circle text-success me-1">&nbsp;</span>
+          {{ user.firstName }} {{ user.lastName }}
+        </div>
       </div>
-      
-      <div class="chat-container hidden" id="chat-page">
-          <div class="users-list">
-              <div class="users-list-container">
-                  <h2>Online Users</h2>
-                  <ul id="connectedUsers">
-                  </ul>
-              </div>
-              <div>
-                  <p id="connected-user-fullname"></p>
-                  <a class="logout" href="javascript:void(0)" id="logout">Logout</a>
-              </div>
-          </div>
-      
-          <div class="chat-area">
-              <div class="chat-area" id="chat-messages">
-              </div>
-      
-              <form id="messageForm" name="messageForm" class="hidden">
-                  <div class="message-input">
-                      <input autocomplete="off" type="text" id="message" placeholder="Type your message...">
-                      <button>Send</button>
-                  </div>
-              </form>
-          </div>
-      </div>     
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
-      </body>
+    </div>  
+    <br>
+    <div class="title">Communication</div>
   </div>
-</section>
+  
+  <ul class="messages">
+    <li class="message right" *ngFor="let item of messageList" 
+        [ngClass]="{'left': item.message_side === 'receiver', 'right': item.message_side === 'sender'}">
+      <div class="avatar"></div>
+      <div class="text_wrapper">
+        <div class="text">{{ item.message }}</div>
+      </div>
+    </li>
+  </ul>
+  <div class="bottom_wrapper clearfix">
+    <div class="message_input_wrapper">
+      <input class="message_input" placeholder="Message..." [(ngModel)]="messageInput" 
+             (keyup.enter)="sendMessage()" />
+    </div>
+    <div class="send_message" (click)="sendMessage()">
+      <div class="icon"></div>
+      <div class="text">Send</div>
+    </div>
+  </div>
+</div>

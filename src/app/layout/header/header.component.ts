@@ -45,6 +45,10 @@ export class HeaderComponent
   docElement: HTMLElement | undefined;
   isFullScreen = false;
 
+  userId?:number ;
+  isChat?:boolean;
+  userConnected: any;
+
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private renderer: Renderer2,
@@ -114,13 +118,43 @@ export class HeaderComponent
       status: 'msg-read',
     },
   ];
+
+
+ 
+
+  navigateToChat() {
+    this.setConnectedUser();
+    const userId = this.userId;
+    console.log('Navigating to chat with userId:', userId);
+    if (this.userId) {
+      this.router.navigate(['apps/chat', this.userId]);
+    } else {
+      console.error('User ID is undefined, cannot navigate to chat.');
+    }
+  }  
+
+  setConnectedUser() {
+    const userConnectedString = localStorage.getItem('currentUser');
+    if (userConnectedString) {
+      this.userConnected = JSON.parse(userConnectedString);
+      this.userId = this.userConnected.user_ky;
+    }
+  }
+  
+
+
   ngOnInit() {
+
+    this.setConnectedUser();
+
+
+
+
     this.config = this.configService.configData;
     const userRole = this.authService.currentUserValue.role;
     this.userImg = this.authService.currentUserValue.img;
-
+    this.userId = this.authService.currentUserValue.id;
     this.docElement = document.documentElement;
-
     if (userRole === 'Admin') {
       this.homePage = 'admin/dashboard/main';
     } else if (userRole === 'Patient') {
