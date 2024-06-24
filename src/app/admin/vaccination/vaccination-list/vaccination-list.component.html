@@ -92,7 +92,13 @@
                 <ng-container matColumnDef="vaccineType">
                   <mat-header-cell *matHeaderCellDef> Vaccination Type </mat-header-cell>
                   <mat-cell *matCellDef="let element"> {{ element.vaccineType }} </mat-cell>
-                </ng-container>      
+                </ng-container>  
+                <!-- Vaccine Type Column -->
+                <ng-container matColumnDef="vaccineManufacturer">
+                  <mat-header-cell *matHeaderCellDef> Vaccination Manufacturer </mat-header-cell>
+                  <mat-cell *matCellDef="let element"> {{ element.vaccineManufacturer }} </mat-cell>
+                </ng-container>  
+
                    
               
               <!-- actions -->

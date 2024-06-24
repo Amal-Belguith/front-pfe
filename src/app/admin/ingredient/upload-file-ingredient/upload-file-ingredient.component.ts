@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { IngredientService } from '../allingredient/ingredient.service';
 import * as XLSX from 'xlsx';
+import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 
 interface IngredientData {
   ingredient_name: string;
@@ -14,7 +15,7 @@ interface IngredientData {
 export class UploadFileIngredientComponent {
   selectedFile: File | null = null; // Variable pour stocker le fichier sélectionné
 
-  constructor(private ingredientService: IngredientService) {}
+  constructor(private ingredientService: IngredientService,private snackBar: MatSnackBar,) {}
 
   onFileSelected(event: any) {
     // Récupérer le fichier sélectionné à partir de l'objet event
@@ -46,7 +47,12 @@ export class UploadFileIngredientComponent {
             next: (exists: boolean) => {
               ingredientsChecked++;
               if (exists) {
-                alert(`The ingredient '${ingredientName}' already exists`);
+                this.showNotification(
+                  'snackbar-error',
+                  `The ingredient '${ingredientName}' already exists`,
+                  'top',
+                  'center'
+                );
               } else {
                 allIngredientsExist = false;
               }
@@ -68,6 +74,13 @@ export class UploadFileIngredientComponent {
       fileReader.readAsArrayBuffer(this.selectedFile);
     } else {
       console.log('No files selected');
+      this.showNotification(
+        'snackbar-warning',
+        'No files selected',
+        'top',
+        'center'
+      );
+      
     }
   }
 
@@ -84,7 +97,12 @@ export class UploadFileIngredientComponent {
       .then(response => response.json())
       .then(data => {
         console.log('File upload response:', data);
-        alert('File Added Successfully');
+        this.showNotification(
+          'snackbar-success',
+          ' File Added Successfully',
+          'top',
+          'center'
+        );
         this.selectedFile = null;
       })
       .catch(error => {
@@ -92,6 +110,25 @@ export class UploadFileIngredientComponent {
       });
     } else {
       console.log('No files selected or all ingredients already exist');
+      this.showNotification(
+        'snackbar-warning',
+        ' No files selected or all ingredients already exist',
+        'top',
+        'center'
+      );
     }
+  }
+  showNotification(
+    colorName: string,
+    text: string,
+    placementFrom: MatSnackBarVerticalPosition,
+    placementAlign: MatSnackBarHorizontalPosition
+  ) {
+    this.snackBar.open(text, '', {
+      duration: 4000,
+      verticalPosition: placementFrom,
+      horizontalPosition: placementAlign,
+      panelClass: colorName,
+    });
   }
 }

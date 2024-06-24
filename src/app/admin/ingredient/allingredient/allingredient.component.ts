@@ -147,14 +147,14 @@ openDeleteModal(ingredient: Ingredient): void {
         this.ingredients = this.ingredients.filter(a => a !== ingredient);
         this.showNotification(
           'snackbar-success',
-          ' Ingredient Delete Successfully...!!!',
-          'bottom',
+          ' Ingredient Delete Successfully',
+          'top',
           'center'
         );
         this.refresh();
       }, (error) => {
         console.error('Error removing ingredient from the database:', error);
-        this.showNotification('error', 'Failed to remove ingredient ', 'bottom', 'right');
+        this.showNotification('snackbar-error', 'Failed to remove ingredient ', 'top', 'center');
         // Afficher un message d'erreur ou gérer l'erreur autrement
       });
     }
@@ -183,7 +183,7 @@ showNotification(
   placementAlign: MatSnackBarHorizontalPosition
 ) {
   this.snackBar.open(text, '', {
-    duration: 2000,
+    duration: 4000,
     verticalPosition: placementFrom,
     horizontalPosition: placementAlign,
     panelClass: colorName,

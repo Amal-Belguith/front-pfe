@@ -62,49 +62,40 @@ export class EditCategoryComponent implements OnInit {
       this.showNotification('snackbar-warning', 'Please fill all required fields', 'bottom', 'right');
     }
   }*/
-  onSubmit(): void {
-    if (this.categoryForm.valid) {
-      const updatedCategory: PhysicalTreatmentCategory = {
-        categoryid: this.data.category.categoryid, // Vous pouvez récupérer l'ID de la catégorie existante
-        phyCategoryName: this.categoryForm.value.phyCategoryName, // Récupérer le nom à partir du formulaire
-        phyCategoryDesc: this.categoryForm.value.phyCategoryDesc, // Récupérer la description à partir du formulaire
-        physicalTreatments: this.data.category.physicalTreatments // Conserver les traitements existants
-      };
-
-      this.categoryService.checkIfTrCatExists(updatedCategory.phyCategoryName).subscribe
-      ((exists:boolean) => {
-        if(exists){
-          this.showNotification(
-            'snackbar-warning',
-            'Physical Treatment Category already exist',
-            'top',
-            'center'
-          );
-        }else{
-  
-      this.categoryService.updatePhyTrCategory(updatedCategory).subscribe(
-        () => {
-          this.showNotification(
-            'snackbar-success',
-            'Category updated successfully....!!!',
-            'bottom',
-            'center'
-          );
-          this.dialogRef.close('updated'); // Envoyer un signal pour indiquer que la mise à jour est effectuée
-        },
-        (error) => {
-          console.error('Error updating Physical Treatment Category:', error);
-        }
-          );
-        }
+    onSubmit(): void {
+      if (this.categoryForm.valid) {
+        const updatedCategory: PhysicalTreatmentCategory = {
+          categoryid: this.data.category.categoryid,
+          phyCategoryName: this.categoryForm.value.phyCategoryName,
+          phyCategoryDesc: this.categoryForm.value.phyCategoryDesc,
+          physicalTreatments: this.data.category.physicalTreatments
+        };
+    
+        this.categoryService.updatePhyTrCategory(updatedCategory).subscribe(
+          () => {
+            this.showNotification(
+              'snackbar-success',
+              'Category updated successfully....!!!',
+              'bottom',
+              'center'
+            );
+            this.dialogRef.close('updated');
+          },
+          (error) => {
+            console.error('Error updating Physical Treatment Category:', error);
+            this.showNotification(
+              'snackbar-error',
+              'Error updating Physical Treatment Category. Please try again later.',
+              'bottom',
+              'right'
+            );
+          }
+        );
+      } else {
+        this.showNotification('snackbar-warning', 'Please fill all required fields', 'bottom', 'right');
       }
-    );
-    }
-    else {
-      this.showNotification('snackbar-warning', 'Please fill all required fields', 'bottom', 'right');
     }
     
-  }
   
   
   showNotification(

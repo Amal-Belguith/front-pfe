@@ -124,7 +124,7 @@ export class EditMedicationComponent implements OnInit {
     if (this.medicationForm.valid) {
       const updatedMedication = this.medicationForm.value;
       updatedMedication.medicIngredientLinks = [];
-
+  
       updatedMedication.ingredients.map((ing: any) => {
         this.ingredients.map((item: any) => {
           if (item.ingredientKy === ing.ingredientKy) {
@@ -132,18 +132,7 @@ export class EditMedicationComponent implements OnInit {
           }
         });
       });
-
-      this.medicationService.checkIfMedicationExists(updatedMedication.medicationName, updatedMedication.medicationCode).subscribe(
-        (exists: boolean) => {
-          if (exists) {
-            this.showNotification(
-              'snackbar-warning',
-              'Medication already exist',
-              'top',
-              'center'
-            );
-          } else {
-
+  
       this.medicationService.updateMedication(this.data.medication.medicationKy, updatedMedication)
         .subscribe(
           () => {
@@ -157,13 +146,16 @@ export class EditMedicationComponent implements OnInit {
           },
           (error) => {
             console.error('Error updating medication:', error);
+            this.showNotification(
+              'snackbar-error',
+              'Error updating medication. Please try again later.',
+              'bottom',
+              'right'
+            );
           }
         );
-      }
+    } else {
+      this.showNotification('snackbar-warning', 'Please fill all required fields', 'bottom', 'right');
     }
-  );
-} else {
-  this.showNotification('snackbar-warning', 'Please fill all required fields', 'bottom', 'right');
-}
-}
+  }  
 }

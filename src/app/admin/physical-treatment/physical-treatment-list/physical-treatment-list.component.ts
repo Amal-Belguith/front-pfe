@@ -121,13 +121,13 @@ loadData(): void {
           this.showNotification(
             'snackbar-success',
             'Treatment Delete Successfully...!!!',
-            'bottom',
+            'top',
             'center'
           );
           this.refresh();
         }, (error) => {
           console.error('Error removing treatment from the database:', error);
-          this.showNotification('error', 'Failed to delete treatment', 'bottom', 'right');
+          this.showNotification('error', 'Failed to delete treatment', 'top', 'center');
           // Afficher un message d'erreur ou gérer l'erreur autrement
         });
       }
@@ -140,7 +140,7 @@ loadData(): void {
     placementAlign: MatSnackBarHorizontalPosition
   ) {
     this.snackBar.open(text, '', {
-      duration: 2000,
+      duration: 4000,
       verticalPosition: placementFrom,
       horizontalPosition: placementAlign,
       panelClass: colorName,

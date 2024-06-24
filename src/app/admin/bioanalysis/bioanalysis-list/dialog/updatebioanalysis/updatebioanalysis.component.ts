@@ -65,40 +65,32 @@ export class UpdatebioanalysisComponent implements OnInit {
         biologicalAnalysisRefValueMin: this.bioanalysisForm.value.analysisRefValueMin,
         biologicalAnalysisRefValueMax: this.bioanalysisForm.value.analysisRefValueMax
       };
-
-      this.bioanalysisService.checkIfAnalyseExists(updatedAnalysis.biologicalAnalysisName).subscribe
-      ((exists:boolean) => {
-        if(exists){
+  
+      this.bioanalysisService.updateAnalysis(this.data.bioanalysis.id, updatedAnalysis).subscribe(
+        () => {
+          console.log('BioAnalysis updated successfully.');
+          this.dialogRef.close(updatedAnalysis);
           this.showNotification(
-            'snackbar-warning',
-            ' Biological Analysis already exist',
-            'top',
+            'snackbar-success',
+            'BioAnalysis updated successfully....!!!',
+            'bottom',
             'center'
           );
-        }else{
-
-      this.bioanalysisService.updateAnalysis(this.data.bioanalysis.id, updatedAnalysis).subscribe(() => {
-        console.log('BioAnalysis updated successfully.');
-        this.dialogRef.close(updatedAnalysis);
-        this.showNotification(
-          'snackbar-success',
-          'BioAnalysis updated successfully....!!!',
-          'bottom',
-          'center'
-        );
-      }, (error) => {
-        console.error('Error adding Biological Analysis:', error);
-      }
-        );
-      }
+        },
+        (error) => {
+          console.error('Error updating Biological Analysis:', error);
+          this.showNotification(
+            'snackbar-error',
+            'Error updating Biological Analysis. Please try again later.',
+            'bottom',
+            'right'
+          );
+        }
+      );
+    } else {
+      this.showNotification('snackbar-warning', 'Please fill all required fields', 'bottom', 'right');
     }
-  );
-  }
-  else {
-    this.showNotification('snackbar-warning', 'Please fill all required fields', 'bottom', 'right');
-  }
-  
-}
+  }  
 
   showNotification(
     colorName: string,

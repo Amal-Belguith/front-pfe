@@ -47,7 +47,7 @@ export class AddSurgicalComponent {
         if(exists){
           this.showNotification(
             'snackbar-warning',
-            ' Surgical already exist',
+            'Surgical already exist',
             'top',
             'center'
           );
@@ -61,8 +61,8 @@ export class AddSurgicalComponent {
           this.dialogRef.close();
           this.showNotification(
           'snackbar-success',
-          'Surgical added successfully...!!!',
-          'bottom',
+          'Surgical added successfully',
+          'top',
           'center'
         );
         },
@@ -75,7 +75,7 @@ export class AddSurgicalComponent {
     );
     }
     else {
-      this.showNotification('snackbar-warning', 'Please fill all required fields', 'bottom', 'right');
+      this.showNotification('snackbar-warning', 'Please fill all required fields', 'top', 'center');
     }
     
   }
@@ -87,7 +87,7 @@ export class AddSurgicalComponent {
     placementAlign: MatSnackBarHorizontalPosition
   ) {
     this.snackBar.open(text, '', {
-      duration: 2000,
+      duration: 4000,
       verticalPosition: placementFrom,
       horizontalPosition: placementAlign,
       panelClass: colorName,

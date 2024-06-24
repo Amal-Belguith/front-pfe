@@ -60,8 +60,8 @@ export class AddAdverseEffectComponent {
           this.dialogRef.close();
           this.showNotification(
           'snackbar-success',
-          'Adverse Effect added successfully...!!!',
-          'bottom',
+          'Adverse Effect added successfully',
+          'top',
           'center'
         );
         },
@@ -74,7 +74,7 @@ export class AddAdverseEffectComponent {
     );
     }
     else {
-      this.showNotification('snackbar-warning', 'Please fill all required fields', 'bottom', 'right');
+      this.showNotification('snackbar-warning', 'Please fill all required fields', 'top', 'center');
     }
     
   }

@@ -73,8 +73,8 @@ export class AddAllergyComponent {
           this.dialogRef.close();
           this.showNotification(
           'snackbar-success',
-          'Allergy added successfully...!!!',
-          'bottom',
+          'Allergy added successfully',
+          'top',
           'center'
         );
         },
@@ -87,7 +87,7 @@ export class AddAllergyComponent {
     );
     }
     else {
-      this.showNotification('snackbar-warning', 'Please fill all required fields', 'bottom', 'right');
+      this.showNotification('snackbar-warning', 'Please fill all required fields', 'top', 'center');
     }
     
   }
@@ -98,7 +98,7 @@ export class AddAllergyComponent {
     placementAlign: MatSnackBarHorizontalPosition
   ) {
     this.snackBar.open(text, '', {
-      duration: 2000,
+      duration: 4000,
       verticalPosition: placementFrom,
       horizontalPosition: placementAlign,
       panelClass: colorName,

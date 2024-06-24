@@ -51,11 +51,13 @@ export class BioanalysisDetailsComponent {
     height: '650px',
     data: { bioanalysis: bioanalysis } // Pass vaccination data to the modal
     
+    
   });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The edit dialog was closed');
       // Traiter les données retournées par le modal si nécessaire
+      this.getBioanalysisDetails();
       this.isLoading = true;
     });
   }

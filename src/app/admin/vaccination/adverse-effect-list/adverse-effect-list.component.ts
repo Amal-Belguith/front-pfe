@@ -128,8 +128,8 @@ export class AdverseEffectListComponent {
           this.symptoms = this.symptoms.filter(a => a !== vaccin); // Assuming only one record is deleted
           this.showNotification(
             'snackbar-danger',
-            ' Record Delete Successfully...!!!',
-            'bottom',
+            ' Record Delete Successfully',
+            'top',
             'center'
           );this.refresh();
         }, (error) => {
@@ -146,7 +146,7 @@ export class AdverseEffectListComponent {
     placementAlign: MatSnackBarHorizontalPosition
   ) {
     this.snackBar.open(text, '', {
-      duration: 2000,
+      duration: 4000,
       verticalPosition: placementFrom,
       horizontalPosition: placementAlign,
       panelClass: colorName,

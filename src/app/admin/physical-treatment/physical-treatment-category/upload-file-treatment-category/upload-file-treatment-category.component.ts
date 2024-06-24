@@ -1,6 +1,7 @@
 import { Component,ViewChild } from '@angular/core';
 import { PhyTrCategoryService } from '../../services/physical-treatment-category.service';
 import * as XLSX from 'xlsx';
+import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 
 interface trcatData {
   phyCategoryName: string;
@@ -14,7 +15,7 @@ interface trcatData {
 export class UploadFiletrcatComponent {
   selectedFile: File | null = null; // Variable pour stocker le fichier sélectionné
 
-  constructor(private trcatser: PhyTrCategoryService) {}
+  constructor(private trcatser: PhyTrCategoryService,private snackBar: MatSnackBar) {}
 
   onFileSelected(event: any) {
     // Récupérer le fichier sélectionné à partir de l'objet event
@@ -46,7 +47,12 @@ export class UploadFiletrcatComponent {
             next: (exists: boolean) => {
               categoriesChecked++;
               if (exists) {
-                alert(`The Treatment Category '${phyCategoryName}' already exists`);
+                this.showNotification(
+                  'snackbar-error',
+                  `The Treatment Category '${phyCategoryName}' already exists`,
+                  'top',
+                  'center'
+                );
               } else {
                 allTrCatExist = false;
               }
@@ -68,6 +74,12 @@ export class UploadFiletrcatComponent {
       fileReader.readAsArrayBuffer(this.selectedFile);
     } else {
       console.log('No files selected');
+      this.showNotification(
+        'snackbar-warning',
+        'No files selected',
+        'top',
+        'center'
+      );
     }
   }
 
@@ -84,7 +96,12 @@ export class UploadFiletrcatComponent {
       .then(response => response.json())
       .then(data => {
         console.log('File upload response:', data);
-        alert('File Added Successfully');
+        this.showNotification(
+          'snackbar-success',
+          'File Added Successfully',
+          'top',
+          'center'
+        );
         this.selectedFile = null;
       })
       .catch(error => {
@@ -92,6 +109,25 @@ export class UploadFiletrcatComponent {
       });
     } else {
       console.log('No files selected or all Treatment Categories already exist');
+      this.showNotification(
+        'snackbar-warning',
+        ' No files selected or all Treatment Categories already exist',
+        'top',
+        'center'
+      );
     }
+  }
+  showNotification(
+    colorName: string,
+    text: string,
+    placementFrom: MatSnackBarVerticalPosition,
+    placementAlign: MatSnackBarHorizontalPosition
+  ) {
+    this.snackBar.open(text, '', {
+      duration: 4000,
+      verticalPosition: placementFrom,
+      horizontalPosition: placementAlign,
+      panelClass: colorName,
+    });
   }
 }

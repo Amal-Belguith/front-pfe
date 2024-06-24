@@ -1,6 +1,7 @@
 import { Component,ViewChild } from '@angular/core';
 import { AdverseEffectService } from '../../services/adverse-effect.service';
 import * as XLSX from 'xlsx';
+import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 
 interface adveffData {
   adverseEffectName: string;
@@ -14,7 +15,7 @@ interface adveffData {
 export class UploadFileadveffComponent {
   selectedFile: File | null = null; // Variable pour stocker le fichier sélectionné
 
-  constructor(private adveff: AdverseEffectService) {}
+  constructor(private adveff: AdverseEffectService,private snackBar: MatSnackBar) {}
 
   onFileSelected(event: any) {
     // Récupérer le fichier sélectionné à partir de l'objet event
@@ -45,7 +46,12 @@ export class UploadFileadveffComponent {
             next: (exists: boolean) => {
               effectsChecked++;
               if (exists) {
-                alert(`The Adverse Effect '${adverseEffectName}' already exists`);
+                this.showNotification(
+                  'snackbar-error',
+                  `The Adverse Effect '${adverseEffectName}}' already exists`,
+                  'top',
+                  'center'
+                );
               } else {
                 allAddEffExist = false;
               }
@@ -67,6 +73,12 @@ export class UploadFileadveffComponent {
       fileReader.readAsArrayBuffer(this.selectedFile);
     } else {
       console.log('No files selected');
+      this.showNotification(
+        'snackbar-warning',
+        'No files selected',
+        'top',
+        'center'
+      );
     }
   }
 
@@ -83,7 +95,12 @@ export class UploadFileadveffComponent {
       .then(response => response.json())
       .then(data => {
         console.log('File upload response:', data);
-        alert('File Added Successfully');
+        this.showNotification(
+          'snackbar-success',
+          ' File Added Successfully',
+          'top',
+          'center'
+        );
         this.selectedFile = null;
       })
       .catch(error => {
@@ -91,6 +108,25 @@ export class UploadFileadveffComponent {
       });
     } else {
       console.log('No files selected or all Adverse Effects already exist');
+      this.showNotification(
+        'snackbar-warning',
+        ' No files selected or all Adverse Effects already exist',
+        'top',
+        'center'
+      );
     }
+  }
+  showNotification(
+    colorName: string,
+    text: string,
+    placementFrom: MatSnackBarVerticalPosition,
+    placementAlign: MatSnackBarHorizontalPosition
+  ) {
+    this.snackBar.open(text, '', {
+      duration: 2000,
+      verticalPosition: placementFrom,
+      horizontalPosition: placementAlign,
+      panelClass: colorName,
+    });
   }
 }

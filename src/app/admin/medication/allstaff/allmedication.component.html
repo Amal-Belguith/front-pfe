@@ -107,15 +107,6 @@
                   <mat-header-cell *matHeaderCellDef mat-sort-header>DosageForm</mat-header-cell>
                   <mat-cell *matCellDef="let row">{{row.medicationDosageForm}}</mat-cell>
                 </ng-container>
-                <ng-container matColumnDef="ingredients">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header>Ingredients</mat-header-cell>
-                  <mat-cell *matCellDef="let row">
-                    <ng-container *ngFor="let ingredient of row.ingredients">
-                      {{ ingredient.ingredientName }}
-                      <br> <!-- Pour afficher chaque ingrédient sur une nouvelle ligne -->
-                    </ng-container>
-                  </mat-cell>
-                </ng-container>
                 <!-- actions -->
               <ng-container matColumnDef="actions">
                 <mat-header-cell class="pr-0" *matHeaderCellDef>Actions</mat-header-cell>

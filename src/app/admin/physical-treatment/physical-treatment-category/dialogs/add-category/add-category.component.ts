@@ -47,8 +47,8 @@ export class AddCategoryComponent {
           this.dialogRef.close();
           this.showNotification(
           'snackbar-success',
-          'Physical Treatment Category added successfully...!!!',
-          'bottom',
+          'Physical Treatment Category added successfully',
+          'top',
           'center'
         );
         },
@@ -61,7 +61,7 @@ export class AddCategoryComponent {
     );
     }
     else {
-      this.showNotification('snackbar-warning', 'Please fill all required fields', 'bottom', 'right');
+      this.showNotification('snackbar-warning', 'Please fill all required fields', 'top', 'center');
     }
     
   }
@@ -77,7 +77,7 @@ export class AddCategoryComponent {
     placementAlign: MatSnackBarHorizontalPosition
   ) {
     this.snackBar.open(text, '', {
-      duration: 2000,
+      duration: 4000,
       verticalPosition: placementFrom,
       horizontalPosition: placementAlign,
       panelClass: colorName,

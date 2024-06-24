@@ -100,8 +100,10 @@
                   <mat-header-cell class="pr-0" *matHeaderCellDef>Actions</mat-header-cell>
                   <mat-cell *matCellDef="let row; let i=index;" class="pr-0">
                     <!-- Bouton "Consultation" -->
-                    <button mat-icon-button class="tbl-action-btn"  (click)="editAppointment(row)">
-                      <app-feather-icons [icon]="'edit'" [class]="'tbl-fav-edit'"></app-feather-icons>
+                    <button mat-icon-button class="tbl-action-btn" 
+                      (click)="editAppointment(row)" 
+                      [disabled]="!isTodayOrFuture(row.doa)">
+                    <app-feather-icons [icon]="'edit'" [class]="'tbl-fav-edit'"></app-feather-icons>
                     </button>
                     <!-- Bouton "Delete" -->
                   <button mat-icon-button (click)="$event.stopPropagation()" (click)="openDeleteModal(row)" class="tbl-action-btn" matTooltip="DELETE">

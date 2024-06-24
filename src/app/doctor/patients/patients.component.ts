@@ -5,6 +5,8 @@ import {
 } from '@angular/material/snack-bar';
 import { PatientsService } from './patient.service';
 import { TableExportUtil } from '@shared';
+import { Appointment } from 'app/patient/appointments/appointmentModel';
+import { AppointmentService } from 'app/patient/appointments/appointmentservice';
 
 
 
@@ -25,14 +27,18 @@ export class PatientsComponent implements OnInit {
 
   dataSource: User[] = [];
   originalDataSource: User[] = [];
+  appointments: Appointment[] = []; // Stocker les rendez-vous ici
+
 
   constructor(
     private snackBar: MatSnackBar,
-    private patservice: PatientsService
+    private patservice: PatientsService,
+    private appservice: AppointmentService
   ) { }
 
   ngOnInit(): void {
     this.getAllPatient();
+    this.getAllAppointments();
   }
 
   getAllPatient(): void {
@@ -40,10 +46,9 @@ export class PatientsComponent implements OnInit {
       (data: User[]) => {
         // Filtrer uniquement les patients
         const patients = data.filter(user => user.role === Role.PATIENT);
-        console.log('Filtered patients data:', patients); // Log filtered data
-
         this.dataSource = patients;
         this.originalDataSource = patients; // Conservez une copie filtrée si nécessaire
+        this.filterPatientsWithAppointments(); // Filtrer les patients qui ont des rendez-vous
       },
       (error: any) => {
         this.snackBar.open('Error loading patients', 'Ok', {
@@ -52,6 +57,29 @@ export class PatientsComponent implements OnInit {
       }
     );
   }
+  getAllAppointments(): void {
+    this.appservice.getAllApp().subscribe(
+      (data: Appointment[]) => {
+        this.appointments = data; // Stocker les rendez-vous récupérés
+        this.filterPatientsWithAppointments(); // Filtrer les patients qui ont des rendez-vous
+      },
+      (error: any) => {
+        this.snackBar.open('Error loading appointments', 'Ok', {
+          duration: 2000,
+        });
+      }
+    );
+  }
+  filterPatientsWithAppointments(): void {
+    if (this.originalDataSource.length > 0 && this.appointments.length > 0) {
+      // Filtrer les patients qui ont des rendez-vous
+      const patientsWithAppointments = this.originalDataSource.filter(patient =>
+        this.appointments.some(appointment => appointment.user_ky === patient.user_ky)
+      );
+      this.dataSource = patientsWithAppointments;
+    }
+  }
+
 
   refresh(): void {
     this.getAllPatient();

@@ -19,6 +19,7 @@ export class AddPersonalComponent {
   returnUrl!: string;
   perForm: UntypedFormGroup;
   hide3 = true;
+  hide = true;
   agree3 = false;
   constructor(private fb: UntypedFormBuilder, private personalservice: PersonalService,  public dialogRef: MatDialogRef<AddPersonalComponent>,
     private snackBar: MatSnackBar) {
@@ -69,13 +70,19 @@ export class AddPersonalComponent {
           this.dialogRef.close();
           this.showNotification(
             'snackbar-success',
-            'Staff added successfully...!!!',
-            'bottom',
+            'Staff added successfully',
+            'top',
             'center'
           );
         },
         (error) => {
           console.error('Error adding staff:', error);
+          this.showNotification(
+            'snackbar-error',
+            'Error adding staff',
+            'top',
+            'center'
+          );
         }
       );
     }
@@ -88,7 +95,7 @@ export class AddPersonalComponent {
     placementAlign: MatSnackBarHorizontalPosition
   ): void {
     this.snackBar.open(text, '', {
-      duration: 2000,
+      duration: 4000,
       verticalPosition: placementFrom,
       horizontalPosition: placementAlign,
       panelClass: colorName,
