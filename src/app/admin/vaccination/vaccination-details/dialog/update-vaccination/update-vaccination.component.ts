@@ -96,47 +96,31 @@ export class UpdateVaccinationComponent implements OnInit {
     }
     onSubmit() {
       if (this.vaccinationForm.valid) {
-        const vaccinationNameControl = this.vaccinationForm.get('vaccinationName');
-        const vaccinationTypeControl = this.vaccinationForm.get('vaccinationType');
-        const manufacturerControl = this.vaccinationForm.get('Manufacturer');
-        const sideEffectsControl = this.vaccinationForm.get('sideEffects');
-    //check if these variables are truthy before accessing their value property to avoid accessing properties of null
-        if (vaccinationNameControl && vaccinationTypeControl && manufacturerControl && sideEffectsControl) {
-          const updatedVaccination: Vaccination = {
-            vaccineLabel: vaccinationNameControl.value,
-            vaccineType: vaccinationTypeControl.value,
-            vaccineManufacturer: manufacturerControl.value,
-            sideEffects: sideEffectsControl.value,
-            idVaccination: undefined
-          };
-          this.vaccinationService.checkIfvaccExists(updatedVaccination.vaccineLabel).subscribe
-          ((exists:boolean) => {
-            if(exists){
+        const updatedVaccination: Vaccination = {
+          vaccineLabel: this.vaccinationForm.value.vaccinationName,
+          vaccineType: this.vaccinationForm.value.vaccinationType,
+          vaccineManufacturer: this.vaccinationForm.value.Manufacturer,
+          sideEffects: this.vaccinationForm.value.sideEffects,
+          idVaccination: this.data.vaccination.idVaccination // Assurez-vous de récupérer correctement l'ID de la vaccination existante
+        };
+    
+        this.vaccinationService.updateVaccination(updatedVaccination, updatedVaccination.idVaccination)
+          .subscribe(
+            () => {
               this.showNotification(
-                'snackbar-warning',
-                'vaccination already exist',
-                'top',
+                'snackbar-success',
+                'Vaccination updated successfully',
+                'bottom',
                 'center'
               );
-            }else{
-          this.vaccinationService.updateVaccination(updatedVaccination, this.data.vaccination.idVaccination)
-            .subscribe(
-              () => {
-                this.showNotification('snackbar-success', 'Vaccination updated successfully', 'bottom', 'center');
-                this.dialogRef.close();
-              },
-              (error) => {
-                console.error('Error updating vaccination:', error);
-              }
-                );
-              }
+              this.dialogRef.close();
+            },
+            (error) => {
+              console.error('Error updating vaccination:', error);
             }
           );
-          }
-          else {
-            this.showNotification('snackbar-warning', 'Please fill all required fields', 'bottom', 'right');
-          }
-          
-        }
+      } else {
+        this.showNotification('snackbar-warning', 'Please fill all required fields', 'bottom', 'right');
       }
+    }    
     }

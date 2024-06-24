@@ -54,50 +54,39 @@ export class EditIngredientComponent implements OnInit {
     onSubmit() {
       if (this.ingredientForm.valid) {
         const ingredientName = this.ingredientForm.get('ingredientName');
-        const ingredientDesc = this.ingredientForm.get('ingredientDesc'); // Correction de la récupération de l'élément ingredientDesc
+        const ingredientDesc = this.ingredientForm.get('ingredientDesc');
     
         // Vérifiez si ingredientName et ingredientDesc sont définis avant d'accéder à leur propriété value pour éviter d'accéder à des propriétés de null
-        if (ingredientName && ingredientDesc && ingredientName.value && ingredientDesc.value) { // Ajout de la vérification de ingredientName.value et ingredientDesc.value
+        if (ingredientName && ingredientDesc && ingredientName.value && ingredientDesc.value) {
           const updatedIngredient: Ingredient = {
             ingredientName: ingredientName.value,
             ingredientDesc: ingredientDesc.value,
             ingredientKy: undefined
           };
-
-          this.ingredientservice.checkIfIngredientExists(updatedIngredient.ingredientName).subscribe
-          ((exists:boolean) => {
-            if(exists){
+    
+          this.ingredientservice.updateIngredient(this.data.ingredient.ingredientKy, updatedIngredient).subscribe(
+            () => {
               this.showNotification(
-                'snackbar-warning',
-                'Ingredient already exist',
-                'top',
+                'snackbar-success',
+                'Update ingredient Successfully...!!!',
+                'bottom',
                 'center'
               );
-            }else{
-          
-                this.ingredientservice.updateIngredient( this.data.ingredient.ingredientKy,updatedIngredient)
-                  .subscribe(
-                    () => {
-                      this.showNotification(
-                        'snackbar-success',
-                        ' Update ingredient Successfully...!!!',
-                        'bottom',
-                        'center'
-                      );
-                      this.dialogRef.close();
-                    },
-                    (error) => {
-                      console.error('Error updating ingredient:', error);
-                    }
-                      );
-                    }
-                  }
-                );
-                }
-                else {
-                  this.showNotification('snackbar-warning', 'Please fill all required fields', 'bottom', 'right');
-                }
-                
-              }
+              this.dialogRef.close();
+            },
+            (error) => {
+              console.error('Error updating ingredient:', error);
+              this.showNotification(
+                'snackbar-error',
+                'Error updating ingredient. Please try again later.',
+                'bottom',
+                'right'
+              );
             }
+          );
+        } else {
+          this.showNotification('snackbar-warning', 'Please fill all required fields', 'bottom', 'right');
+        }
+      }
+    }    
           }

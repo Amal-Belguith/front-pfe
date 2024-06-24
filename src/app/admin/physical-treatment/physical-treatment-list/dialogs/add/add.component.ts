@@ -80,8 +80,8 @@ export class AddComponent {
           this.dialogRef.close();
           this.showNotification(
           'snackbar-success',
-          'Physical Treatment  added successfully...!!!',
-          'bottom',
+          'Physical Treatment  added successfully',
+          'top',
           'center'
         );
         },
@@ -94,7 +94,7 @@ export class AddComponent {
     );
     }
     else {
-      this.showNotification('snackbar-warning', 'Please fill all required fields', 'bottom', 'right');
+      this.showNotification('snackbar-warning', 'Please fill all required fields', 'top', 'center');
     }
     
   }
@@ -106,7 +106,7 @@ export class AddComponent {
     placementAlign: MatSnackBarHorizontalPosition
   ) {
     this.snackBar.open(text, '', {
-      duration: 2000,
+      duration: 4000,
       verticalPosition: placementFrom,
       horizontalPosition: placementAlign,
       panelClass: colorName,

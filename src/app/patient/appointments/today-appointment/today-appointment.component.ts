@@ -60,6 +60,11 @@ export class TodayAppointmentComponent implements OnInit {
   refresh() {
     this.getAllApp();
   }
+  isTodayOrFuture(date: string): boolean {
+    const today = new Date();
+    const appointmentDate = new Date(date);
+    return appointmentDate >= today;
+  }
 
   getAllApp(): void {
     this.appointmentService.getAllApp().subscribe(

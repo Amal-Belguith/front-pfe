@@ -191,7 +191,7 @@ openAddModal(): void {
     placementAlign: MatSnackBarHorizontalPosition
   ) {
     this.snackBar.open(text, '', {
-      duration: 2000,
+      duration: 4000,
       verticalPosition: placementFrom,
       horizontalPosition: placementAlign,
       panelClass: colorName,
@@ -200,6 +200,7 @@ openAddModal(): void {
 
   exportExcel() {
     const exportData: Partial<Record<string, any>>[] = this.dataSource.filteredData.map((personal) => ({
+      'user_ky':personal.user_ky,
       'firstname': personal.firstname,
       'lastname': personal.lastname,
       'email': personal.email,

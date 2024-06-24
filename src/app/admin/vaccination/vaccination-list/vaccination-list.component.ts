@@ -36,7 +36,7 @@ import { Router } from '@angular/router';
 })
 export class VaccinationListComponent implements OnInit {
 
-  displayedColumns: string[] = ['select', 'idVaccination', 'vaccineLabel', 'vaccineType', 'actions'];
+  displayedColumns: string[] = ['select', 'idVaccination', 'vaccineLabel', 'vaccineType','vaccineManufacturer', 'actions'];
   dataSource = new MatTableDataSource<Vaccination>([]); // Initialize with an empty array
   selection = new SelectionModel<Vaccination>(true, []);
   exampleDatabase?: VaccinationService;
@@ -126,7 +126,7 @@ export class VaccinationListComponent implements OnInit {
     placementAlign: MatSnackBarHorizontalPosition
   ) {
     this.snackBar.open(text, '', {
-      duration: 2000,
+      duration: 4000,
       verticalPosition: placementFrom,
       horizontalPosition: placementAlign,
       panelClass: colorName,
@@ -169,18 +169,18 @@ export class VaccinationListComponent implements OnInit {
       if (result === true) {
         // Supprimer l'allergie de la base de données
         this.vaccinationService.removeVaccination(vaccin.idVaccination).subscribe(() => {
-          console.log('Allergy successfully removed from the database');
+          console.log('Vaccination successfully removed from the database');
           // Supprimer l'allergie du tableau du modèle
           this.vaccinations = this.vaccinations.filter(a => a !== vaccin); // Assuming only one record is deleted
           this.showNotification(
             'snackbar-danger',
-            ' Record Delete Successfully...!!!',
-            'bottom',
+            'Record Delete Successfully',
+            'top',
             'center'
           );
           this.refresh();
         }, (error) => {
-          console.error('Error removing allergy from the database:', error);
+          console.error('Error removing vaccination from the database:', error);
           // Afficher un message d'erreur ou gérer l'erreur autrement
         });
       }

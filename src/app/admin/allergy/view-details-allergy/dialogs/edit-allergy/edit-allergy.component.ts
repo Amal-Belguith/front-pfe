@@ -58,59 +58,48 @@ export class EditAllergyComponent implements OnInit {
       this.dialogRef.close();
     }
     onSubmit() {
-     if (this.allergyForm.valid) {
+      if (this.allergyForm.valid) {
         const allergyName = this.allergyForm.get('allergyName');
         const allergyType = this.allergyForm.get('allergyType');
         const allergySeverity = this.allergyForm.get('allergySeverity');
         const allergySymptoms = this.allergyForm.get('allergySymptoms');
         const allergyDesc = this.allergyForm.get('description');
-    //check if these variables are truthy before accessing their value property to avoid accessing properties of null
-        if (allergyName && allergyType && allergySeverity &&
-          allergySymptoms && allergyDesc ) {
-          const updatedVaccination: Allergy = {
+        
+        // Check if these variables are truthy before accessing their value property to avoid accessing properties of null
+        if (allergyName && allergyType && allergySeverity && allergySymptoms && allergyDesc) {
+          const updatedAllergy: Allergy = {
             allergyName: allergyName.value,
             allergyType: allergyType.value,
             allergySeverity: allergySeverity.value,
             allergySymptoms: allergySymptoms.value,
             allergyDesc: allergyDesc.value,
-            //sideEffects: sideEffectsControl.value,
             allergyKy: undefined
           };
-
-          this.allergyservice.checkIfAllergyExists(updatedVaccination.allergyName).subscribe
-      ((exists:boolean) => {
-        if(exists){
-          this.showNotification(
-            'snackbar-warning',
-            'Allergy already exist',
-            'top',
-            'center'
-          );
-        }else{
-          
-          this.allergyservice.updateAllergy(updatedVaccination, this.data.allergy.allergyKy)
-            .subscribe(
-              () => {
-                this.showNotification(
-                  'snackbar-success',
-                  ' Update allergy Successfully...!!!',
-                  'bottom',
-                  'center'
-                );
-                this.dialogRef.close();
-              },
-              (error) => {
-                console.error('Error updating allergy:', error);
-              }
-                );
-              }
+    
+          this.allergyservice.updateAllergy(updatedAllergy, this.data.allergy.allergyKy).subscribe(
+            () => {
+              this.showNotification(
+                'snackbar-success',
+                'Update allergy Successfully...!!!',
+                'bottom',
+                'center'
+              );
+              this.dialogRef.close();
+            },
+            (error) => {
+              console.error('Error updating allergy:', error);
+              this.showNotification(
+                'snackbar-error',
+                'Error updating allergy. Please try again later.',
+                'bottom',
+                'right'
+              );
             }
           );
-          }
-          else {
-            this.showNotification('snackbar-warning', 'Please fill all required fields', 'bottom', 'right');
-          }
-          
+        } else {
+          this.showNotification('snackbar-warning', 'Please fill all required fields', 'bottom', 'right');
         }
       }
+    }
+    
     }

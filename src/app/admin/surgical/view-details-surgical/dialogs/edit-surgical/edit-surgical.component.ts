@@ -56,52 +56,30 @@ export class EditSurgicalComponent implements OnInit {
     }
     onSubmit() {
       if (this.surgicalForm.valid) {
-        const cptCode = this.surgicalForm.get('cptCode');
-        const cptDesc = this.surgicalForm.get('cptDesc'); 
-        const cptCategory = this.surgicalForm.get('cptCategory');
-
-        
-        if (cptCode && cptDesc && cptCategory && cptCode.value && cptDesc.value && cptCategory.value) { 
-          const updatedSurgical: Surgical = {
-            cptCode: cptCode.value,
-            cptDesc: cptDesc.value,
-            cptCategory: cptCategory.value,
-            cptky: undefined
-          };
-          this.surservice.checkIfSurgicalExists(updatedSurgical.cptCode).subscribe
-          ((exists:boolean) => {
-            if(exists){
+        const updatedSurgical: Surgical = {
+          cptCode: this.surgicalForm.value.cptCode,
+          cptDesc: this.surgicalForm.value.cptDesc,
+          cptCategory: this.surgicalForm.value.cptCategory,
+          cptky: this.data.surgical.cptky // Assurez-vous de récupérer correctement la clé primaire de l'objet surgical existant
+        };
+    
+        this.surservice.updateSurgical(updatedSurgical.cptky, updatedSurgical)
+          .subscribe(
+            () => {
               this.showNotification(
-                'snackbar-warning',
-                ' Surgical already exist',
-                'top',
+                'snackbar-success',
+                'Update surgical Successfully...!!!',
+                'bottom',
                 'center'
               );
-            }else{
-          
-                this.surservice.updateSurgical( this.data.surgical.cptky,updatedSurgical)
-                  .subscribe(
-                    () => {
-                      this.showNotification(
-                        'snackbar-success',
-                        ' Update surgical Successfully...!!!',
-                        'bottom',
-                        'center'
-                      );
-                      this.dialogRef.close();
-                    },
-                    (error) => {
-                      console.error('Error updating surgical:', error);
-                    }
-                      );
-                    }
-                  }
-                );
-                }
-                else {
-                  this.showNotification('snackbar-warning', 'Please fill all required fields', 'bottom', 'right');
-                }
-                
-              }
+              this.dialogRef.close();
+            },
+            (error) => {
+              console.error('Error updating surgical:', error);
             }
-          }
+          );
+      } else {
+        this.showNotification('snackbar-warning', 'Please fill all required fields', 'bottom', 'right');
+      }
+    }    
+}

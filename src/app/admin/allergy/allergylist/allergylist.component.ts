@@ -151,14 +151,14 @@ openAddModal(): void {
           this.allergies = this.allergies.filter(a => a !== allergy);
           this.showNotification(
             'snackbar-success',
-            ' Allergy Delete Successfully...!!!',
-            'bottom',
+            ' Allergy Delete Successfully',
+            'top',
             'center'
           );
           this.refresh();
         }, (error) => {
           console.error('Error removing allergy from the database:', error);
-          this.showNotification('error', 'Failed to delete allergy', 'bottom', 'right');
+          this.showNotification('error', 'Failed to delete allergy', 'top', 'center');
           // Afficher un message d'erreur ou gérer l'erreur autrement
         });
       }

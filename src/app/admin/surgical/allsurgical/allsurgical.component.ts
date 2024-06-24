@@ -146,14 +146,14 @@ openDeleteModal(surgical: Surgical): void {
         this.surgicals = this.surgicals.filter(a => a !== surgical);
         this.showNotification(
           'snackbar-success',
-          ' Surgical Delete Successfully...!!!',
-          'bottom',
+          ' Surgical Delete Successfully',
+          'top',
           'center'
         );
         this.refresh();
       }, (error) => {
         console.error('Error removing surgical from the database:', error);
-        this.showNotification('error', 'Failed to remove surgical ', 'bottom', 'right');
+        this.showNotification('error', 'Failed to remove surgical ', 'top', 'center');
         // Afficher un message d'erreur ou gérer l'erreur autrement
       });
     }
@@ -182,7 +182,7 @@ showNotification(
   placementAlign: MatSnackBarHorizontalPosition
 ) {
   this.snackBar.open(text, '', {
-    duration: 2000,
+    duration: 4000,
     verticalPosition: placementFrom,
     horizontalPosition: placementAlign,
     panelClass: colorName,

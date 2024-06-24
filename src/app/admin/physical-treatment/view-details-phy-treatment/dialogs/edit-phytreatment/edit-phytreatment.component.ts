@@ -76,47 +76,38 @@ export class EditPhytreatmentComponent implements OnInit {
   
       console.log('Updated treatment:', updatedTreatment);
   
-      this.treatmentService.checkIfTrExists(updatedTreatment.phyTrName).subscribe((exists: boolean) => {
-        if (exists) {
+      const saveOrUpdateOperation = this.treatment ?
+        this.treatmentService.updateTreatment(updatedTreatment.idtreatment, updatedTreatment) :
+        this.treatmentService.saveTreatment(updatedTreatment);
+  
+      saveOrUpdateOperation.subscribe(
+        () => {
+          const message = this.treatment ? 'updated' : 'saved';
           this.showNotification(
-            'snackbar-warning',
-            'Physical Treatment already exists',
-            'top',
+            'snackbar-success',
+            `Physical Treatment ${message} successfully.`,
+            'bottom',
             'center'
           );
-        } else {
-          const saveOrUpdateOperation = this.treatment ?
-            this.treatmentService.updateTreatment(updatedTreatment.idtreatment, updatedTreatment) :
-            this.treatmentService.saveTreatment(updatedTreatment);
-  
-          saveOrUpdateOperation.subscribe(
-            () => {
-              const message = this.treatment ? 'updated' : 'saved';
-              this.showNotification(
-                'snackbar-success',
-                `Physical Treatment ${message} successfully.`,
-                'bottom',
-                'center'
-              );
-              this.dialogRef.close();
-            },
-            (error) => {
-              console.error('Error saving/updating treatment:', error);
-              const message = this.treatment ? 'update' : 'save';
-              this.showNotification(
-                'snackbar-error',
-                `Failed to ${message} Physical Treatment. Please try again later.`,
-                'bottom',
-                'center'
-              );
-            }
+          this.dialogRef.close();
+        },
+        (error) => {
+          console.error('Error saving/updating treatment:', error);
+          const message = this.treatment ? 'update' : 'save';
+          this.showNotification(
+            'snackbar-error',
+            `Failed to ${message} Physical Treatment. Please try again later.`,
+            'bottom',
+            'center'
           );
         }
-      });
+      );
+  
     } else {
       this.showNotification('snackbar-warning', 'Please fill all required fields', 'bottom', 'right');
     }
   }
+  
   
   
   

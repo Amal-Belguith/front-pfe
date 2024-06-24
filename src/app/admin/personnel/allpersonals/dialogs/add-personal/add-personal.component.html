@@ -36,7 +36,7 @@
           <mat-form-field class="example-full-width" appearance="outline">
             <mat-label>Email</mat-label>
             <input matInput formControlName="email" type="text" required>
-            <mat-icon class="material-icons-two-tone color-icon p-3" matSuffix>description</mat-icon>
+            <mat-icon class="material-icons-two-tone color-icon p-3" matSuffix>email</mat-icon>
           </mat-form-field>
         </div>
       </div>
@@ -44,8 +44,12 @@
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
           <mat-form-field class="example-full-width" appearance="outline">
             <mat-label>Password</mat-label>
-            <input matInput formControlName="password" type="text" required>
-            <mat-icon class="material-icons-two-tone color-icon p-3" matSuffix>description</mat-icon>
+            <input matInput [type]="hide ? 'password' : 'text'"  formControlName="password"  required>
+            <a href="#" onClick="return false;" matSuffix (click)="hide = !hide"
+                    [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                    <mat-icon class="material-icons-two-tone color-icon m-3" matSuffix>
+                      {{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                  </a>
           </mat-form-field>
         </div>
       </div>
@@ -53,7 +57,7 @@
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
           <mat-form-field class="example-full-width" appearance="outline">
             <mat-label>Role</mat-label>
-            <mat-icon class="material-icons-two-tone color-icon p-3" matSuffix>description</mat-icon>
+            <mat-icon class="material-icons-two-tone color-icon p-3" matSuffix>person</mat-icon>
             <mat-select formControlName="role" required>
               <mat-option [value]="'ADMIN'">ADMIN</mat-option>
               <mat-option [value]="'DOCTOR'">DOCTOR</mat-option>
@@ -67,7 +71,7 @@
           <mat-form-field class="example-full-width" appearance="outline">
             <mat-label>Select Department</mat-label>
             <mat-icon class="material-icons-two-tone color-icon p-3" matSuffix>description</mat-icon>
-            <mat-select formControlName="department" required>
+            <mat-select formControlName="department" >
               <mat-option [value]="'Medecin généraliste'">Medecin généraliste</mat-option>
               <mat-option [value]="'Cardiologue'">Cardiologue</mat-option>
               <mat-option [value]="'Dermatologue'">Dermatologue</mat-option>

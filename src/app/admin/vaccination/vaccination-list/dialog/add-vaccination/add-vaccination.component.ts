@@ -71,8 +71,8 @@ export class AddVaccinationComponent implements OnInit{
           this.dialogRef.close();
           this.showNotification(
           'snackbar-success',
-          'vaccination  added successfully...!!!',
-          'bottom',
+          'vaccination  added successfully',
+          'top',
           'center'
         );
         },
@@ -85,7 +85,7 @@ export class AddVaccinationComponent implements OnInit{
     );
     }
     else {
-      this.showNotification('snackbar-warning', 'Please fill all required fields', 'bottom', 'right');
+      this.showNotification('snackbar-warning', 'Please fill all required fields', 'top', 'center');
     }
     
   }
@@ -167,7 +167,7 @@ export class AddVaccinationComponent implements OnInit{
     placementAlign: MatSnackBarHorizontalPosition
   ) {
     this.snackBar.open(text, '', {
-      duration: 2000,
+      duration: 4000,
       verticalPosition: placementFrom,
       horizontalPosition: placementAlign,
       panelClass: colorName,

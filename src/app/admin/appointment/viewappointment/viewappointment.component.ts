@@ -130,6 +130,9 @@ export class ViewappointmentComponent implements OnInit {
   
     TableExportUtil.exportToExcel(exportData, 'appointment');
   }
+  get appointmentCount(): number {
+    return this.appointments.length;
+  }
 
 }
 
